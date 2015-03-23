@@ -19,7 +19,7 @@ if(!PRODUCTION) {
     ini_set('display_errors', '0');
 }
 
-function import($str='', $exit=True) {
+function import($str='', $exit=False) {
     $file = str_replace('.', '/', $str);
     if(file_exists(APP_DIR . "$file.php")) {
         require_once "$file.php";
