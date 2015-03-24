@@ -44,14 +44,17 @@ class Request
             $this->_argumentos = $url;        
         }
         
-        if(!$this->_controlador)
+        if (!$this->_controlador) {
             $this->_controlador = DEFAULT_CONTROLLER;
-        
-        if(!$this->_metodo)
+        }
+
+        if (!$this->_metodo) {
             $this->_metodo = 'index';
-        
-        if(!isset($this->_argumentos))
+        }
+
+        if (!isset($this->_argumentos)) {
             $this->_argumentos = array();
+        }
     }
     
     public function getModulo(){
