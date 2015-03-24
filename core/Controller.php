@@ -12,12 +12,26 @@ abstract class Controller
     abstract function index();
     
     protected function loadModel($modelo,$modulo = false){
-        $modelo = $modelo.'Model';
-        $rutaModelo = ROOT.'models'.DS.$modelo.'.php';
+        $modelo = $modelo . 'Model';
+        $rutaModelo = ROOT . 'models' . DS . $modelo . '.php';
         
-        if(!$modelo){
-            $modulo = $this->_req->getModulo();
+        if(!$modulo)
+            $modulo = $this->_request->getModulo();
+        
+        if($modulo){
+           if($modulo != 'default')
+               $rutaModelo = ROOT . 'modules' . DS . $modulo . DS . 'models' . DS . $modelo . '.php';
         }
+        
+        if(is_readable($rutaModelo)){
+            require_once $rutaModelo;
+            $modelo = new $modelo;
+            return $modelo;
+        }
+        else
+            throw new Exception('Error de modelo');
     }
+    
+    
 }
 ?>
