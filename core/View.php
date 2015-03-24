@@ -18,7 +18,7 @@ class View{
 
         if($modulo){
             $this->_rutas['header'] = ROOT . 'modules' . DS . 'views' . DS . 'default'. DS.'header.html';
-            $this->_rutas['view'] = ROOT . 'modules' . DS . $modulo . DS . 'views' . DS . $controlador . DS;
+            $this->_rutas['view'] = ROOT . 'modules' . DS . $modulo . DS . 'views' . DS . $controlador . DS.'html'.DS;
             $this->_rutas['footer'] = ROOT . 'modules' . DS . 'views' . DS . 'default'. DS.'footer.html';
             
             $this->_rutas['js'] = BASE_URL . 'modules/' . $modulo . '/views/' . $controlador . '/js/';
@@ -37,9 +37,9 @@ class View{
             'theme_js'=> DEFAULT_THEME. 'js/',
             'img'=>  BASE_URL.'views/'.$this->_controlador. '/img/',
         );
-        
+        echo $this->_rutas['view'].$vista.'.html';
         if(is_readable($this->_rutas['view'].$vista.'.html')){
-            //echo $this->_rutas['view'].$vista.'.html';
+            //
             include_once $this->_rutas['header'];
             include_once $this->_rutas['view'].$vista.'.html';
             include_once $this->_rutas['footer'];

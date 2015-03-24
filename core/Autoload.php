@@ -25,7 +25,7 @@ class Autoload
             }
         }
         else{
-            echo $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
+            $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
         }
         
         if(is_readable($rutaControlador)){

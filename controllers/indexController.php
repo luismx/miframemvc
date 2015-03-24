@@ -5,10 +5,11 @@ class indexController extends Controller{
     }
     
     public function index() {
+        print $this->_req->getMetodo();
         $this->_view->renderizar('index');
     }
 
     public function registro(){
-    	$this->_view->renderizar('index');
+    	$this->_view->renderizar('registro');
     }
 }

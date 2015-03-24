@@ -1,8 +1,9 @@
 <?php
 abstract class Controller
 {
-    protected $_view;
-    protected $_req;
+    protected $_view; #traer la vista
+    protected $_req; #traer los datos de la URL
+    protected $_f; #funciones
     
     public function __construct() {
         $this->_req = new Request();

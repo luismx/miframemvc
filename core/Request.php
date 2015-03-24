@@ -14,7 +14,7 @@ class Request
             $url = array_filter($url);
             
             /* modulos de la app */
-            $this->_modules = array('dashboard','usuarios');
+            $this->_modules = array('dashboard','usuarios','facturas','empresas');
             $this->_modulo = strtolower(array_shift($url));
             
             if(!$this->_modulo){

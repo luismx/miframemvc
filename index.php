@@ -15,6 +15,7 @@ require_once 'config.php';
         
     } catch (Exception $exc) {
         echo $exc->getMessage();
+        echo "Hey";
     }
 
 ?>
