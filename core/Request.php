@@ -9,12 +9,12 @@ class Request
     
     public function __construct() {
         if(isset($_GET['url'])){
-            $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL);
+            echo $url = filter_input(INPUT_GET, 'url', FILTER_SANITIZE_URL);
             $url = explode('/', $url);
             $url = array_filter($url);
             
             /* modulos de la app */
-            $this->_modules = array('dashboard','usuarios');
+            $this->_modules = array('dashboard','usuarios','registro');
             $this->_modulo = strtolower(array_shift($url));
             
             if(!$this->_modulo){

@@ -10,12 +10,11 @@ require_once 'config.php';
     import('core.Database');
     
     try {
-        $miReq = new Request();
-        Autoload::run($miReq);
         Session::init();
+        Autoload::run(new Request);
         
     } catch (Exception $exc) {
-        throw new Exception("No existe el controlador", 1);
+        echo $$exc->getMessage();
     }
 
 ?>
