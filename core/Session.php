@@ -37,3 +37,4 @@ class Session
             return $_SESSION[$clave1];
     }
 }
+?>

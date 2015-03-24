@@ -3,12 +3,15 @@ $config_file = 'config.ini';
 
 $options = parse_ini_file($config_file, True);
 foreach($options as $section=>$config) {
-    if($section != 'PLUGINS') {
+    foreach($config as $constant=>$value) {
+        define($constant, $value);
+    }
+    /*if($section != 'PLUGINS') {
         foreach($config as $constant=>$value) {
             define($constant, $value);
             if($section == 'TEMPLATE') $GLOBALS['DICT'][$constant] = $value;
         }
-    }
+    }*/
 }
 
 if(!PRODUCTION) {
