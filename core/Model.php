@@ -1,5 +1,5 @@
 <?php
-import('DB.Conexion');
+include_once 'DB/Conexion.php';
 
 class Model{
     protected $_db;

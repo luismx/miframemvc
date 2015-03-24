@@ -21,7 +21,7 @@ if(!PRODUCTION) {
 
 function import($str='', $exit=False) {
     $file = str_replace('.', '/', $str);
-    if(file_exists(APP_DIR . "$file.php")) {
+    if(file_exists(ROOT . "$file.php")) {
         require_once "$file.php";
     } else {
         if($exit) exit("FATAL ERROR: no se pudo importar '$str'");
