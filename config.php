@@ -26,6 +26,7 @@ if(!PRODUCTION) {
 
 function import($str='', $exit=False) {
     $file = str_replace('.', '/', $str);
+    
     if(file_exists(ROOT . "$file.php")) {
         require_once "$file.php";
     } else {
