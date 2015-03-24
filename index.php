@@ -14,7 +14,7 @@ require_once 'config.php';
         Autoload::run(new Request);
         
     } catch (Exception $exc) {
-        echo $$exc->getMessage();
+        echo $exc->getMessage();
     }
 
 ?>

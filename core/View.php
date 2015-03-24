@@ -34,12 +34,12 @@ class View{
     public function renderizar($vista, $item = false){
         $_layoutArr = array(
             'theme_css'=>DEFAULT_THEME.'css/',
-            'theme_js'=>DEFAULT_THEME.'js/',
+            'theme_js'=> DEFAULT_THEME. 'js/',
             'img'=>  BASE_URL.'views/'.$this->_controlador. '/img/',
         );
         
         if(is_readable($this->_rutas['view'].$vista.'.html')){
-            echo $this->_rutas['view'].$vista.'.html';
+            //echo $this->_rutas['view'].$vista.'.html';
             include_once $this->_rutas['header'];
             include_once $this->_rutas['view'].$vista.'.html';
             include_once $this->_rutas['footer'];
