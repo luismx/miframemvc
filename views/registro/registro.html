@@ -1,0 +1,51 @@
+<div class="container" style="">
+	<div class="col-md-4 col-md-offset-4">
+		<div id="login-wraper">
+			<form class="login-form" id="loginForm">
+				<legend>
+					<span class="blue">Registro</span>
+				</legend>
+				<div class="body">
+					<div class="row">
+						<div class="col-md-3 col-md-offset-1"><label>Tipo de usuario</label></div>
+						<div class="col-md-5"><select class="form-control" id="selectUsuario" name="selectUsuario"></select></div>
+					</div>
+					<div class="row">
+						<p>
+							<div class="col-md-3 col-md-offset-1"><label for="selectUsuario">E-mail</label></div>
+							<div class="col-md-5"><input class="form-control" type="email" id="emailUsuario" name="emailUsuario"></div>
+						</p>
+					</div>
+					<div class="row">
+						<p>
+							<div class="col-md-3 col-md-offset-1"><label for="selectUsuario">Usuario</label></div>
+							<div class="col-md-5"><input class="form-control" type="text" id="nickUsuario" name="nickUsuario"></div>
+						</p>
+					</div>
+					<div class="row">
+						<p>
+							<div class="col-md-3 col-md-offset-1"><label for="selectUsuario">Clave</label></div>
+							<div class="col-md-5"><input class="form-control" type="password" id="claveUsuario" name="claveUsuario"></div>
+						</p>
+					</div>
+					<div class="row">
+						<p>
+							<legend>
+								<div class="col-md-4 col-md-offset-4">
+									<button class="btn btn-primary btn-lg" id="btnRegistrar">Registrar</button>
+									<input type="hidden" name="pass" id="pass" value="">
+								</div>
+							</legend>
+						</p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="col-md-offset-4"></div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#btnRegistro').attr('class','btn btn-primary');
+	});
+</script>

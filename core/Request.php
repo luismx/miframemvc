@@ -15,7 +15,7 @@ class Request
             
             /* modulos de la app */
             $this->_modules = array('dashboard','usuarios');
-            echo $this->_modulo = strtolower(array_shift($url));
+            $this->_modulo = strtolower(array_shift($url));
             
             if(!$this->_modulo){
                 $this->_modulo = false;

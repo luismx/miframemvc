@@ -25,7 +25,7 @@ class Autoload
             }
         }
         else{
-            $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
+            echo $rutaControlador = ROOT . 'controllers' . DS . $controller . '.php';
         }
         
         if(is_readable($rutaControlador)){
@@ -47,7 +47,7 @@ class Autoload
             }
             
         } else {
-            throw new Exception('no encontrado');
+            throw new Exception('<pre>Ruta inexistente Autoload. </pre>');
         }
     
     }
