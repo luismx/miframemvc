@@ -16,7 +16,7 @@ abstract class Controller
         $rutaModelo = ROOT . 'models' . DS . $modelo . '.php';
         
         if(!$modulo)
-            $modulo = $this->_request->getModulo();
+            $modulo = $this->_req->getModulo();
         
         if($modulo){
            if($modulo != 'default')
@@ -28,8 +28,9 @@ abstract class Controller
             $modelo = new $modelo;
             return $modelo;
         }
-        else
+        else{
             throw new Exception('Error de modelo');
+        }
     }
     
     

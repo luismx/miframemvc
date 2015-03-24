@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title><?php print DEFAULT_TITLE;?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>bootstrap.min.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script type="text/javascript" src="<?php print BASE_URL?>libs/components/core.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha512.js"></script>
+	<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/sha1.js"></script>
+</head>
+<body>
+	<div class="site-wrapper">
+		<div class="container-fluid">
+			<div class="row">			
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<div class="row">
+							<div class="col-md-2">
+								<a href="#"><img src="<?php print $_layoutArr['img']?>logo-ariuss.jpg" class="img-responsive" id="logo-principal"></a>
+							</div>
+							<div class="col-md-10">
+									<div class="row">
+										<div class="col-md-2 col-md-offset-1">
+											<p>
+												
+											<a id="btnInicio" class="btn btn-default" href="<?php print BASE_URL;?>">Inicio</a>
+											<a id="btnRegistro" class="btn btn-default" href="<?php print BASE_URL;?>registro">Registrate</a>
+											</p>
+										</div>
+										<div class="col-md-9">
+											<form class="navbar-right" id="loginForm" method="post" action="<?php print BASE_URL?>">
+												<div class="col-md-3" ><p><select id="tipoUsuario" class="form-control" name="tipoUsuario">
+													<option value="0" selected="select">Elige usuario</option>
+													<option value="1">Cliente</option>
+													<option value="2">Comisionista</option>
+													<option value="3">Operador</option>
+													<option value="4">Administrador</option>
+
+												</select></p></div>
+												<div class="col-md-3" ><p><input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" placeholder="Usuario" value=""></p></div>
+												<div class="col-md-3"><p><input type="password" class="form-control" id="claveUsuario" name="claveUsuario" placeholder="Clave" value="">
+												</p></div>
+												<div class="col-md-3">
+													<input type="hidden" name="sesion" id="sesion" value="<?php print $this->sesion;?>">
+													<a id="btnLogin" class="btn btn-success">Inicia sesiòn</a></div>
+											</form>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-4 col-md-offset-8">
+											<div class="text-center btn-warning"><h4 id="error"></h4></div>
+										</div>
+									</div>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>

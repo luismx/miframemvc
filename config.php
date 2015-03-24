@@ -1,6 +1,8 @@
 <?php
 $config_file = 'config.ini';
 
+//define('DEFAULT_THEME', BASE_URL."/miframemvc/libs/bootstrap-3.3.4-dist/");
+
 $options = parse_ini_file($config_file, True);
 foreach($options as $section=>$config) {
     foreach($config as $constant=>$value) {
