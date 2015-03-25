@@ -3,6 +3,7 @@ require_once 'config.php';
 
     import('core.Controller');
     import('core.Model');
+    import('core.Funciones');
     import('core.View');
     import('core.Request');
     import('core.Autoload');

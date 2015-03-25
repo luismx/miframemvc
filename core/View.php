@@ -37,7 +37,7 @@ class View{
             'theme_js'=> DEFAULT_THEME. 'js/',
             'img'=>  BASE_URL.'views/'.$this->_controlador. '/img/',
         );
-        echo $this->_rutas['view'].$vista.'.html';
+
         if(is_readable($this->_rutas['view'].$vista.'.html')){
             //
             include_once $this->_rutas['header'];

@@ -3,11 +3,12 @@ abstract class Controller
 {
     protected $_view; #traer la vista
     protected $_req; #traer los datos de la URL
-    protected $_f; #funciones
+    protected $_funciones; #funciones
     
     public function __construct() {
         $this->_req = new Request();
-        $this->_view = new View($this->_req);
+        $this->_view= new View($this->_req);
+        $this->_funciones = new Funciones();
     }
     
     abstract function index();
