@@ -15,7 +15,7 @@ class indexController extends Controller{
     }
     
     public function login(){
-        function clean($str) { return htmlentities(strip_tags($str), ENT_QUOTES); } 
+        function clean($str) { return htmlentities(strip_tags($str), ENT_QUOTES); }
         extract(array_map('clean',$_POST));
         $hash = $this->_funciones->getHash('sha1',$claveUsuario,HASH_KEY);
         $data = array('TABLE'=>'usuarios','COLUMNS'=>'status','WHERE'=>"id_tipo = $tipoUsuario AND usuario = '$nombreUsuario' AND clave = '$hash'");
