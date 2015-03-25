@@ -1,4 +1,8 @@
 <?php
+/*
+ * Luis Perera
+ */
+
 $config_file = 'config.ini';
 
 //define('DEFAULT_THEME', BASE_URL."/miframemvc/libs/bootstrap-3.3.4-dist/");
