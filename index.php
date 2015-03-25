@@ -12,6 +12,14 @@ require_once 'config.php';
 
         Session::init();
         Autoload::run(new Request);
+<<<<<<< HEAD
     
+=======
+        
+    } catch (Exception $exc) {
+        echo $exc->getMessage();
+        echo "Hey";
+    }
+>>>>>>> 2f480d80a04c7399f830041da0fa711f1f9a4091
 
 ?>

@@ -47,7 +47,7 @@ class Autoload
             }
             
         } else {
-            throw new Exception('no encontrado');
+            throw new Exception('<pre>Ruta inexistente Autoload. </pre>');
         }
     
     }
