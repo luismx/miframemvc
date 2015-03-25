@@ -3,7 +3,7 @@ class DBFunciones{
     public static function get_insert_query($p) {
 
         $data = array($p['table'], $p['columns'], $p['VALUES']);
-        return vsprintf("INSERT INTO %s (%s) VALUES (%s)", $data);
+        return vsprintf("INSERT INTO %s (NULL, %s) VALUES (%s)", $data);
     }
 
     public static function get_update_query($p) {
@@ -12,8 +12,13 @@ class DBFunciones{
     }
 
     public static function get_select_query($p) {
-        $data = array($p['COLUMNS'],$p['TABLE'], $p['WHERE']);
-        return vsprintf("SELECT %s FROM %s WHERE %s", $data);
+        if(!isset($p['WHERE'])){
+            $data = array($p['COLUMNS'],$p['TABLE']);
+            return vsprintf("SELECT %s FROM %s", $data);
+        }else{
+            $data = array($p['COLUMNS'],$p['TABLE'], $p['WHERE']);
+            return vsprintf("SELECT %s FROM %s WHERE %s", $data);
+        }
     }
 
     public static function get_delete_query($p) {
