@@ -1,12 +1,13 @@
 <div class="container" style="">
 	<div class="col-md-9 col-md-offset-1">
 		<div id="login-wraper">
-			<form class="login-form" id="loginForm" method="post">
+                    <form class="login-form" id="loginForm" method="post" action="guardar">
 				<legend>
 					<span class="blue">Registro</span>
 				</legend>
 				<div class="body">
-                                    
+                                    <?php if(isset($this->guardado)) print $this->guardado;?>
+                                    <?php if(isset($this->error)) print $this->error;?>
                                     <div class="row form-group">
                                         <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
                                         <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
@@ -39,7 +40,7 @@
 						<p>
 							<legend>
 								<div class="col-md-7 col-md-offset-5">
-									<button class="btn btn-primary btn-lg" id="btnRegistrar">Registrar</button>
+                                                                    <button class="btn btn-primary btn-lg" id="btnRegistrar" type="submit">Registrar</button>
 									<input type="hidden" name="pass" id="pass" value="">
 								</div>
 							</legend>

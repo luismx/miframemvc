@@ -1,3 +1,7 @@
+function registroForm(){
+	
+}
+
 	$(document).ready(function(){
 		$('#pass, #claveUsuario').val();
 

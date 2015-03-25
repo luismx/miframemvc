@@ -19,16 +19,17 @@ class registroModel extends Model{
         return $string;
     }
     
-    function setusuario($arr,$values){
-        $insert = $this->_dbf->get_insert_query($arr);
+    function guardar($arr,$values){
+        echo $insert = $this->_dbf->get_insert_query($arr);
         $q = $this->_db->prepare($insert);
         $q->execute($values);
-        
-        return $q->lastInsertId();
+        return $this->_db->lastInsertId();
     }
     
-    function getUsuario(){
-        
+    function buscar($arr){
+        $select = $this->_dbf->get_select_query($arr);
+        $q = $this->_db->query($select);
+        return $q->fetch(PDO::FETCH_NUM);
     }
 }
 ?>
