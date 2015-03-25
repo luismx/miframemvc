@@ -21,10 +21,10 @@ abstract class Controller
         
         if($modulo){
            if($modulo != 'default')
-               $rutaModelo = ROOT . 'modules' . DS . $modulo . DS . 'models' . DS . $modelo . '.php';
+               echo $rutaModelo = ROOT . 'modules' . DS . $modulo . DS . 'models' . DS . $modelo . '.php';
         }
         
-        if(is_readable($rutaModelo)){
+        if(file_exists($rutaModelo)){
             require_once $rutaModelo;
             $modelo = new $modelo;
             return $modelo;
