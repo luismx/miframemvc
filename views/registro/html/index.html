@@ -1,46 +1,48 @@
 <div class="container" style="">
 	<div class="col-md-9 col-md-offset-1">
 		<div id="login-wraper">
-                    <form class="login-form" id="loginForm" method="post" action="guardar">
+			<form class="login-form" id="registroForm" method="post" action="<?php print BASE_URL?>registro/guardar">
 				<legend>
 					<span class="blue">Registro</span>
 				</legend>
 				<div class="body">
-                                    <?php if(isset($this->guardado)) print $this->guardado;?>
-                                    <?php if(isset($this->error)) print $this->error;?>
-                                    <div class="row form-group">
-                                        <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
-                                        <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
-                                    	<div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
-                                        <div class="col-md-3"><input class="form-control" type="text" name="nombre"></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
-                                        <div class="col-md-3"><input class="form-control" name="apellido_paterno"></div>
-                                    	<div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
-                                        <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno"></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-                                        <div class="col-md-3"><input class="form-control" name="fecha_nacimiento"></div>
-                                    	<div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
-                                        <div class="col-md-3"><input class="form-control" type="text" name="email"></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
-                                        <div class="col-md-3"><input class="form-control" name="usuario"></div>
-                                    	<div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
-                                        <div class="col-md-3"><input class="form-control" type="password" name="clave"></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
-                                        <div class="col-md-3"><input class="form-control" name="rfc"></div>
-                                    </div>
+					<div style="display:none" id="errorCampo" class="alert alert-warning" role="alert"></div>
+					<?php if(isset($this->success)) print $this->success;?>
+					<?php if(isset($this->warning)) print $this->warning;?>
+					<?php if(isset($this->danger)) print $this->danger;?>
+					<div class="row form-group">
+						<div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
+						<div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
+						<div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
+						<div class="col-md-3"><input class="form-control" type="text" name="nombre"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
+						<div class="col-md-3"><input class="form-control" name="apellido_paterno"></div>
+						<div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
+						<div class="col-md-3"><input class="form-control" type="text" name="apellido_materno"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
+						<div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"></div>
+						<div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
+						<div class="col-md-3"><input class="form-control" type="text" name="email"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
+						<div class="col-md-3"><input class="form-control" name="usuario"></div>
+						<div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
+						<div class="col-md-3"><input class="form-control" type="password" name="clave"></div>
+					</div>
+					<div class="row form-group">
+						<div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
+						<div class="col-md-3"><input class="form-control" name="rfc"></div>
+					</div>
 					<div class="row">
 						<p>
 							<legend>
 								<div class="col-md-7 col-md-offset-5">
-                                                                    <button class="btn btn-primary btn-lg" id="btnRegistrar" type="submit">Registrar</button>
+								<button class="btn btn-primary btn-lg" id="btnRegistrar">Registrar</button>
 									<input type="hidden" name="pass" id="pass" value="">
 								</div>
 							</legend>
@@ -50,10 +52,10 @@
 			</form>
 		</div>
 	</div>
-    <div class="col-md-offset-2"></div>
+	<div class="col-md-offset-2"></div>
 </div>
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('#btnRegistro').attr('class','btn btn-primary');
-	});
+	$(document).ready(function(){$('#btnRegistro').attr('class','btn btn-primary');
+	//$("input[name='fecha_nacimiento']").datepicker();
+});
 </script>

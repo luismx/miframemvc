@@ -6,7 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>bootstrap.min.css">
+	<link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>jquery-ui.min.css">
+	<!-- Javascripts -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="<?php print $_layoutArr['theme_js']?>jquery-ui.min.js"></script>
+	<script src="<?php print $_layoutArr['theme_js']?>bootstrap.min.js"></script>
+<script src="<?php print BASE_URL.'views/default/js/'?>principal.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-default" role="navigation">
@@ -17,7 +22,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
-|				</button>
+				</button>
 				<a href="#" class="navbar-brand"><?php print APP_NAME;?></a>
 			</div>
 			<div id="navbar" class="navbar-collapse collapse">
@@ -47,14 +52,13 @@
 					</div>
 					<div class="form-group">
 						<input type="hidden" name="sesion" id="sesion" value="<?php print $this->sesion;?>">
-                                                <a id="btnLogin" class="btn btn-success" type="submit">Inicia sesión</a>
+                                                <a id="btnLogin" class="btn btn-success">Inicia sesión</a>
 					</div>
 				</form>
 			</div>
-
 			<div class="row">
 				<div class="col-md-4 col-md-offset-8">
-					<div class="text-center btn-warning"><h4 id="error"></h4></div>
+					<div class="text-center btn-warning"><h4 id="error"><?php if(isset($this->error)) print $this->error;?></h4></div>
 				</div>
 			</div>
 		</div>

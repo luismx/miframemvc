@@ -3,7 +3,7 @@ class DBFunciones{
     public static function get_insert_query($p) {
 
         $data = array($p['TABLE'], $p['COLUMNS'], $p['VALUES']);
-        return vsprintf("INSERT INTO %s (NULL, %s) VALUES (%s)", $data);
+        return vsprintf("INSERT INTO %s (%s) VALUES (%s)", $data);
     }
 
     public static function get_update_query($p) {

@@ -20,7 +20,7 @@ class registroModel extends Model{
     }
     
     function guardar($arr,$values){
-        echo $insert = $this->_dbf->get_insert_query($arr);
+        $insert = $this->_dbf->get_insert_query($arr);
         $q = $this->_db->prepare($insert);
         $q->execute($values);
         return $this->_db->lastInsertId();
