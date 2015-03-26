@@ -8,11 +8,16 @@ class indexModel extends Model{
         parent::__construct();
     }
     
-    public function getStatusUsuario($arr){
+    public function getDatosUsuario($arr){
         $select = $this->_dbf->get_select_query($arr);
         $q = $this->_db->query($select);
         return $q->fetch(PDO::FETCH_ASSOC);
-        #return $q['status'];
     }
+    
+    /*public function getDatosUsuario($arr){
+        $select = $this->_dbf->get_select_query($arr);
+        $q = $this->_db->query($select);
+        return $q->fetch(PDO::FETCH_ASSOC);
+    }*/
 }
 

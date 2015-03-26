@@ -18,11 +18,11 @@ class registroController extends Controller{
         $rfcValido = $this->_funciones->validarRfc($rfc);
         $emailValido = $this->_funciones->validarEmail($email);
         $hash = $this->_funciones->getHash('sha1',$clave,HASH_KEY);
-        $fecha = $this->_funciones->cambiarFecha($fecha_nacimiento,'bd');
-        
+        $fecha = $this->_funciones->cambiarFecha($fecha_nacimiento,'db');
+
         if($rfcValido == true and $emailValido == true){
-            $data = array('TABLE'=>'usuarios','COLUMNS'=>'id_tipo,nombre,apellido_paterno,apellido_materno,fecha_nacimiento,email,usuario,clave,rfc','VALUES'=>'?,?,?,?,?,?,?,?,?');
-            $values = array($id_tipo,$nombre,$apellido_paterno,$apellido_materno,$fecha,$email,$usuario,$hash,$rfc);
+            $data = array('TABLE'=>'usuarios','COLUMNS'=>'id_tipo,nombre,apellido_paterno,apellido_materno,fecha_nacimiento,email,usuario,clave,rfc,fecha_alta,clave_interna','VALUES'=>'?,?,?,?,?,?,?,?,?,?,?');
+            $values = array($id_tipo,$nombre,$apellido_paterno,$apellido_materno,$fecha,$email,$usuario,$hash, strtoupper($rfc),date('Y-m-d'), $this->getClaveInterna($rfc));
             $id = $this->buscar($id_tipo, $usuario, $hash);
 
             if(!$id){
@@ -45,5 +45,12 @@ class registroController extends Controller{
             $data = array('TABLE'=>'usuarios','COLUMNS'=>'id','WHERE'=>"id_tipo=$id_tipo AND usuario = '$usuario' AND clave='$clave'");
             return $select = $this->_modelo->buscar($data);
         }
+    }
+    
+    public function getClaveInterna($rfc){
+        $fecha = date('m').date('y');
+        $clave = substr($rfc, 0,4). $fecha;
+        return strtoupper($clave);
+        
     }
 }

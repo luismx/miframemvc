@@ -23,17 +23,26 @@ class indexController extends Controller{
         extract(array_map('clean',$_POST));
         
         $hash = $this->_funciones->getHash('sha1',$claveUsuario,HASH_KEY);
-        $data = array('TABLE'=>'usuarios','COLUMNS'=>'status','WHERE'=>"id_tipo = $tipoUsuario AND usuario = '$nombreUsuario' AND clave = '$hash'");
-        $status = $this->_modelo->getStatusUsuario($data);
+        $data = array('TABLE'=>'usuarios','COLUMNS'=>'*','WHERE'=>"id_tipo = $tipoUsuario AND usuario = '$nombreUsuario' AND clave = '$hash'");
+        $datos = $this->_modelo->getDatosUsuario($data);
         
-        if($status){
-            if($status == 1)
+        if($datos){
+            $this->guardarSesion($datos);
+            
+            if($datos['status'] == 1)
                 $this->_funciones->redireccionar('dashboard');
             else
                 $this->_funciones->redireccionar('usuarios');
         }
         else{
             return true;
+        }
+    }
+    
+    public function guardarSesion($arr){
+        foreach ($arr as $llave => $valor){
+            if($llave != 'clave')
+                $_SESSION['usuario'][$llave] = $valor;
         }
     }
 }
