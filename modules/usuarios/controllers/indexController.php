@@ -11,6 +11,7 @@ class indexController extends usuariosController
 	}
 
 	public function index(){
+		var_dump($_SESSION);
 		$this->_view->renderizar('index');
 	}
 }

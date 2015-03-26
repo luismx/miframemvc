@@ -44,7 +44,9 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
         	<ul class="nav nav-sidebar">
-        		<li><a href="#"><img src="<?php BASE_URL;?>modules/usuarios/views/index/img/scorpion.jpg"></a></li>
+        		<li><?php $img = Session::get('usuario','img'); if(isset($img) and $img != "") {
+					?><a href='#'><img id="imgUsuario" src="<?php BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail"></a><?
+                }?></li>
         	</ul>
           <!--<ul class="nav nav-sidebar">
             <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
