@@ -18,5 +18,21 @@ class indexController extends usuariosController
 		Session::destroy();
 		header('location:'.BASE_URL);
 	}
+
+	public function editar(){
+		$this->_view->renderizar('editar');
+	}
+
+	public function guardar($post,$tabla){
+		
+		if (is_array($post) and count($post) > 0) {
+			$columnas = $this->getCampos($tabla);
+			if ($columnas) {
+				foreach ($columnas as $nombreC => $valorC) {
+					# code...
+				}
+			}
+		}
+	}
 }
 ?>

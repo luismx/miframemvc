@@ -1,0 +1,54 @@
+<?php
+$nivel = 1;
+//Session::acceso($nivel);?>
+<form action="<?php print BASE_URL?>usuarios/index/guardar" method="post">
+    <div class="body">
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label><input type="file"></label></div>
+            <div class="col-md-3"><?php
+            if (Session::get('usuario','img')) {
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?
+            }
+            ?></div>
+            <div class="col-md-offset-6"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
+            <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="nombre"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
+            <div class="col-md-3"><input class="form-control" name="apellido_paterno"></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
+            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="email"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
+            <div class="col-md-3"><input class="form-control" name="usuario"></div>
+            <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
+            <div class="col-md-3"><input class="form-control" type="password" name="clave"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
+            <div class="col-md-3"><input class="form-control" name="rfc"></div>
+        </div>
+        <div class="row">
+            <p>
+                <legend>
+                    <div class="col-md-7 col-md-offset-5">
+                    <button class="btn btn-primary btn-lg" id="btnGuardar">Guardar</button>
+                        <input type="hidden" name="guardar" id="guardar" value="">
+                    </div>
+                </legend>
+            </p>
+        </div>
+    </div>
+</form>

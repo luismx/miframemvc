@@ -1,6 +1,8 @@
 <?php
 class Funciones{ 
-    function clean($str) { return htmlentities(strip_tags($str), ENT_QUOTES); }
+    public static function clean($str) { $miVar = htmlentities(strip_tags($str), ENT_QUOTES); 
+        return extract(array_map('clean',$miVar));
+    }
     #resolver porque no puedo llamar la funcion clean desde aqui para ser usado en todo el sistema
     public static function getHash($algoritmo,$dato, $llave){
         $hash = hash_init($algoritmo, HASH_HMAC, $llave);

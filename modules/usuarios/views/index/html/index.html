@@ -1,4 +1,48 @@
-<?php 
+<?php
 $nivel = 1;
 //Session::acceso($nivel);?>
+<form action="<?php print BASE_URL?>usuarios/index/editar" method="post">
+    <div class="body">
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Imagen de perfil</label></div>
+            <div class="col-md-3"><?php
+            if (Session::get('usuario','img')) {
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?
+            }
+            ?></div>
+            <div class="col-md-offset-6"></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
+            <div class="col-md-3"><pre class="form-control" name="id_tipo"><?php print $this->tipos; ?></pre></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="nombre"></pre></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
+            <div class="col-md-3"><pre class="form-control" name="apellido_paterno"></pre></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="apellido_materno"></pre></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
+            <div class="col-md-3"><pre class="form-control" name="fecha_nacimiento" readonly="true"></pre></div>
+            <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="email"></pre></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
+            <div class="col-md-3"><pre class="form-control" name="usuario"></pre></div>
+            <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
+            <div class="col-md-3"><pre class="form-control" type="password" name="clave"></pre></div>
+        </div>
+        <div class="row form-group">
+            <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
+            <div class="col-md-3"><pre class="form-control" name="rfc"></pre></div>
 
+            <div class="col-md-3 col-md-offset-3"><button class="btn btn-success">Editar</button></div>
+        </div>
+        <div class="row form-group">
+        </div>
+    </div>
+</form>
