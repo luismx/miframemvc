@@ -1,7 +1,7 @@
 <?php
 $nivel = 1;
 //Session::acceso($nivel);?>
-<form action="<?php print BASE_URL?>usuarios/index/editar" method="post">
+<form action="<?php print BASE_URL?>usuarios/index/editar/<?php print Session::get('usuario','id')?>" method="post">
     <div class="body">
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Imagen de perfil</label></div>
