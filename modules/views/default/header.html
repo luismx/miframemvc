@@ -26,45 +26,47 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><?php print APP_NAME?></a>
+          <?php $img = Session::get('usuario','img'); if(isset($img) and $img != "") {
+                ?>
+                <img id="imgUsuario" src="<?php BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail">
+                <label class="lead"><a>
+                <?php print ucwords(Session::get('usuario','nombre').' '.Session::get('usuario','apellido_paterno'))?></a></label>
+                <?
+          }?>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Inicio</a></li>
-            <li><a href="#">Perfil</a></li>
+            <li class="dropdown">
+              <a href="<?php BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a></li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php BASE_URL?>usuarios" class="glyphicon glyphicon-user"> Perfil</a></li>
+                <li><a href="<?php BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="<?php BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php BASE_URL?>empresas" class="glyphicon glyphicon-th-list"> Mis empresas</a></li>
+                <li><a href="<?php BASE_URL?>empresas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+                <li><a href="<?php BASE_URL?>empresas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a href="<?php BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturas <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php BASE_URL?>facturas" class="glyphicon glyphicon-th-list"> Mis facturas</a></li>
+                <li><a href="<?php BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+                <li><a href="<?php BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+              </ul>
+            </li>
+            <li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
         </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-        	<ul class="nav nav-sidebar">
-        		<li><?php $img = Session::get('usuario','img'); if(isset($img) and $img != "") {
-					?><a href='#'><img id="imgUsuario" src="<?php BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail"></a><?
-                }?></li>
-        	</ul>
-          <!--<ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>-->
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <div class="col-sm-12">

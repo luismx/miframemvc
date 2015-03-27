@@ -7,8 +7,8 @@ class DBFunciones{
     }
 
     public static function get_update_query($p) {
-        $data = array($p->table, $p->update_string, $p->property_id);
-        return vsprintf("UPDATE %s SET %s WHERE %s = ?", $data);
+        $data = array($p['TABLE'], $p['COLUMNS'], $p['WHERE']);
+        return vsprintf("UPDATE %s SET %s WHERE %s", $data);
     }
 
     public static function get_select_query($p) {

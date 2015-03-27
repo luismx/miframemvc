@@ -7,6 +7,7 @@ class indexController extends Controller{
     }
     
     public function index() {
+        var_dump($_SESSION);
         if (isset($_POST['sesion']) and $_POST['sesion'] > 0){
             $error = $this->login();
             if($error){
@@ -27,12 +28,15 @@ class indexController extends Controller{
         $datos = $this->_modelo->getDatosUsuario($data);
         
         if($datos){
-            $this->guardarSesion($datos);
-            
-            if($datos['status'] == 1)
-                $this->_funciones->redireccionar('dashboard');
-            else
-                $this->_funciones->redireccionar('usuarios');
+            $update = $this->_modelo->setDato('session_id',  session_id(),$datos['id']);
+            if ($update) {
+                $this->guardarSesion($datos);
+                
+                if($datos['status'] == 1)
+                    $this->_funciones->redireccionar('dashboard');
+                else
+                    $this->_funciones->redireccionar('usuarios');
+            }
         }
         else{
             return true;
@@ -43,6 +47,8 @@ class indexController extends Controller{
         foreach ($arr as $llave => $valor){
             if($llave != 'clave')
                 $_SESSION['usuario'][$llave] = $valor;
+            if ($llave == 'session_id') 
+                $_SESSION['usuario'][$llave] = session_id();
         }
     }
 }

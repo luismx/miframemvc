@@ -22,6 +22,7 @@ class Session
         }
         else{
             session_destroy();
+            header('location:'.BASE_URL);
         }
     }
     
@@ -35,6 +36,23 @@ class Session
             return $_SESSION[$clave1][$clave2];
         else
             return $_SESSION[$clave1];
+    }
+
+    public static function acceso($nivel){
+        if (isset($_SESSION) and count($_SESSION) > 0) {
+            /*
+            $obj = new Conexion();
+            $getSession = $obj->query('SELECT session_id FROM usuarios WHERE id = '.self::get('usuario','id'));
+            $getSession->execute();
+            $session = $getSession->fetch(PDO::FETCH_ASSOC);
+            if($session['session_id'] == session_id()){
+                if(self::get('usuario','id_tipo') > $nivel){}
+                else
+                    header ('location:'.BASE_URL);
+            }else
+                self::destroy ();*/
+        }else
+            header('location:'.BASE_URL);
     }
 }
 ?>
