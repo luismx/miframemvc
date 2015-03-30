@@ -36,7 +36,3 @@ function cambiarFecha(fecha, lang){
 		break;
 	}
 }
-
-$(document).ready(function() {
-	
-});

@@ -15,31 +15,31 @@ $nivel = 1;
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
-            <div class="col-md-3"><pre class="form-control" name="id_tipo"><?php print $this->tipos; ?></pre></div>
+            <div class="col-md-3"><pre class="form-control" name="id_tipo"><?php print $this->tipo['nombre']; ?></pre></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
-            <div class="col-md-3"><pre class="form-control" type="text" name="nombre"></pre></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="nombre"><?php print ucwords($this->datosUsuario['nombre']);?></pre></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
-            <div class="col-md-3"><pre class="form-control" name="apellido_paterno"></pre></div>
+            <div class="col-md-3"><pre class="form-control" name="apellido_paterno"><?php print ucwords($this->datosUsuario['apellido_paterno']);?></pre></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
-            <div class="col-md-3"><pre class="form-control" type="text" name="apellido_materno"></pre></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="apellido_materno"><?php print ucwords($this->datosUsuario['apellido_materno']);?></pre></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-            <div class="col-md-3"><pre class="form-control" name="fecha_nacimiento" readonly="true"></pre></div>
+            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true" value="<?php print $this->datosUsuario['fecha_nacimiento'];?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
-            <div class="col-md-3"><pre class="form-control" type="text" name="email"></pre></div>
+            <div class="col-md-3"><pre class="form-control" type="text" name="email"><?php print $this->datosUsuario['email'];?></pre></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
-            <div class="col-md-3"><pre class="form-control" name="usuario"></pre></div>
+            <div class="col-md-3"><pre class="form-control" name="usuario"><?php print $this->datosUsuario['usuario'];?></pre></div>
             <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
             <div class="col-md-3"><pre class="form-control" type="password" name="clave"></pre></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
-            <div class="col-md-3"><pre class="form-control" name="rfc"></pre></div>
+            <div class="col-md-3"><pre class="form-control" name="rfc"><?php print $this->datosUsuario['rfc'];?></pre></div>
 
             <div class="col-md-3 col-md-offset-3"><button class="btn btn-success" type="submit">Editar</button></div>
         </div>
@@ -47,3 +47,7 @@ $nivel = 1;
         </div>
     </div>
 </form>
+<script>
+    var miFecha = cambiarFecha($("input[name='fecha_nacimiento']").val(),'es');
+    $("input[name='fecha_nacimiento']").val(miFecha);
+</script>

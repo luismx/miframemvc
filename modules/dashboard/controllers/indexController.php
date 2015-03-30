@@ -12,6 +12,16 @@ class indexController extends dashboardController{
     }
     
     public function index() {
+    	$tipo = Session::get('usuario','id_tipo');
+    	switch (variable) {
+    		case 'value':
+    			# code...
+    			break;
+    		
+    		default:
+    			# code...
+    			break;
+    	}
         $miCon = $this->_modelo->getCon();
         $this->_view->renderizar('index');
     }
