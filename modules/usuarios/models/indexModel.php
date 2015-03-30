@@ -18,7 +18,7 @@ class indexModel extends Model
 	}
 
 	public function updateColumna($columna,$valor,$id){
-		$data = array('TABLE' =>'usuarios','COLUMNS'=>"$columna = ?",'WHERE'=>'id = '.Session:: );
+		$data = array('TABLE' =>'usuarios','COLUMNS'=>"$columna = ?",'WHERE'=>'id = '.Session::get('usuario', 'id') );
 	}
 
 	public function getDatosUsuario($id){
@@ -26,6 +26,9 @@ class indexModel extends Model
 		$select = $this->_dbf->get_select_query($data);
 		$q = $this->_db->query($select);
 		return $q->fetch(PDO::FETCH_ASSOC);
+                echo "hola que hace";
 	}
+        
+        
 }
 ?>

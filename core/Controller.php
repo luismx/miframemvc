@@ -22,7 +22,7 @@ abstract class Controller
         
         if($modulo){
            if($modulo != 'default')
-               echo $rutaModelo = ROOT . 'modules' . DS . $modulo . DS . 'models' . DS . $modelo . '.php';
+               $rutaModelo = ROOT . 'modules' . DS . $modulo . DS . 'models' . DS . $modelo . '.php';
         }
         
         if(file_exists($rutaModelo)){

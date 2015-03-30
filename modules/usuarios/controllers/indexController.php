@@ -8,7 +8,7 @@ class indexController extends usuariosController
 	function __construct()
 	{
 		parent::__construct();
-		$this->_modelo = $this->_model->loadModel('index');
+		$this->_modelo = $this->loadModel('index');
 		$this->_view->datosUsuario = array();
 	}
 
