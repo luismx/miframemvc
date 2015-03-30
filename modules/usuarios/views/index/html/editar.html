@@ -1,44 +1,54 @@
 <?php
 $nivel = 1;
-//Session::acceso($nivel);?>
-<form action="<?php print BASE_URL?>usuarios/index/guardar" method="post">
+//Session::acceso($nivel);
+if (isset($this->datosUsuario)) {
+    $miVariable = $this->_req->getArgs();
+    if (isset($this->errores) and count($this->errores) > 0) {
+        print "<div>";
+        foreach ($this->errores as $key => $value) {
+            echo "<pre>$value</pre>";
+        }
+        print "</div>";
+    }
+?>
+<form action="<?php print BASE_URL?>usuarios/index/editar/<?php print $miVariable[0]?>" method="post" enctype="multipart/form-data">
     <div class="body">
         <div class="row form-group">
-            <div class="col-md-2 col-md-offset-1"><label><input type="file"></label></div>
+            <div class="col-md-2 col-md-offset-1"><label><input type="file" name="img" value=""></label></div>
             <div class="col-md-3"><?php
             if (Session::get('usuario','img')) {
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $this->datosUsuario['img']?>" class="img-thumbnail"><?
             }
             ?></div>
             <div class="col-md-offset-6"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
-            <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
+            <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->getTipos;?></select></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="nombre"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="nombre" placeholder="<?php print ucwords($this->datosUsuario['nombre'])?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
-            <div class="col-md-3"><input class="form-control" name="apellido_paterno"></div>
+            <div class="col-md-3"><input class="form-control" name="apellido_paterno" placeholder="<?php print ucwords($this->datosUsuario['apellido_paterno'])?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno" placeholder="<?php print ucwords($this->datosUsuario['apellido_materno'])?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"></div>
+            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true" value="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="email"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="email" placeholder="<?php print $this->datosUsuario['email']?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
-            <div class="col-md-3"><input class="form-control" name="usuario"></div>
+            <div class="col-md-3"><input class="form-control" name="usuario" value="<?php print $this->datosUsuario['usuario']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
-            <div class="col-md-3"><input class="form-control" type="password" name="clave"></div>
+            <div class="col-md-3"><input class="form-control" type="password" name="clave" ></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
-            <div class="col-md-3"><input class="form-control" name="rfc"></div>
+            <div class="col-md-3"><input class="form-control" name="rfc" value="<?php print $this->datosUsuario['rfc']?>"></div>
         </div>
         <div class="row">
             <p>
@@ -52,3 +62,18 @@ $nivel = 1;
         </div>
     </div>
 </form>
+<script>
+    $(document).ready(function() {
+        var fecha = $("input[name='fecha_nacimiento']").val();
+        $("input[name='fecha_nacimiento']").val(cambiarFecha(fecha,'es'));
+
+        $('#btnGuardar').click(function(e) {
+            $('#guardar').val(1);
+            
+        });
+    });
+</script>
+<?php
+}else
+    print "<h2>Nada por mostrar</h2>"
+?>

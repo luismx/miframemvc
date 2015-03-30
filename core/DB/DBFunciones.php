@@ -1,5 +1,9 @@
 <?php
 class DBFunciones{
+    private $_con;
+    function __construct(){
+        $this->_con = new Conexion();
+    }
     public static function get_insert_query($p) {
 
         $data = array($p['TABLE'], $p['COLUMNS'], $p['VALUES']);
@@ -29,6 +33,14 @@ class DBFunciones{
     public static function get_composer_query($p, $compuesto) {
         $data = array($p->property_id, $p->table, $compuesto);
         return vsprintf("SELECT %s FROM %s WHERE %s = ?", $data);
+    }
+
+    public static function updateColumna($tabla, $columna,$valor,$id){
+        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna",'WHERE'=>"id = $id");
+        echo $update = $this->get_update_query($data);
+        $q = $this->_con->prepare($update);
+        $q->execute($valor);
+        return $q;
     }
 }
 ?>

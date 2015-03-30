@@ -59,28 +59,29 @@ class Funciones{
             return $date = date('d/m/Y', strtotime($fecha));
         else if($lang == 'en')
             return $date = date('m/d/Y', strtotime($fecha));
-        else
-            return false;
-
     }
     
     public static function recortarImagen($nombre,$nuevoNombre, $x,$y){
         include_once 'libs/upload/class.upload.php';
-        $handle = new upload($_FILES[$nombre]);
-        if ($handle->uploaded){
-            $handle->file_new_name_body = $nuevoNombre;
-            $handle->file_overwrite = true;
-            $handle->file_new_name_ext = 'png';
-            $handle->image_resize = true;
-            $handle->image_x = $x;
-            $handle->image_ratio_y = $y;
-            $handle->process(ROOT.'modules/usuarios/views/index/img/');
-            
-            if($handle->processed){
-                $handle->clean();
-                return true;
-            }else{
-                $handle->error;
+
+        if (count($_FILES[$nombre]['name']) > 0) {
+            $handle = new upload($_FILES[$nombre]);
+
+            if ($handle->uploaded){
+                $handle->file_new_name_body = $nuevoNombre;
+                $handle->file_overwrite = true;
+                $handle->file_new_name_ext = 'png';
+                $handle->image_resize = true;
+                $handle->image_x = $x;
+                $handle->image_ratio_y = $y;
+                $handle->process(ROOT.'modules/usuarios/views/index/img/');
+                
+                if($handle->processed){
+                    $handle->clean();
+                    return true;
+                }else{
+                    return $handle->error;
+                }
             }
         }
     }
