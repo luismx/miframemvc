@@ -9,7 +9,7 @@ class indexController extends usuariosController
 	{
 		parent::__construct();
 		$this->_modelo = $this->loadModel('index');
-		$this->_view->datosUsuario = array();
+		//$this->_view->datosUsuario = array();
 	}
 
 	public function index(){
@@ -22,24 +22,23 @@ class indexController extends usuariosController
 	}
 
 	public function editar(){
-		if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
-			$this->guardar($_POST, 'usuarios', $id);
-		}
 		if ($this->_req->getArgs() and count($this->_req->getArgs()) > 0) {
 			$miVariable = $this->_req->getArgs();
 			$tipoUsuario = Session::get('usuario','id_tipo');
+
 			if ($tipoUsuario == 4) {
-				$datosUsuario = $this->_modelo->getDatosUsuario($miVariable);
+				$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
 			}else{
-				if ($miVariable != Session::get('usuario','id'))
+				if ($miVariable[0] != Session::get('usuario','id'))
 					$this->_funciones->redireccionar('usuarios');
 				else{
-					$datosUsuario = $this->_modelo->getDatosUsuario($miVariable);
-					$this->_view->renderizar('editar');
+					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
 				}
 			}
 
 		}
+
+		$this->_view->renderizar('editar');
 	}
 
 	public function guardar($post,$tabla,$id){

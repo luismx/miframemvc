@@ -25,10 +25,18 @@ class indexModel extends Model
 		$data = array('TABLE' => 'usuarios', 'COLUMNS'=>'*', 'WHERE'=>'id = '.$id);
 		$select = $this->_dbf->get_select_query($data);
 		$q = $this->_db->query($select);
-		return $q->fetch(PDO::FETCH_ASSOC);
-                echo "hola que hace";
+		if ($q) {
+			foreach ($q->fetch(PDO::FETCH_ASSOC) as $llave => $valor) {
+				$datos[$llave] = $valor;
+			}
+			return $datos;
+		}
 	}
         
-        
+     public function getTipos(){
+     	$data = array('TABLE' => 'tipos', 'COLUMNS'=>'*');
+		$select = $this->_dbf->get_select_query($data);
+		$q = $this->_db->query($select);
+     }   
 }
 ?>

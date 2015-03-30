@@ -7,7 +7,7 @@ $nivel = 1;
             <div class="col-md-2 col-md-offset-1"><label><input type="file"></label></div>
             <div class="col-md-3"><?php
             if (Session::get('usuario','img')) {
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?php 
             }
             ?></div>
             <div class="col-md-offset-6"></div>
@@ -16,29 +16,30 @@ $nivel = 1;
             <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
             <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos; ?></select></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="nombre"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="nombre" value="<?php print ucwords($this->datosUsuario['nombre'])?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
-            <div class="col-md-3"><input class="form-control" name="apellido_paterno"></div>
+            <div class="col-md-3"><input class="form-control" name="apellido_paterno" value="<?php print ucwords($this->datosUsuario['apellido_paterno'])?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno" value="<?php print ucwords($this->datosUsuario['apellido_materno'])?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"></div>
+            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"
+            value="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="email"></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="email" value="<?php print $this->datosUsuario['email']?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
-            <div class="col-md-3"><input class="form-control" name="usuario"></div>
+            <div class="col-md-3"><input class="form-control" name="usuario" value="<?php print $this->datosUsuario['usuario']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
-            <div class="col-md-3"><input class="form-control" type="password" name="clave"></div>
+            <div class="col-md-3"><input class="form-control" type="password" name="clave" value=""></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
-            <div class="col-md-3"><input class="form-control" name="rfc"></div>
+            <div class="col-md-3"><input class="form-control" name="rfc" value="<?php print $this->datosUsuario['rfc']?>"></div>
         </div>
         <div class="row">
             <p>

@@ -7,7 +7,7 @@ $nivel = 1;
             <div class="col-md-2 col-md-offset-1"><label>Imagen de perfil</label></div>
             <div class="col-md-3"><?php
             if (Session::get('usuario','img')) {
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?php 
             }
             ?></div>
             <div class="col-md-offset-6"></div>
