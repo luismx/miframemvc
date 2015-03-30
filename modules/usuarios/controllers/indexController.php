@@ -34,7 +34,6 @@ class indexController extends usuariosController
 			$tipoUsuario = Session::get('usuario','id_tipo');
 
 			if ($tipoUsuario == 4) {
-
 				if (isset($_POST['guardar']) and $_POST['guardar'] == 1){
 					$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
 					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
@@ -48,17 +47,11 @@ class indexController extends usuariosController
 						$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
 						$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 					}
-
-				$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
-			}else{
-				if ($miVariable[0] != Session::get('usuario','id'))
-					$this->_funciones->redireccionar('usuarios');
-				else{
-					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
 				}
 			}
 		}
-
+		if ($this->_view->datosUsuario == 0) 
+			$this->_view->mensaje = "Datos guardados";
 		$this->_view->renderizar('editar');
 	}
 
@@ -82,7 +75,7 @@ class indexController extends usuariosController
 					foreach ($post as $llavePost => $valorPost) {
 						if ($valorPost != "" and $llavePost == $llaveColumna) {
 							if ($llavePost == 'clave') {
-								$this->_modelo->updateColumna('usuarios','clave',$this->_funciones->gethash('sha1',$llavePost,HASH_KEY),Session::get('usuario','id'));
+								$this->_modelo->updateColumna('usuarios','clave',$this->_funciones->gethash('sha1',$valorPost,HASH_KEY),$id);
 							}
 							elseif ($llavePost == 'fecha_nacimiento') {
 								$this->_modelo->updateColumna('usuarios','fecha_nacimiento',$this->_funciones->cambiarFecha($valorPost,'db'),$id);
@@ -103,9 +96,11 @@ class indexController extends usuariosController
 
 			}
 			$this->_modelo->updateSession($id);
-			//$this->_funciones->redireccionar("usuarios/index/editar/$id");
+			if (count($errores) > 0) 
+				return var_dump($errores);
+			else
+				return 0;
 		}
-		return $errores;
 	}
 
 	public function guardarImagen($nombre){

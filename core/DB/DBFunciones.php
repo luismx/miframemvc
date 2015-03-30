@@ -35,13 +35,7 @@ class DBFunciones{
         return vsprintf("SELECT %s FROM %s WHERE %s = ?", $data);
     }
 
-    public static function updateColumna($tabla, $columna,$valor,$id){
-        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna",'WHERE'=>"id = $id");
-        echo $update = $this->get_update_query($data);
-        $q = $this->_con->prepare($update);
-        $q->execute($valor);
-        return $q;
-    }
+   
 }
 ?>
 

@@ -10,6 +10,10 @@ if (isset($this->datosUsuario)) {
         }
         print "</div>";
     }
+
+    elseif (isset($this->mensaje)) {
+        print '<div class="alert alert-success" role="alert">Datos guardados.</div>';
+    }
 ?>
 <form action="<?php print BASE_URL?>usuarios/index/editar/<?php print $miVariable[0]?>" method="post" enctype="multipart/form-data">
     <div class="body">
@@ -17,8 +21,7 @@ if (isset($this->datosUsuario)) {
             <div class="col-md-2 col-md-offset-1"><label><input type="file" name="img" value=""></label></div>
             <div class="col-md-3"><?php
             if (Session::get('usuario','img')) {
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $this->datosUsuario['img']?>" class="img-thumbnail"><?
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print Session::get('usuario','img')?>" class="img-thumbnail"><?php 
+            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $this->datosUsuario['img']?>" class="img-thumbnail"><?php 
             }
             ?></div>
             <div class="col-md-offset-6"></div>
@@ -40,27 +43,12 @@ if (isset($this->datosUsuario)) {
             <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true" value="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
             <div class="col-md-3"><input class="form-control" type="text" name="email" placeholder="<?php print $this->datosUsuario['email']?>"></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="nombre" value="<?php print ucwords($this->datosUsuario['nombre'])?>"></div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-2 col-md-offset-1"><label>Apellido paterno</label></div>
-            <div class="col-md-3"><input class="form-control" name="apellido_paterno" value="<?php print ucwords($this->datosUsuario['apellido_paterno'])?>"></div>
-            <div class="col-md-2 col-md-offset-1"><label for="nombre">Apellido materno</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="apellido_materno" value="<?php print ucwords($this->datosUsuario['apellido_materno'])?>"></div>
-        </div>
-        <div class="row form-group">
-            <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true"
-            value="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
-            <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
-            <div class="col-md-3"><input class="form-control" type="text" name="email" value="<?php print $this->datosUsuario['email']?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
             <div class="col-md-3"><input class="form-control" name="usuario" value="<?php print $this->datosUsuario['usuario']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
             <div class="col-md-3"><input class="form-control" type="password" name="clave" ></div>
-            <div class="col-md-3"><input class="form-control" type="password" name="clave" value=""></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
@@ -85,8 +73,9 @@ if (isset($this->datosUsuario)) {
 
         $('#btnGuardar').click(function(e) {
             $('#guardar').val(1);
-            
         });
+
+        fechaNacimiento("fecha_nacimiento");
     });
 </script>
 <?php
