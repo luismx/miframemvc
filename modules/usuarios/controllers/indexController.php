@@ -10,8 +10,11 @@ class indexController extends usuariosController
 	{
 		parent::__construct();
 		$this->_modelo = $this->loadModel('index');
+
 		$this->_view->getTipos = $this->_modelo->getTipos();
 		$this->_view->errores = array();
+
+		//$this->_view->datosUsuario = array();
 	}
 
 	public function index(){
@@ -31,6 +34,7 @@ class indexController extends usuariosController
 			$tipoUsuario = Session::get('usuario','id_tipo');
 
 			if ($tipoUsuario == 4) {
+
 				if (isset($_POST['guardar']) and $_POST['guardar'] == 1){
 					$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
 					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
@@ -44,6 +48,13 @@ class indexController extends usuariosController
 						$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
 						$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 					}
+
+				$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
+			}else{
+				if ($miVariable[0] != Session::get('usuario','id'))
+					$this->_funciones->redireccionar('usuarios');
+				else{
+					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
 				}
 			}
 		}

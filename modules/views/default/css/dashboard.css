@@ -100,3 +100,9 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+
+#imgUsuario{
+    width: 100px;
+    height: 70px;
+}

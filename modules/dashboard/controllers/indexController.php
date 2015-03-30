@@ -12,9 +12,7 @@ class indexController extends dashboardController{
     }
     
     public function index() {
-        var_dump($_SESSION);
         $miCon = $this->_modelo->getCon();
-        var_dump($miCon);
         $this->_view->renderizar('index');
     }
 }
