@@ -15,7 +15,6 @@ class indexController extends usuariosController
 
 	public function index(){
 		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
-		$this->_view->tipo = $this->_modelo->getCampo('tipos','nombre',Session::get('usuario','id'));
 		$this->_view->renderizar('index');
 	}
 
@@ -29,6 +28,7 @@ class indexController extends usuariosController
 			$miVariable = $this->_req->getArgs();
 			$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 			$tipoUsuario = Session::get('usuario','id_tipo');
+			$this->_view->tipos = $this->_modelo->getTipos();
 
 			if ($tipoUsuario == 4) {
 				if (isset($_POST['guardar']) and $_POST['guardar'] == 1){

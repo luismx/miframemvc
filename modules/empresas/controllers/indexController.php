@@ -4,18 +4,19 @@
  * @Dev Luis Perera
  */
 
-class indexController extends dashboardController{
+class indexController extends empresasController{
     private $_modelo;
     public function __construct() {
         parent::__construct();
-        $this->_modelo = $this->loadModel('index','dashboard');
+        $this->_modelo = $this->loadModel('index','empresas');
     }
     
     public function index() {
-    	$tipo = Session::get('usuario','id_tipo');
-    	
-        $miCon = $this->_modelo->getCon();
         $this->_view->renderizar('index');
+    }
+
+    public function nueva(){
+        $this->_view->renderizar('nueva');
     }
 }
 

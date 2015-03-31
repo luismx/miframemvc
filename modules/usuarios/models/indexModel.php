@@ -65,11 +65,8 @@ class indexModel extends Model
     	}
     }
     
-    public function getCampo($tabla,$columna,$id){
-        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna",'WHERE'=>"id = $id");
-        $select = $this->_dbf->get_select_query($data);
-        $q = $this->_db->query($select);
-        return $q->fetch(PDO::FETCH_ASSOC);
+    public function getColumna($tabla,$columna,$id){
+        return $this->_dbf->sql_get_columna($tabla,$columna,$id);
     }
 }
 ?>

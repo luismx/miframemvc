@@ -35,7 +35,7 @@ class indexController extends Controller{
                 if($datos['status'] == 1)
                     $this->_funciones->redireccionar('dashboard');
                 else
-                    $this->_funciones->redireccionar('usuarios');
+                    $this->_funciones->redireccionar('empresas');
             }
         }
         else{
