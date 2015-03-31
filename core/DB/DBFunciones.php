@@ -51,6 +51,19 @@ class DBFunciones{
         $q = $this->_conn->query($update);
         return $q;
     }
+
+    public function sql_get_nombreColumnas($tabla){
+    	$select = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tabla'";
+    	$q = $this->_conn->query($select);
+    	$q->fetch(PDO::FETCH_ASSOC);
+    	if ($q) {
+    		foreach ($q as $key =>$value) {
+    			foreach ($value as $llave) 
+    				$columna[] = $llave;
+    		}
+    		return array_unique($columna);
+    	}
+    }
 }
 ?>
 
