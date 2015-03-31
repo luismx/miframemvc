@@ -48,13 +48,6 @@ class indexModel extends Model
         return $string;
     }
 
-    public function updateColumna($tabla, $columna,$valor,$id){
-        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna = '$valor'",'WHERE'=>"id = $id");
-        $update = $this->_dbf->get_update_query($data);
-        $q = $this->_db->query($update);
-        return $q;
-    }
-
     public function updateSession($id){
     	$datos = $this->getDatosUsuario($id);
     	if ($datos) {

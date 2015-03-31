@@ -36,3 +36,15 @@ function cambiarFecha(fecha, lang){
 		break;
 	}
 }
+
+function imgVistaPrevia(input){
+	if (input.files && input.files[0].length > 0) {
+		var reader = new FileReader();
+		alert(reader);
+		reader.onload = function(e){
+			$('#img').attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+	}
+}

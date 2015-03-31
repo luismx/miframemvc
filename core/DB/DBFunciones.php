@@ -44,6 +44,13 @@ class DBFunciones{
 		if ($q) 
 			return $q->fetch(PDO::FETCH_ASSOC);
 	}
+
+	public function sql_update_columna($tabla, $columna,$valor,$id){
+        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna = '$valor'",'WHERE'=>"id = $id");
+        $update = self::get_update_query($data);
+        $q = $this->_conn->query($update);
+        return $q;
+    }
 }
 ?>
 

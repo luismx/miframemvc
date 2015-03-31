@@ -12,6 +12,7 @@ class indexController extends empresasController{
     }
     
     public function index() {
+        
         $this->_view->renderizar('index');
     }
 

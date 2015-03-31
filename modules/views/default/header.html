@@ -37,28 +37,28 @@
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-              <a href="<?php BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a></li>
+              <a href="<?php print BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a></li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php BASE_URL?>usuarios" class="glyphicon glyphicon-user"> Perfil</a></li>
-                <li><a href="<?php BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
+                <li><a href="<?php print BASE_URL?>usuarios" class="glyphicon glyphicon-user"> Perfil</a></li>
+                <li><a href="<?php print BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="<?php BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
+              <a href="<?php print BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php BASE_URL?>empresas" class="glyphicon glyphicon-th-list"> Mis empresas</a></li>
-                <li><a href="<?php BASE_URL?>index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
-                <li><a href="<?php BASE_URL?>index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+                <li><a href="<?php print BASE_URL?>empresas" class="glyphicon glyphicon-th-list"> Mis empresas</a></li>
+                <li><a href="<?php print BASE_URL?>empresas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+                <li><a href="<?php print BASE_URL?>empresas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="<?php BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturas <span class="caret"></span></a>
+              <a href="<?php print BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturas <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php BASE_URL?>facturas" class="glyphicon glyphicon-th-list"> Mis facturas</a></li>
-                <li><a href="<?php BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
-                <li><a href="<?php BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+                <li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list"> Mis facturas</a></li>
+                <li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+                <li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
               </ul>
             </li>
             <li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>

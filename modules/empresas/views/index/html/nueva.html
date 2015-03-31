@@ -1,1 +1,79 @@
-nueva.html
+<form action="<?php print BASE_URL;?>empresas/index/nueva" method="post">
+	<div class="row form-group">
+		<div class="col-md-2">
+			<input name="img" type="file" id="imgEmpresa">
+		</div>
+		<div class="col-md-3" id="img">
+			
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="rfc">RFC</label>
+			<input type="text" class="form-control" name="rfc">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="razon_social">Razón social</label>
+			<input type="text" class="form-control" name="razon_social">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+
+			<label for="contacto">Contacto</label>
+			<input type="text" class="form-control" name="contacto">
+
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="razon_social">Teléfono</label>
+			<input type="text" class="form-control" name="telefono">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="email">E-mail</label>
+			<input type="email" class="form-control" name="email">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="pais">Pais</label>
+			<input type="text" class="form-control" name="pais">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="municipio">Municipio</label>
+			<input type="text" class="form-control" name="municipio">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="colonia">Colonia</label>
+			<input type="text" class="form-control" name="colonia">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="localidad">Localidad</label>
+			<input type="text" class="form-control" name="localidad">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="calle">Calle</label>
+			<input type="text" class="form-control" name="calle">
+		</div>
+	</div>
+	<div class="row form-group">
+		<div class="col-md-5">
+			<label for="numero_interior">Número int.</label>
+			<input type="text" class="form-control" name="numero_interior">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
+			<label for="numero_exterior">Número ext.</label>
+			<input type="text" class="form-control" name="numero_exterior">
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#imgEmpresa").change(function(e) {
+			imgVistaPrevia(this);
+		});
+	});
+</script>
