@@ -16,7 +16,7 @@ class indexModel extends Model{
 
     public function setDato($columna, $valor,$id){
         $data = array('TABLE'=>'usuarios','COLUMNS'=>"$columna = '$valor'", 'WHERE'=>"id = $id");
-        echo $update = $this->_dbf->get_update_query($data);
+        $update = $this->_dbf->get_update_query($data);
         return $q = $this->_db->query($update);
 
     }

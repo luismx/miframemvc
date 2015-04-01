@@ -20,11 +20,14 @@ class indexController extends empresasController{
         if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
             $this->guardar($_POST);
         }
+
         $this->_view->renderizar('nueva');
     }
 
     public function guardar($post){
         $errores = array();
+        $this->_funciones->clean($post);
+
         $columnas = $this->_modelo->getColumnas('empresas');
 
         if (is_array($columnas) and count($columnas) > 0) {

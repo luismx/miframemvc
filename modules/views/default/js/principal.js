@@ -48,3 +48,8 @@ function imgVistaPrevia(input){
 		reader.readAsDataURL(input.files[0]);
 	}
 }
+
+function validarFormEmpresas(id){
+	$('#guardar').val(1);
+	$('#'+id).submit();
+}

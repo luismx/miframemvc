@@ -1,4 +1,4 @@
-<form action="<?php print BASE_URL;?>empresas/index/nueva" method="post">
+<form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 	<div class="row form-group">
 		<div class="col-md-2">
 			<input name="img" type="file" id="imgEmpresa">
@@ -71,7 +71,8 @@
 	</div>
 	<div class="row form-group">
 		<div class="col-md-6 col-md-offset-5">
-			<button type="submit" class="btn btn-primary">Guardar</button>
+			<button class="btn btn-primary" id="btnGuardar">Guardar</button>
+			<input type="hidden" name="guardar" id="guardar">
 		</div>
 	</div>
 </form>
@@ -79,6 +80,10 @@
 	$(document).ready(function(){
 		$("#imgEmpresa").change(function(e) {
 			imgVistaPrevia(this);
+		});
+
+		$('#btnGuardar').click(function() {
+			validarFormEmpresas('empresasForm');
 		});
 	});
 </script>

@@ -9,7 +9,7 @@ class indexController extends Controller{
     public function index() {
         var_dump($_SESSION);
         if (isset($_POST['sesion']) and $_POST['sesion'] == 1){
-            echo $error = $this->login();
+            $error = $this->login();
             if($error){
                 $this->_view->error="No es posible iniciar sesión, verifique su informacion";
                 $this->_view->renderizar('index');
@@ -30,7 +30,7 @@ class indexController extends Controller{
             $update = $this->_modelo->setDato('session_id',  session_id(),$datos['id']);
 
             if ($update) {
-                echo $sesion = $this->guardarSesion($datos);
+                $sesion = $this->guardarSesion($datos);
                 if ($sesion) {
                     if($datos['status'] == 1)
                         $this->_funciones->redireccionar('dashboard');
