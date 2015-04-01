@@ -62,9 +62,9 @@ class indexController extends usuariosController
 						$nombre = $post['rfc'].'_'.$post['usuario'];
 						$img = $this->guardarImagen($nombre);
 						if ($img) {
-							$this->_modelo->_dbf->sql_update_columna('usuarios','img',$nombre.'.png',$id);
+							$this->_modelo->updateColumna('usuarios','img',$nombre.'.png',$id);
 						}else
-							$this->_view->errores['img'] = "Error al subir la imagen";
+							$this->_view->errores['img'] = "Error...";
 					}
 				}
 
@@ -72,21 +72,21 @@ class indexController extends usuariosController
 					foreach ($post as $llavePost => $valorPost) {
 						if ($valorPost != "" and $llavePost == $llaveColumna) {
 							if ($llavePost == 'clave') {
-								$this->_modelo->_dbf->sql_update_columna('usuarios','clave',$this->_funciones->gethash('sha1',$valorPost,HASH_KEY),$id);
+								$this->_modelo->updateColumna('usuarios','clave',$this->_funciones->gethash('sha1',$valorPost,HASH_KEY),$id);
 							}
 							elseif ($llavePost == 'fecha_nacimiento') {
-								$this->_modelo->_dbf->sql_update_columna('usuarios','fecha_nacimiento',$this->_funciones->cambiarFecha($valorPost,'db'),$id);
+								$this->_modelo->updateColumna('usuarios','fecha_nacimiento',$this->_funciones->cambiarFecha($valorPost,'db'),$id);
 							}elseif ($llavePost == 'email') {
 								$email = $this->_funciones->validarEmail($valorPost);
 								if ($email) 
-									$this->_modelo->_dbf->sql_update_columna('usuarios','email',$valorPost,$id);
+									$this->_modelo->updateColumna('usuarios','email',$valorPost,$id);
 								else
 									$this->_view->errores[$llavePost] = "Email inválido";
 							}
 							else
-								$actualizado = $this->_modelo->_dbf->sql_update_columna('usuarios',$llavePost,$valorPost,$id);
+								$actualizado = $this->_modelo->updateColumna('usuarios',$llavePost,$valorPost,$id);
 								if (!$actualizado) 
-									$this->_view->errores[$llavePost] = "Error, verifique su información";
+									$this->_view->errores[$llavePost] = "Error $llavePost, verifique su información";
 						}
 					}
 				}
@@ -101,9 +101,8 @@ class indexController extends usuariosController
 	}
 
 	public function guardarImagen($nombre){
-		var_dump($_FILES);
 		if (isset($_FILES) and $_FILES['img']['name'] != "") {
-			return $img = $this->_funciones->recortarImagen('img',$nombre,'100','70');
+			echo $img = $this->_funciones->recortarImagen('img',$nombre,'100','70');
 		}
 	}
 }

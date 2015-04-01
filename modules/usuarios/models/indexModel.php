@@ -61,5 +61,9 @@ class indexModel extends Model
     public function getColumna($tabla,$columna,$id){
         return $this->_dbf->sql_get_columna($tabla,$columna,$id);
     }
+
+    public function updateColumna($tabla,$columna,$valor,$id){
+        return $this->_dbf->sql_update_columna($tabla,$columna,$valor,$id);
+    }
 }
 ?>
