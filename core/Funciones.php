@@ -69,20 +69,23 @@ class Funciones{
 
             if ($handle->uploaded){
                 $handle->file_new_name_body = $nuevoNombre;
+                $handle->image_resize = true;
                 $handle->file_overwrite = true;
                 $handle->file_new_name_ext = 'png';
-                $handle->image_resize = true;
                 $handle->image_x = $x;
-                $handle->image_ratio_y = $y;
+                $handle->image_y = $y;
+                $handle->image_ratio_y = true;
                 $handle->process(ROOT.'modules/usuarios/views/index/img/');
                 
                 if($handle->processed){
-                    $handle->clean();
-                    return true;
+                    echo $handle->clean();
+                    echo "exito";
                 }else{
-                    return $handle->error;
+                    echo $handle->error;
+                    echo "Error al subir la imagen";
                 }
-            }
+            }else
+                echo "Ninguna imagen";
         }
     }
 }
