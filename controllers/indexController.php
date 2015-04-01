@@ -8,8 +8,8 @@ class indexController extends Controller{
     
     public function index() {
         var_dump($_SESSION);
-        if (isset($_POST['sesion']) and $_POST['sesion'] > 0){
-            $error = $this->login();
+        if (isset($_POST['sesion']) and $_POST['sesion'] == 1){
+            echo $error = $this->login();
             if($error){
                 $this->_view->error="No es posible iniciar sesión, verifique su informacion";
                 $this->_view->renderizar('index');
@@ -26,16 +26,17 @@ class indexController extends Controller{
         $hash = $this->_funciones->getHash('sha1',$claveUsuario,HASH_KEY);
         $data = array('TABLE'=>'usuarios','COLUMNS'=>'*','WHERE'=>"id_tipo = $tipoUsuario AND usuario = '$nombreUsuario' AND clave = '$hash'");
         $datos = $this->_modelo->getDatosUsuario($data);
-        
         if($datos){
             $update = $this->_modelo->setDato('session_id',  session_id(),$datos['id']);
+
             if ($update) {
-                $this->guardarSesion($datos);
-                
-                if($datos['status'] == 1)
-                    $this->_funciones->redireccionar('dashboard');
-                else
-                    $this->_funciones->redireccionar('empresas');
+                echo $sesion = $this->guardarSesion($datos);
+                if ($sesion) {
+                    if($datos['status'] == 1)
+                        $this->_funciones->redireccionar('dashboard');
+                    else
+                        $this->_funciones->redireccionar('empresas');
+                }
             }
         }
         else{
@@ -49,6 +50,11 @@ class indexController extends Controller{
                 $_SESSION['usuario'][$llave] = $valor;
             if ($llave == 'session_id') 
                 $_SESSION['usuario'][$llave] = session_id();
+
         }
+        if (isset($_SESSION['usuario']) and count($_SESSION['usuario']) > 0) 
+            return true;
+        else
+            return false;
     }
 }
