@@ -28,7 +28,18 @@ if (isset($this->datosUsuario)) {
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Tipo de usuario</label></div>
-            <div class="col-md-3"><select class="form-control" name="id_tipo"><?php print $this->tipos;?></select></div>
+            <div class="col-md-3"><?php $tipo = Session::get('usuario','id_tipo'); 
+            if ($tipo == 4) {
+                ?>
+                <select class="form-control" name="id_tipo"><?php print $this->tipos;?></select>
+                <?php
+            }
+            else {
+                ?>
+                <pre class='form-control'><?php print $this->tipo['nombre'];?></pre>
+                <?php
+            }
+            ?></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">Nombre(s)</label></div>
             <div class="col-md-3"><input class="form-control" type="text" name="nombre" placeholder="<?php print ucwords($this->datosUsuario['nombre'])?>"></div>
         </div>

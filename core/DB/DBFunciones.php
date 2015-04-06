@@ -1,9 +1,9 @@
 <?php
 include_once 'Conexion.php';
 
-class DBFunciones{
+class DBFunciones {
 	private $_conn;
-	function __construct(){
+	function __construct() {
 		$this->_conn = new Conexion();
 	}
 
@@ -18,11 +18,11 @@ class DBFunciones{
 	}
 
 	public static function get_select_query($p) {
-		if(!isset($p['WHERE'])){
-			$data = array($p['COLUMNS'],$p['TABLE']);
+		if (!isset($p['WHERE'])) {
+			$data = array($p['COLUMNS'], $p['TABLE']);
 			return vsprintf("SELECT %s FROM %s", $data);
-		}else{
-			$data = array($p['COLUMNS'],$p['TABLE'], $p['WHERE']);
+		} else {
+			$data = array($p['COLUMNS'], $p['TABLE'], $p['WHERE']);
 			return vsprintf("SELECT %s FROM %s WHERE %s", $data);
 		}
 	}
@@ -37,33 +37,55 @@ class DBFunciones{
 		return vsprintf("SELECT %s FROM %s WHERE %s = ?", $data);
 	}
 
-	public function sql_get_columna($tabla,$columna,$id){
-		$data = array('TABLE' => $tabla, 'COLUMNS'=>$columna,'WHERE'=>"id = $id");
+	public function sql_get_columna($tabla, $columna, $id) {
+		$data   = array('TABLE' => $tabla, 'COLUMNS' => $columna, 'WHERE' => "id = $id");
 		$select = self::get_select_query($data);
-		$q = $this->_conn->query($select);
-		if ($q) 
+		$q      = $this->_conn->query($select);
+		if ($q) {
 			return $q->fetch(PDO::FETCH_ASSOC);
+		}
 	}
 
-	public function sql_update_columna($tabla, $columna,$valor,$id){
-        $data = array('TABLE' =>$tabla,'COLUMNS'=>"$columna = '$valor'",'WHERE'=>"id = $id");
-        $update = self::get_update_query($data);
-        $q = $this->_conn->query($update);
-        return $q;
-    }
+	public function sql_update_columna($tabla, $columna, $valor, $id) {
+		$data   = array('TABLE' => $tabla, 'COLUMNS' => "$columna = '$valor'", 'WHERE' => "id = $id");
+		$update = self::get_update_query($data);
+		$q      = $this->_conn->query($update);
+		return $q;
+	}
 
-    public function sql_get_nombreColumnas($tabla){
-    	$select = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tabla'";
-    	$q = $this->_conn->query($select);
-    	$q->fetch(PDO::FETCH_ASSOC);
-    	if ($q) {
-    		foreach ($q as $key =>$value) {
-    			foreach ($value as $llave) 
-    				$columna[] = $llave;
-    		}
-    		return array_unique($columna);
-    	}
-    }
+	public function sql_get_nombreColumnas($tabla) {
+		$select = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tabla'";
+		$q      = $this->_conn->query($select);
+		$q->fetch(PDO::FETCH_ASSOC);
+		if ($q) {
+			foreach ($q as $key => $value) {
+				foreach ($value as $llave)
+				$columna[] = $llave;
+			}
+			return array_unique($columna);
+		}
+	}
+
+	public function sql_get_select($tabla, $columna, $where = false, $limit = false) {
+		$option = "<option value=''>Elige...</option>";
+		if ($where) {
+			$where = " WHERE $where";
+		}
+
+		if ($limit) {
+			$limit = " LIMIT $limit";
+		}
+
+		$select = "SELECT id, $columna FROM $tabla $where ORDER BY $columna ASC $limit";
+		$q      = $this->_conn->query($select);
+		if ($q) {
+			while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
+				$option .= "<option value='".$row['id']."'>".$row[$columna]."</option>";
+			}
+
+			return $option;
+		}
+
+	}
 }
 ?>
-

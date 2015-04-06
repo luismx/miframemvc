@@ -1,58 +1,58 @@
 <?php
 /**
-* Luis Perera
-*/
-class indexController extends usuariosController
-{
+ * Luis Perera
+ */
+class indexController extends usuariosController {
 	private $_modelo;
 
-	function __construct()
-	{
+	function __construct() {
 		parent::__construct();
-		$this->_modelo = $this->loadModel('index');
 		$this->_view->errores = array();
+		$this->_modelo        = $this->loadModel('index');
+		$this->_view->tipo    = $this->_modelo->getColumna('tipos', 'nombre', Session::get('usuario', 'id_tipo'));
+		$this->_view->tipos   = $this->_modelo->getTipos();
 	}
 
-	public function index(){
-		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario','id'));
+	public function index() {
+		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
 		$this->_view->renderizar('index');
 	}
 
-	public function cerrar(){
+	public function cerrar() {
 		Session::destroy();
 		header('location:'.BASE_URL);
 	}
 
-	public function editar(){
+	public function editar() {
 		if ($this->_req->getArgs() and count($this->_req->getArgs()) > 0) {
-			$miVariable = $this->_req->getArgs();
+			$miVariable                = $this->_req->getArgs();
 			$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
-			$tipoUsuario = Session::get('usuario','id_tipo');
-			$this->_view->tipos = $this->_modelo->getTipos();
+			$tipoUsuario               = Session::get('usuario', 'id_tipo');
 
 			if ($tipoUsuario == 4) {
-				if (isset($_POST['guardar']) and $_POST['guardar'] == 1){
-					$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
+				if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
+					$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
 					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 				}
-			}
-			else{
-				if ($miVariable[0] != Session::get('usuario','id'))
+			} else {
+				if ($miVariable[0] != Session::get('usuario', 'id')) {
 					$this->_funciones->redireccionar('usuarios');
-				else{
-					if (isset($_POST['guardar']) and $_POST['guardar'] == 1){
-						$datosGuardados = $this->guardar($_POST, 'usuarios',$miVariable[0]);
+				} else {
+					if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
+						$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
 						$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 					}
 				}
 			}
 		}
-		if ($this->_view->datosUsuario == 0) 
+		if ($this->_view->datosUsuario == 0) {
 			$this->_view->mensaje = "Datos guardados";
+		}
+
 		$this->_view->renderizar('editar');
 	}
 
-	public function guardar($post,$tabla,$id){
+	public function guardar($post, $tabla, $id) {
 		$errores = array();
 		if (is_array($post) and count($post) > 0) {
 			$columnas = $this->_modelo->getCampos($tabla);
@@ -60,49 +60,58 @@ class indexController extends usuariosController
 				if (isset($_FILES)) {
 					if ($_FILES['img']['name'] != "") {
 						$nombre = $post['rfc'].'_'.$post['usuario'];
-						$img = $this->guardarImagen($nombre);
+						$img    = $this->guardarImagen($nombre);
 						if ($img) {
-							$this->_modelo->updateColumna('usuarios','img',$nombre.'.png',$id);
-						}else
-							$this->_view->errores['img'] = "Error...";
-					}
-				}
+							$this->_modelo->updateColumna('usuarios', 'img', $nombre.'.png', $id);
+						} else {
 
-				foreach ($columnas as $llaveColumna => $valorColumna) {
-					foreach ($post as $llavePost => $valorPost) {
-						if ($valorPost != "" and $llavePost == $llaveColumna) {
-							if ($llavePost == 'clave') {
-								$this->_modelo->updateColumna('usuarios','clave',$this->_funciones->gethash('sha1',$valorPost,HASH_KEY),$id);
-							}
-							elseif ($llavePost == 'fecha_nacimiento') {
-								$this->_modelo->updateColumna('usuarios','fecha_nacimiento',$this->_funciones->cambiarFecha($valorPost,'db'),$id);
-							}elseif ($llavePost == 'email') {
-								$email = $this->_funciones->validarEmail($valorPost);
-								if ($email) 
-									$this->_modelo->updateColumna('usuarios','email',$valorPost,$id);
-								else
-									$this->_view->errores[$llavePost] = "Email inválido";
-							}
-							else
-								$actualizado = $this->_modelo->updateColumna('usuarios',$llavePost,$valorPost,$id);
-								if (!$actualizado) 
-									$this->_view->errores[$llavePost] = "Error $llavePost, verifique su información";
+							$this->_view->errores['img'] = "Error...";
 						}
 					}
 				}
 
+				foreach ($columnas as $llaveColumna => $valorColumna) {
+					foreach ($post as $llavePost       => $valorPost) {
+						if ($valorPost != "" and $llavePost == $llaveColumna) {
+							if ($llavePost == 'clave') {
+								$this->_modelo->updateColumna('usuarios', 'clave', $this->_funciones->gethash('sha1', $valorPost, HASH_KEY), $id);
+							} elseif ($llavePost == 'fecha_nacimiento') {
+								$this->_modelo->updateColumna('usuarios', 'fecha_nacimiento', $this->_funciones->cambiarFecha($valorPost, 'db'), $id);
+							} elseif ($llavePost == 'email') {
+								$email = $this->_funciones->validarEmail($valorPost);
+								if ($email) {
+									$this->_modelo->updateColumna('usuarios', 'email', $valorPost, $id);
+								} else {
+
+									$this->_view->errores[$llavePost] = "Email inválido";
+								}
+							} else {
+
+								$actualizado = $this->_modelo->updateColumna('usuarios', $llavePost, $valorPost, $id);
+							}
+
+							if (!$actualizado) {
+								$this->_view->errores[$llavePost] = "Error $llavePost, verifique su información";
+							}
+						}
+					}
+
+				}
 			}
+
 			$this->_modelo->updateSession($id);
-			if (count($errores) > 0) 
+			if (count($errores) > 0) {
 				return var_dump($errores);
-			else
+			} else {
+
 				return 0;
+			}
 		}
 	}
 
-	public function guardarImagen($nombre){
+	public function guardarImagen($nombre) {
 		if (isset($_FILES) and $_FILES['img']['name'] != "") {
-			echo $img = $this->_funciones->recortarImagen('img',$nombre,'100','70');
+			echo $img = $this->_funciones->recortarImagen('img', $nombre, '100', '70');
 		}
 	}
 }
