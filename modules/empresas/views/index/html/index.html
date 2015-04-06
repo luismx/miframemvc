@@ -3,15 +3,87 @@
  *@Dev Luis Perera
  * **/
 $nivel = 1;
-Session::get('usuario','session_id');
+//Session::get('usuario','session_id');
 if ($this->numEmpresas) {
-	#Lógica para dar de alta
 	?>
-	
+	<input id="idEmpresa" value="">
+
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<tr>
+				<th>#</th>
+				<th>Nombre</th>
+				<th>Razón social</th>
+				<th>RFC</th>
+				<th>Contacto</th>
+				<th>Correo</th>
+				<th>Editar</th>
+				<th>Acción</th>
+			</tr>
+			<?php
+				foreach ($this->empresas as $row) {
+					print $row;
+				}
+			?>
+		</table>
+	</div>
+
+	<!--Modal editar-->
+	<div class="modal fade" id="editar" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header"></div>
+				<div class="modal-body">
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Guardar cambios</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Fin Modal editar-->
+
+	<!--Modal activar-->
+	<div class="modal fade" id="activar" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">Activar</div>
+				<div class="modal-body">
+					¿Está seguro en activar esta empresa?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Fin Modal activar-->
+
+	<!--Modal desactivar-->
+	<div class="modal fade" id="desactivar" role="dialog">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">Desactivar</div>
+				<div class="modal-body">
+					¿Está seguro en desactivar esta empresa?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+					<button type="button" class="btn btn-primary">Aceptar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--Fin Modal desactivar-->
+
+	<script type="text/javascript" src="<?php print BASE_URL?>modules/empresas/views/index/js/ajax.js"></script>
 	<?php
 }else{
 	?>
-	<h1>No hay empresas.</h1>
+	<h3>No hay empresas.</h3>
 	<?php
 }
 ?>

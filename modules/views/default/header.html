@@ -26,7 +26,8 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <?php $img = Session::get('usuario','img'); if($img != NULL) {
+          <?php
+          if(Session::get('usuario','img') !== "") {
                 ?>
                 <img id="imgUsuario" src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail">
                 <?php 

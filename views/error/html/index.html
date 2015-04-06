@@ -1,0 +1,36 @@
+<style>
+            
+            
+            h1 {
+                font-size: 4.5em;
+                font-family: 'News Cycle';
+                font-weight: 800;
+                color: #ccc;
+            }
+            
+            p {
+                margin: 0;
+                font-size: 1.4em;
+            }
+            
+            a {
+                color: #666;
+                border-bottom: 1px dotted #666;
+                text-decoration: none;
+            }
+            
+            a:hover {
+                color: #000;
+                border-bottom: 1px dotted #000;
+                text-decoration: none;
+            }
+            
+            small {
+                color: #333;
+            }
+</style>
+        <h1><?php print $this->titulo;?></h1>
+        <p><b><?php print $this->texto;?></b></p>
+        <p>Pruebe <a href="#" onclick="history.back();">regresar a la vista anterior</a></p>
+        <p>&nbsp;</p>
+        <p><small><?php $this->numeroError;?></small></p>
