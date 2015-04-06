@@ -45,7 +45,16 @@ class Session
     }
     
     public static function acceso($level)
-    {/*
+    {
+        if (!Session::get('autenticado')) 
+            header('location:' . BASE_URL); exit;
+        else{
+            if (condition) {
+                # code...
+            }
+        }
+
+    /*
         if(!Session::get('autenticado')){
             header('location:' . BASE_URL);
             exit;
@@ -72,9 +81,12 @@ class Session
         return true;
     }
     
-    public static function getLevel($level)
+    public static function getLevel()
     {
-        $role['admin'] = 3;
+        if (isset(Session::get('usuario','id_tipo'))) {
+            return Session::get('usuario','id_tipo');
+        }
+        /*$role['admin'] = 3;
         $role['especial'] = 2;
         $role['usuario'] = 1;
         
@@ -83,7 +95,7 @@ class Session
         }
         else{
             return $role[$level];
-        }
+        }*/
     }
     
     public static function accesoEstricto(array $level, $noAdmin = false)
