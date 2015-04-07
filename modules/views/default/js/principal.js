@@ -53,3 +53,36 @@ function validarFormEmpresas(id){
 	$('#guardar').val(1);
 	$('#'+id).submit();
 }
+
+function jsDialogoFuncion(clase,texto,titulo,funcion,valores,btnAceptarTxt,btnCancelarTxt) {
+	$('.'+clase).html(texto);
+	$('.'+clase).dialog({
+		dialogClass:'no-close',modal:true,draggable:false,title:titulo,resizable:false,
+		buttons:[{
+			text:btnAceptarTxt, click:function(){
+				$(this).dialog('close');
+				var ejecutar = funcion(valores);
+			}
+		},
+		{
+			text:btnCancelarTxt,click:function(){$(this).dialog('close');}
+		}]
+	});
+}
+
+function recargarPagina(){
+	location.reload(true);
+}
+
+function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
+	//var ejecutar = funcion();
+
+	$('.'+clase).html(texto);
+	$('.'+clase).dialog({
+		modal:true,draggable:false,title:titulo,resizable:false,
+		buttons:[{text:btnAceptarTxt,click:function(){
+			$(this).dialog('close');
+			var ejecutar = funcion();
+		}}]
+	});
+}
