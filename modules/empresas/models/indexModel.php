@@ -14,7 +14,7 @@ class indexModel extends Model {
 	}
 
 	public function getNumEmpresas() {
-		$data   = array('TABLE' => 'empresas', 'COLUMNS' => '*', 'WHERE' => 'status = 1 AND id_usuario = '.Session::get('usuario', 'id').' LIMIT 1');
+		$data   = array('TABLE' => 'empresas', 'COLUMNS' => '*', 'WHERE' => 'id_usuario = '.Session::get('usuario', 'id').' LIMIT 1');
 		$select = $this->_dbf->get_select_query($data);
 		$q      = $this->_db->query($select);
 		if ($q) {
@@ -29,5 +29,9 @@ class indexModel extends Model {
 		if ($q) {
 			return $q->fetchAll(PDO::FETCH_NUM);
 		}
+	}
+
+	public function setStatus($id, $valor) {
+		return $update = $this->_dbf->sql_update_columna('empresas', 'status', $valor, $id);
 	}
 }

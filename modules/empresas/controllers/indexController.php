@@ -59,15 +59,23 @@ class indexController extends empresasController {
 		}
 	}
 
-	public function editar($id) {
-
+	public function editar() {
+		if (isset($_POST['id'])) {
+			echo "Empresa editada.";
+		}
 	}
 
-	public function activar($id) {
-
+	public function activar() {
+		if (isset($_POST['id'])) {
+			$id = $_POST['id'];
+			return $this->_modelo->setStatus($id, 1);
+		}
 	}
 
-	public function desactivar($id) {
-
+	public function desactivar() {
+		if (isset($_POST['id'])) {
+			$id = $_POST['id'];
+			return $this->_modelo->setStatus($id, 0);
+		}
 	}
 }
