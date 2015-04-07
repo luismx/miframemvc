@@ -18,7 +18,8 @@ class Autoload {
 				require_once $rutaModulo;
 				$rutaControlador = ROOT.'modules'.DS.$modulo.DS.'controllers'.DS.$controller.'.php';
 			} else {
-				throw new Exception('Error de base de modulo');
+				//throw new Exception('Error de base de modulo');
+				header('location:'.BASE_URL.'error/_404');
 			}
 		} else {
 			$rutaControlador = ROOT.'controllers'.DS.$controller.'.php';
@@ -41,7 +42,8 @@ class Autoload {
 			}
 
 		} else {
-			throw new Exception('<pre>Ruta inexistente Autoload. </pre>');
+			//throw new Exception('<pre>Ruta inexistente Autoload. </pre>');
+			header('location:'.BASE_URL.'error/_404');
 		}
 
 	}

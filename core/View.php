@@ -15,13 +15,11 @@ class View {
 
 		$modulo      = $this->_req->getModulo();
 		$controlador = $this->_req->getControlador();
-
 		if ($modulo) {
 			$this->_rutas['header'] = ROOT.'modules'.DS.'views'.DS.'default'.DS.'header.html';
 			$this->_rutas['view']   = ROOT.'modules'.DS.$modulo.DS.'views'.DS.$controlador.DS.'html'.DS;
 			$this->_rutas['footer'] = ROOT.'modules'.DS.'views'.DS.'default'.DS.'footer.html';
-
-			$this->_rutas['js'] = BASE_URL.'modules/'.$modulo.'/views/'.$controlador.'/js/';
+			$this->_rutas['js']     = BASE_URL.'modules/'.$modulo.'/views/'.$controlador.'/js/';
 		} else {
 			$this->_rutas['header'] = ROOT.'views'.DS.'default'.DS.'header.html';
 			$this->_rutas['view']   = ROOT.'views'.DS.$controlador.DS.'html'.DS;
@@ -38,12 +36,15 @@ class View {
 		);
 
 		if (is_readable($this->_rutas['view'].$vista.'.html')) {
-			//
-			include_once $this->_rutas['header'];
-			include_once $this->_rutas['view'].$vista.'.html';
-			include_once $this->_rutas['footer'];
+			if ($this->_controlador == "error") {
+				include_once $this->_rutas['view'].$vista.'.html';
+			} else {
+				include_once $this->_rutas['header'];
+				include_once $this->_rutas['view'].$vista.'.html';
+				include_once $this->_rutas['footer'];
+			}
 		} else {
-			throw new Exception("No existe la vista morro", 1);
+			header('location:'.BASE_URL.'error/_404');
 		}
 	}
 }
