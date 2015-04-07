@@ -1,5 +1,19 @@
-<style>
-            
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title><?php print $this->titulo;?></title>
+        <meta charset='utf-8'>
+        <link rel="stylesheet" href="http://openfontlibrary.org/face/news-cycle" type="text/css"/>
+        <style>
+            body {
+                font-size: 16px;
+                width: 60%;
+                margin: 7% auto;
+                font-family: 'News Cycle';
+                font-weight: normal;
+                color: #999;
+                line-height: 200%;
+            }
             
             h1 {
                 font-size: 4.5em;
@@ -28,9 +42,25 @@
             small {
                 color: #333;
             }
-</style>
+        </style>
+    </head>
+    <body>
         <h1><?php print $this->titulo;?></h1>
         <p><b><?php print $this->texto;?></b></p>
-        <p>Pruebe <a href="#" onclick="history.back();">regresar a la vista anterior</a></p>
+        <p>Pruebe <a href="#" onclick="history.back();">regresar a la ventana anterior</a> 
+        y volver a intentarlo.</p>
+        <?php
+        if (isset($_SESSION) and count($_SESSION) > 0) {
+            ?>
+            <p>O intente <a href="<?php print BASE_URL;?>usuarios/index/cerrar">Cerrar sesión</a> e ingresar con una cuenta diferente</p>
+            <?php
+        }else{
+            ?>
+            <p>O intente <a href="<?php print BASE_URL;?>">Iniciar sesión</a></p>
+            <?php
+        }
+        ?>
         <p>&nbsp;</p>
-        <p><small><?php $this->numeroError;?></small></p>
+        <p><small><?php print $this->numeroError;?></small></p>
+    </body>
+</html>
