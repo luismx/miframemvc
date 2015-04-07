@@ -9,20 +9,18 @@ class errorController extends Controller {
 	}
 
 	public function index() {
-		//$this->_view->titulo = "Elemento no encontrado";
-		//$this->_view->texto  = "La dirección donde a la que intentas tener acceso, no existe.";
-		//$this->_view->renderizar('index');
+		$this->_funciones->redireccionar();
 	}
-
-	public function e404() {
+	#mensaje de error para elementos no encontrados
+	public function _404() {
 		$this->_view->titulo      = "Elemento no encontrado";
-		$this->_view->texto       = "La dirección donde a la que intentas tener acceso, no existe.";
+		$this->_view->texto       = "El recurso al que intentas tener acceso, no existe.";
 		$this->_view->numeroError = "Error 404";
 		$this->_view->renderizar('index');
 
 	}
-
-	public function e403() {
+	#mensaje de error para permisos insuficientes
+	public function _403() {
 		$this->_view->titulo      = "Permisos insuficientes";
 		$this->_view->texto       = "No puedes ver el contenido porqué no tienes los permisos necesarios.";
 		$this->_view->numeroError = "Error 403";
