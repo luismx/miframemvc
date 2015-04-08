@@ -85,7 +85,16 @@ class DBFunciones {
 
 			return $option;
 		}
+	}
 
+	public function sql_get_menu($idTipo) {
+		$arreglo = array();
+		$select  = "SELECT * FROM menu WHERE id_tipo <= $idTipo ORDER BY id_tipo";
+		if ($q) {
+			foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $row) {
+
+			}
+		}
 	}
 }
 ?>

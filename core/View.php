@@ -22,6 +22,7 @@ class View {
 			$this->_rutas['js']     = BASE_URL.'modules/'.$modulo.'/views/'.$controlador.'/js/';
 		} else {
 			$this->_rutas['header'] = ROOT.'views'.DS.'default'.DS.'header.html';
+			$this->_rutas['header'] = ROOT.'views'.DS.'default'.DS.'header.html';
 			$this->_rutas['view']   = ROOT.'views'.DS.$controlador.DS.'html'.DS;
 			$this->_rutas['footer'] = ROOT.'views'.DS.'default'.DS.'footer.html';
 			$this->_rutas['js']     = BASE_URL.'views/'.$controlador.'/js/';

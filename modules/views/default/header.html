@@ -1,6 +1,4 @@
-<?php
-var_dump($this);
-?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,10 +37,10 @@ var_dump($this);
                 <?php print ucwords(Session::get('usuario','nombre').' '.Session::get('usuario','apellido_paterno'))?></a></label>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
+
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               <a href="<?php print BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a></li>
-            <!--Menu_Cliente-->
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -50,6 +48,7 @@ var_dump($this);
                 <li><a href="<?php print BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
               </ul>
             </li>
+            <!--Menu_Cliente-->
             <li class="dropdown">
               <a href="<?php print BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
@@ -67,7 +66,16 @@ var_dump($this);
               </ul>
             </li>
             <!--Menu_Cliente-->
-
+            <!--Menu_Comisionista-->
+            <li class="dropdown">
+              <a href="<?php print BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Comisionista<span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list">Nuevo cliente</a></li>
+                <li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+                <li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial de comisiones</a></li>
+              </ul>
+            </li>
+            <!--Menu_Comisionista-->
             <li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>
           </ul>
         </div>
@@ -77,4 +85,4 @@ var_dump($this);
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-        <legend></legend>
+        <legend>Hola</legend>

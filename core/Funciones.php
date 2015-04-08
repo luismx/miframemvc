@@ -92,23 +92,5 @@ class Funciones {
 			}
 		}
 	}
-
-	public static function reemplazarMenu($tipoUsuario) {
-		$tipo = intval($tipoUsuario);
-		switch ($tipo) {
-			case '1':
-				echo preg_replace("/<!--Menu_Cliente-->/", '', $html);
-				break;
-			case '2':
-				echo preg_replace("/<!--Menu_Comisionista-->/", '', $html);
-				break;
-			case '3':
-				echo preg_replace("/<!--Menu_Operador-->/", '', $html);
-				break;
-			case '4':
-				echo preg_replace("/<!--Menu_Administrador-->/", '', $html);
-				break;
-		}
-	}
 }
 ?>
