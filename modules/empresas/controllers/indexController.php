@@ -81,6 +81,7 @@ class indexController extends empresasController {
 
 	public function buscar($rfc) {
 		$this->_funciones->validarRfc($rfc);
+
 	}
 
 	public function getEmpresasValidas() {
