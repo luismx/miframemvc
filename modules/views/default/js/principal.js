@@ -85,3 +85,4 @@ function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
 	});
 }
 
+ 
