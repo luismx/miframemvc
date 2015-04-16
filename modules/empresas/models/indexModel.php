@@ -34,4 +34,8 @@ class indexModel extends Model {
 	public function setStatus($id, $valor) {
 		return $update = $this->_dbf->sql_update_columna('empresas', 'status', $valor, $id);
 	}
+
+	public function getMatriz() {
+
+	}
 }

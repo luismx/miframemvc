@@ -75,8 +75,6 @@ function recargarPagina(){
 }
 
 function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
-	//var ejecutar = funcion();
-
 	$('.'+clase).html(texto);
 	$('.'+clase).dialog({
 		modal:true,draggable:false,title:titulo,resizable:false,
@@ -86,3 +84,4 @@ function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
 		}}]
 	});
 }
+

@@ -78,4 +78,5 @@ class indexController extends empresasController {
 			return $this->_modelo->setStatus($id, 0);
 		}
 	}
+
 }

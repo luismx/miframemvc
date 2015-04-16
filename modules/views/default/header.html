@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<title><?php print DEFAULT_TITLE;?></title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta name="author" content="Luis Perera">
-    <link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>bootstrap.min.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="author" content="Luis Perera">
+	<link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>bootstrap.min.css">
 	<link rel="stylesheet" href="<?php print $_layoutArr['theme_css']?>jquery-ui.min.css">
 	<link rel="stylesheet" type="text/css" href="modules/views/default/css/dashboard.css">
 	<link rel="icon" href="<?php print BASE_URL;?>favicon.ico">
@@ -15,74 +14,107 @@
 	<script src="<?php print BASE_URL.'libs/jquery/'?>jquery-1.11.2.min.js"></script>
 	<script src="<?php print $_layoutArr['theme_js']?>jquery-ui.min.js"></script>
 	<script src="<?php print $_layoutArr['theme_js']?>bootstrap.min.js"></script>
-<script src="<?php print BASE_URL?>modules/views/default/js/principal.js"></script>
-  </head>
-  <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <?php
-          if(Session::get('usuario','img') !== "") {
-                ?>
-                <img id="imgUsuario" src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail">
-                <?php 
-          }?>
-            <label class="lead"><a>
-                <?php print ucwords(Session::get('usuario','nombre').' '.Session::get('usuario','apellido_paterno'))?></a></label>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
+	<script src="<?php print BASE_URL?>modules/views/default/js/principal.js"></script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<?php
+				if(Session::get('usuario','img') !== "") {
+					$img = Session::get('usuario','img');
+					?>
+					<img id="imgUsuario" src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $img?>" class="img-thumbnail img-responsive">
+					<?php 
+				}?>
+				<label class="lead"><a>
+					<?php print ucwords(Session::get('usuario','nombre').' '.Session::get('usuario','apellido_paterno'))?></a></label>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="<?php print BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a>
+						</li>
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="<?php print BASE_URL?>usuarios" class="glyphicon glyphicon-user"> Perfil</a></li>
+								<li><a href="<?php print BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
+							</ul>
+						</li>
+							<?php
+							$tipo = Session::get('usuario','id_tipo');
+							switch ($tipo) {
+								case '4':
+									?>
+									<li class="dropdown">
+										<a href="<?php print BASE_URL?>comisiones" class="dropdown-toggle" data-toggle="dropdown" role="button">Comisionista<span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list">Nuevo cliente</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial de comisiones</a></li>
+										</ul>
+									</li>
+									<?php
+								case '1':
+									?>
+									<li class="dropdown">
+										<a href="<?php print BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="<?php print BASE_URL?>empresas" class="glyphicon glyphicon-th-list"> Mis empresas</a></li>
+											<li><a href="<?php print BASE_URL?>empresas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+											<li><a href="<?php print BASE_URL?>empresas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+										</ul>
+									</li>
+									<li class="dropdown">
+										<a href="<?php print BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturas <span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list"> Mis facturas</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
+										</ul>
+									</li>
+									<?php
+									break;
+								case '2':
+									?>
+									<li class="dropdown">
+										<a href="<?php print BASE_URL?>comisiones" class="dropdown-toggle" data-toggle="dropdown" role="button">Comisionista<span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list">Nuevo cliente</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+											<li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial de comisiones</a></li>
+										</ul>
+									</li>
+									<?php
+									break;
+								case '3':
+									?>
+									<li class="dropdown">
+										<a href="<?php print BASE_URL?>catalogos" class="dropdown-toggle" data-toggle="dropdown" role="button">Catálogos<span class="caret"></span></a>
+										<ul class="dropdown-menu" role="menu">
+											<li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list">Nuevo cliente</a></li>
+											<li><a href="<?php print BASE_URL?>catalogos/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
+											<li><a href="<?php print BASE_URL?>catalogos/index/historial" class="glyphicon glyphicon-list-alt"> Historial de comisiones</a></li>
+										</ul>
+									</li>
+									<?php
+									break;
+							}
+							?>
+							<li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
 
-          <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
-              <a href="<?php print BASE_URL?>dashboard" role="button" aria-expanded="false"> Inicio</a></li>
-            <li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Usuario <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print BASE_URL?>usuarios" class="glyphicon glyphicon-user"> Perfil</a></li>
-                <li><a href="<?php print BASE_URL?>usuarios/index/cerrar" class="glyphicon glyphicon-off"> Cerrar sesión</a></li>
-              </ul>
-            </li>
-            <!--Menu_Cliente-->
-            <li class="dropdown">
-              <a href="<?php print BASE_URL?>empresas" class="dropdown-toggle" data-toggle="dropdown" role="button">Empresas <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print BASE_URL?>empresas" class="glyphicon glyphicon-th-list"> Mis empresas</a></li>
-                <li><a href="<?php print BASE_URL?>empresas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
-                <li><a href="<?php print BASE_URL?>empresas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
-              </ul>
-            </li>
-            <li class="dropdown">
-              <a href="<?php print BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Facturas <span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list"> Mis facturas</a></li>
-                <li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
-                <li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial</a></li>
-              </ul>
-            </li>
-            <!--Menu_Cliente-->
-            <!--Menu_Comisionista-->
-            <li class="dropdown">
-              <a href="<?php print BASE_URL?>facturas" class="dropdown-toggle" data-toggle="dropdown" role="button">Comisionista<span class="caret"></span></a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="<?php print BASE_URL?>facturas" class="glyphicon glyphicon-th-list">Nuevo cliente</a></li>
-                <li><a href="<?php print BASE_URL?>facturas/index/nueva" class="glyphicon glyphicon-pencil"> Nueva</a></li>
-                <li><a href="<?php print BASE_URL?>facturas/index/historial" class="glyphicon glyphicon-list-alt"> Historial de comisiones</a></li>
-              </ul>
-            </li>
-            <!--Menu_Comisionista-->
-            <li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-        <legend>Hola</legend>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+						<legend>Hola</legend>

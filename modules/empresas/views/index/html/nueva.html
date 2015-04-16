@@ -1,78 +1,82 @@
 <form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 	<div class="row form-group">
-		<div class="col-md-2">
+		<div></div>
+		<!--<div class="col-md-5">
+			<label>Matriz</label> <input type="radio" name="tipoEmpresa" checked="checked">
+			<label>Sucursal</label> <input type="radio" name="tipoEmpresa">
+		</div>
+		<div class="col-md-6 col-md-offset-1">
 			<input name="img" type="file" id="imgEmpresa">
+		</div>-->
+	</div>	
+	<div id="campos" style="display:none">
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="rfc">RFC</label>
+				<input type="text" class="form-control" name="rfc">
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="razon_social">Razón social</label>
+				<input type="text" class="form-control" name="razon_social">
+			</div>
 		</div>
-		<div class="col-md-3" id="img">
-			
-		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
-			<label for="rfc">RFC</label>
-			<input type="text" class="form-control" name="rfc">
-		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="razon_social">Razón social</label>
-			<input type="text" class="form-control" name="razon_social">
-		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
+		<div class="row form-group">
+			<div class="col-md-5">
 
-			<label for="contacto">Contacto</label>
-			<input type="text" class="form-control" name="contacto">
+				<label for="contacto">Contacto</label>
+				<input type="text" class="form-control" name="contacto">
 
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="razon_social">Teléfono</label>
+				<input type="text" class="form-control" name="telefono">
+			</div>
 		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="razon_social">Teléfono</label>
-			<input type="text" class="form-control" name="telefono">
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="email">E-mail</label>
+				<input type="email" class="form-control" name="email">
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="pais">Pais</label>
+				<input type="text" class="form-control" name="pais">
+			</div>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
-			<label for="email">E-mail</label>
-			<input type="email" class="form-control" name="email">
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="municipio">Municipio</label>
+				<input type="text" class="form-control" name="municipio">
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="colonia">Colonia</label>
+				<input type="text" class="form-control" name="colonia">
+			</div>
 		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="pais">Pais</label>
-			<input type="text" class="form-control" name="pais">
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="localidad">Localidad</label>
+				<input type="text" class="form-control" name="localidad">
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="calle">Calle</label>
+				<input type="text" class="form-control" name="calle">
+			</div>
 		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
-			<label for="municipio">Municipio</label>
-			<input type="text" class="form-control" name="municipio">
+		<div class="row form-group">
+			<div class="col-md-5">
+				<label for="numero_interior">Número int.</label>
+				<input type="text" class="form-control" name="numero_interior">
+			</div>
+			<div class="col-md-6 col-md-offset-1">
+				<label for="numero_exterior">Número ext.</label>
+				<input type="text" class="form-control" name="numero_exterior">
+			</div>
 		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="colonia">Colonia</label>
-			<input type="text" class="form-control" name="colonia">
-		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
-			<label for="localidad">Localidad</label>
-			<input type="text" class="form-control" name="localidad">
-		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="calle">Calle</label>
-			<input type="text" class="form-control" name="calle">
-		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-5">
-			<label for="numero_interior">Número int.</label>
-			<input type="text" class="form-control" name="numero_interior">
-		</div>
-		<div class="col-md-6 col-md-offset-1">
-			<label for="numero_exterior">Número ext.</label>
-			<input type="text" class="form-control" name="numero_exterior">
-		</div>
-	</div>
-	<div class="row form-group">
-		<div class="col-md-6 col-md-offset-5">
-			<button class="btn btn-primary" id="btnGuardar">Guardar</button>
-			<input type="hidden" name="guardar" id="guardar">
+		<div class="row form-group">
+			<div class="col-md-6 col-md-offset-5">
+				<button class="btn btn-primary" id="btnGuardar">Guardar</button>
+				<input type="hidden" name="guardar" id="guardar">
+			</div>
 		</div>
 	</div>
 </form>

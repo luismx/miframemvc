@@ -27,6 +27,14 @@ class indexModel extends Model {
 		}
 	}
 
+	public function getUsuario($usuario, $tipo) {
+		$data          = array('TABLE' => 'usuarios', 'COLUMNS' => 'id', 'WHERE' => "usuario = '$usuario' AND id_tipo = '$tipo' AND id <> " .Session::get('usuario', 'id'));
+		$select        = $this->_dbf->get_select_query($data);
+		$q             = $this->_db->query($select);
+		return $result = $q->fetch(PDO::FETCH_ASSOC);
+
+	}
+
 	public function updateSession($id) {
 		$datos = $this->getDatosUsuario($id);
 		if ($datos) {

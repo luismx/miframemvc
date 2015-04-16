@@ -29,37 +29,25 @@ class Session {
 	}
 
 	public static function get($clave1, $clave2 = false) {
-		if (isset($_SESSION[$clave1][$clave2])) {
-			return $_SESSION[$clave1][$clave2];
-		} elseif (isset($_SESSION[$clave1])) {
-			return $_SESSION[$clave1];
+		if (isset($clave2)) {
+			if (isset($_SESSION[$clave1][$clave2])) {
+				return $_SESSION[$clave1][$clave2];
+			}
+		} else {
+			if (isset($_SESSION[$clave1])) {
+				return $_SESSION[$clave1];
+			}
 		}
 	}
 
 	public static function acceso($level) {
-		if (!Session::get('autenticado')) {
-			header('location:'.BASE_URL.'error/e404');
-			exit;
-
+		if (!self::get('usuario', 'id_tipo')) {
+			header('location:'.BASE_URL.'error/_404');
 		} else {
-			if (Session::getLevel() < $level) {
-				header('location:'.BASE_URL.'error/e403');
+			if ($level > self::get('usuario', 'id_tipo')) {
+				header('location:'.BASE_URL.'error/_403');
 			}
 		}
-
-		/*
-	if(!Session::get('autenticado')){
-	header('location:' . BASE_URL);
-	exit;
-	}
-
-	Session::tiempo();
-
-	if(Session::getLevel($level) > Session::getLevel(Session::get('level'))){
-	header('location:' . BASE_URL . 'error/access/5050');
-	exit;
-	}
-	 */
 	}
 
 	public static function accesoView($level) {

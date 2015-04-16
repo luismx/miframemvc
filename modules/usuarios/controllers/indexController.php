@@ -57,49 +57,50 @@ class indexController extends usuariosController {
 		if (is_array($post) and count($post) > 0) {
 			$columnas = $this->_modelo->getCampos($tabla);
 			if ($columnas) {
-				if (isset($_FILES)) {
-					if ($_FILES['img']['name'] != "") {
-						$nombre = $post['rfc'].'_'.$post['usuario'];
-						$img    = $this->guardarImagen($nombre);
-						if ($img) {
-							$this->_modelo->updateColumna('usuarios', 'img', $nombre.'.png', $id);
-						} else {
-
-							$this->_view->errores['img'] = "Error...";
-						}
-					}
-				}
-
 				foreach ($columnas as $llaveColumna => $valorColumna) {
-					foreach ($post as $llavePost       => $valorPost) {
+					$actualizado = "";
+					foreach ($post as $llavePost => $valorPost) {
 						if ($valorPost != "" and $llavePost == $llaveColumna) {
 							if ($llavePost == 'clave') {
-								$this->_modelo->updateColumna('usuarios', 'clave', $this->_funciones->gethash('sha1', $valorPost, HASH_KEY), $id);
+								$actualizado = $this->_modelo->updateColumna('usuarios', 'clave', $this->_funciones->gethash('sha1', $valorPost, HASH_KEY), $id);
+							} elseif ($llavePost == 'usuario') {
+								$exite = $this->_modelo->getUsuario($valorPost, Session::get('usuario', 'id_tipo'));
+								if (!$exite) {
+									$actualizado = $this->_modelo->updateColumna('usuarios', 'usuario', $valorPost, $id);
+								}
 							} elseif ($llavePost == 'fecha_nacimiento') {
-								$this->_modelo->updateColumna('usuarios', 'fecha_nacimiento', $this->_funciones->cambiarFecha($valorPost, 'db'), $id);
+								$actualizado = $this->_modelo->updateColumna('usuarios', 'fecha_nacimiento', $this->_funciones->cambiarFecha($valorPost, 'db'), $id);
 							} elseif ($llavePost == 'email') {
 								$email = $this->_funciones->validarEmail($valorPost);
-								if ($email) {
-									$this->_modelo->updateColumna('usuarios', 'email', $valorPost, $id);
-								} else {
 
+								if ($email) {
+									$actualizado = $this->_modelo->updateColumna('usuarios', 'email', $valorPost, $id);
+								} else {
 									$this->_view->errores[$llavePost] = "Email inválido";
 								}
 							} else {
-
 								$actualizado = $this->_modelo->updateColumna('usuarios', $llavePost, $valorPost, $id);
 							}
-
 							if (!$actualizado) {
 								$this->_view->errores[$llavePost] = "Error $llavePost, verifique su información";
 							}
 						}
 					}
-
 				}
 			}
 
 			$this->_modelo->updateSession($id);
+
+			if (isset($_FILES['img']) and $_FILES['img']['name'] != "") {
+				$nombre = Session::get('usuario', 'rfc').Session::get('usuario', 'usuario').Session::get('usuario', 'id_tipo');
+				$img    = $this->guardarImagen($nombre);
+				if ($img) {
+					$this->_modelo->updateColumna('usuarios', 'img', $nombre.'.png', $id);
+				} else {
+					$this->_view->errores['img'] = "Error en la imagen";
+				}
+			}
+
 			if (count($errores) > 0) {
 				return var_dump($errores);
 			} else {
@@ -110,8 +111,8 @@ class indexController extends usuariosController {
 	}
 
 	public function guardarImagen($nombre) {
-		if (isset($_FILES) and $_FILES['img']['name'] != "") {
-			echo $img = $this->_funciones->recortarImagen('img', $nombre, '100', '70');
+		if (isset($_FILES) and count($_FILES) > 0) {
+			return $this->_funciones->recortarImagen('img', $nombre, '80', '50');
 		}
 	}
 }

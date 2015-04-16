@@ -66,9 +66,8 @@ class Funciones {
 	public static function recortarImagen($nombre, $nuevoNombre, $x, $y) {
 		include_once 'libs/upload/class.upload.php';
 
-		if (count($_FILES[$nombre]['name']) > 0) {
+		if (isset($_FILES[$nombre])) {
 			$handle = new upload($_FILES[$nombre]);
-
 			if ($handle->uploaded) {
 				$handle->file_new_name_body = $nuevoNombre;
 				$handle->image_resize       = true;
@@ -76,21 +75,22 @@ class Funciones {
 				$handle->file_new_name_ext  = 'png';
 				$handle->image_x            = $x;
 				$handle->image_y            = $y;
-				$handle->image_ratio_y      = true;
 				$handle->process(ROOT.'modules/usuarios/views/index/img/');
-
 				if ($handle->processed) {
-					echo $handle->clean();
-					echo "exito";
+					$handle->clean();
+					return true;
 				} else {
-					echo $handle->error;
-					echo "Error al subir la imagen";
+					return false;
 				}
 			} else {
-
 				echo "Ninguna imagen";
 			}
 		}
 	}
+
+	public static function redireccionarInicio() {
+		if (isset($_SESSION) and count($_SESSION) > 0) {} else {header('location:'.BASE_URL);}
+	}
 }
+
 ?>

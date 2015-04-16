@@ -105,6 +105,7 @@ function fechaNacimiento(name){
 	$("input[name='"+name+"']").datepicker();
 }
 
+
 $(document).ready(function(){
 	$('#pass, #claveUsuario').val();
 	$('#btnLogin').click(function(e){
@@ -115,5 +116,18 @@ $(document).ready(function(){
 	$('#btnRegistrar').click(function(e) {
 		e.preventDefault();
 		registroForm();
+	});
+
+	$('.nextInput').keyup(function(e) {
+		if (e.which == 13) {
+			 var index = $('.nextInput').index(this) + 1;
+			$('.nextInput').eq(index).focus();
+		}
+	});
+
+	$('#claveUsuario').keyup(function(e) {
+		if (e.which == 13) {
+			loginForm();
+		}
 	});
 });

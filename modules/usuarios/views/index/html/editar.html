@@ -4,11 +4,9 @@ $nivel = 1;
 if (isset($this->datosUsuario)) {
     $miVariable = $this->_req->getArgs();
     if (isset($this->errores) and count($this->errores) > 0) {
-        print "<div>";
         foreach ($this->errores as $key => $value) {
-            echo "<pre>$value</pre>";
+            echo "<div class='alert alert-warning' role='alert'>$value</div>";
         }
-        print "</div>";
     }
 
     elseif (isset($this->mensaje)) {
@@ -18,12 +16,8 @@ if (isset($this->datosUsuario)) {
 <form action="<?php print BASE_URL?>usuarios/index/editar/<?php print $miVariable[0]?>" method="post" enctype="multipart/form-data">
     <div class="body">
         <div class="row form-group">
-            <div class="col-md-2 col-md-offset-1"><label><input type="file" name="img" value=""></label></div>
-            <div class="col-md-3"><?php
-            if (Session::get('usuario','img')) {
-            	?><img src="<?php print BASE_URL?>modules/usuarios/views/index/img/<?php print $this->datosUsuario['img']?>" class="img-thumbnail"><?php 
-            }
-            ?></div>
+            <div class="col-md-2 col-md-offset-1"><label><input type="file" name="img"></label></div>
+            <div class="col-md-3"></div>
             <div class="col-md-offset-6"></div>
         </div>
         <div class="row form-group">
@@ -51,19 +45,19 @@ if (isset($this->datosUsuario)) {
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nacimiento</label></div>
-            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true" value="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
+            <div class="col-md-3"><input class="form-control" name="fecha_nacimiento" readonly="true" placeholder="<?php print $this->datosUsuario['fecha_nacimiento']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="nombre">E-mail</label></div>
             <div class="col-md-3"><input class="form-control" type="text" name="email" placeholder="<?php print $this->datosUsuario['email']?>"></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>Nombre de usuario</label></div>
-            <div class="col-md-3"><input class="form-control" name="usuario" value="<?php print $this->datosUsuario['usuario']?>"></div>
+            <div class="col-md-3"><input class="form-control" name="usuario" placeholder="<?php print $this->datosUsuario['usuario']?>"></div>
             <div class="col-md-2 col-md-offset-1"><label for="clave">Contraseña</label></div>
-            <div class="col-md-3"><input class="form-control" type="password" name="clave" ></div>
+            <div class="col-md-3"><input class="form-control" type="text" name="clave" ></div>
         </div>
         <div class="row form-group">
             <div class="col-md-2 col-md-offset-1"><label>RFC</label></div>
-            <div class="col-md-3"><input class="form-control" name="rfc" value="<?php print $this->datosUsuario['rfc']?>"></div>
+            <div class="col-md-3"><input class="form-control" name="rfc" placeholder="<?php print $this->datosUsuario['rfc']?>"></div>
         </div>
         <div class="row">
             <p>
@@ -79,8 +73,8 @@ if (isset($this->datosUsuario)) {
 </form>
 <script>
     $(document).ready(function() {
-        var fecha = $("input[name='fecha_nacimiento']").val();
-        $("input[name='fecha_nacimiento']").val(cambiarFecha(fecha,'es'));
+        var fecha = $("input[name='fecha_nacimiento']").attr('placeholder');
+        $("input[name='fecha_nacimiento']").attr('placeholder', cambiarFecha(fecha,'es'));
 
         $('#btnGuardar').click(function(e) {
             $('#guardar').val(1);
