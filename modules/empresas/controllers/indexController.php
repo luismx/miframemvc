@@ -13,6 +13,7 @@ class indexController extends empresasController {
 	}
 
 	public function index() {
+		echo $this->_funciones->getPaises('text', 50);
 		$this->_view->empresas = $this->generarthEmpresas();
 		$this->_view->renderizar('index');
 	}
@@ -59,6 +60,40 @@ class indexController extends empresasController {
 		}
 	}
 
+	public function getEmpresasValidas() {
+		$empresas = $this->_modelo->generarthEmpresas();
+
+		if (is_array($empresas) and count($empresas) > 0) {
+			$i = 1;
+			foreach ($empresas as $row) {
+				if ($row[5] == 0) {
+					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
+				} else {
+					$arr[] = "<tr><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button type='button' class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></tr>";
+				}
+
+				$i++;
+			}
+
+			return $arr;
+		}
+	}
+
+	/**
+	 * *
+	 * ajax
+	 * @return String realiza un ajax para activar/desactivar las empresas del usuario, buscar rfc
+	 */
+
+	public function getRfc($rfc) {
+		$valido = $this->_dbf->validarRfc($rfc);
+		if ($valido) {
+			$this->_modelo->getRfc($rfc);
+		} else {
+			return 0;
+		}
+	}
+
 	public function editar() {
 		if (isset($_POST['id'])) {
 			echo "Empresa editada.";
@@ -79,28 +114,7 @@ class indexController extends empresasController {
 		}
 	}
 
-	public function buscar($rfc) {
-		$this->_funciones->validarRfc($rfc);
-
+	public function buscarEmpresa($rfc) {
+		$existe = $this->_funciones->validarRfc($rfc);
 	}
-
-	public function getEmpresasValidas() {
-		$empresas = $this->_modelo->generarthEmpresas();
-
-		if (is_array($empresas) and count($empresas) > 0) {
-			$i = 1;
-			foreach ($empresas as $row) {
-				if ($row[5] == 0) {
-					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
-				} else {
-					$arr[] = "<tr><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button type='button' class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></tr>";
-				}
-
-				$i++;
-			}
-
-			return $arr;
-		}
-	}
-
 }
