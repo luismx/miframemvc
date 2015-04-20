@@ -1,7 +1,7 @@
 <?php
 
-/*
- * @Dev Luis Perera
+/**
+ * @author Luis Antonio Perera <luanup.pro@gmail.com>
  */
 
 class indexModel extends Model {
@@ -40,6 +40,15 @@ class indexModel extends Model {
 	}
 
 	public function getRfc($rfc) {
-		$this->_dbf
+		$data        = array("TABLE" => 'empresas', 'COLUMNS' => 'rfc', 'WHERE' => "rfc='$rfc' AND id_padre = 0");
+		echo $select = $this->_db->get_select_query($data);
+		$q           = $this->_db->query($select);
+
+		if ($q->fetch(PDO::FETCH_NUM) > 0) {
+			var_dump($q->fetch());
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

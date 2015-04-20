@@ -15,6 +15,21 @@
 	<script src="<?php print $_layoutArr['theme_js']?>jquery-ui.min.js"></script>
 	<script src="<?php print $_layoutArr['theme_js']?>bootstrap.min.js"></script>
 	<script src="<?php print BASE_URL?>modules/views/default/js/principal.js"></script>
+	<?php
+		
+	if (is_dir($this->_rutas['js'])) {
+		if ($dir = opendir($this->_rutas['js'])) {
+			while (false !== ($archivo = readdir($dir))) {
+				if (is_readable($archivo)) {
+					?>
+					<script src="<?php $archivo?>"></script>
+					<?php
+				}
+				
+			}
+		}
+	}
+	?>
 </head>
 <body>
 	<nav class="navbar navbar-inverse">
@@ -117,4 +132,4 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12">
-						<legend>Hola</legend>
+						<legend></legend>

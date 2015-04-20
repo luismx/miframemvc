@@ -91,6 +91,42 @@ class Funciones {
 	public static function redireccionarInicio() {
 		if (isset($_SESSION) and count($_SESSION) > 0) {} else {header('location:'.BASE_URL);}
 	}
+
+	public static function getPaises($tipo = false, $item = false) {
+		$fila = 0;
+
+		if (($gestor = fopen("utilities/paises.csv", "r")) !== FALSE) {
+			if ($tipo == "text") {
+				while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+					$numero = count($datos);
+					if ($fila > 0) {
+						if ($datos[0] == $item) {
+							return $datos[3];
+						}
+					}
+
+					$fila++;
+				}
+				fclose($gestor);
+			} elseif ($tipo == "select") {
+				$options = '<option value="0">Elige...</option>';
+				while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
+					$numero = count($datos);
+					if ($fila > 0) {
+						if ($item) {$selected = "selected";
+						} else {
+							$selected = "";
+						}
+
+						$options .= "<option value=".$datos[0]." $selected>" .$datos[3]."</option>";
+					}
+
+					$fila++;
+				}
+				fclose($gestor);
+			}
+		}
+	}
 }
 
 ?>

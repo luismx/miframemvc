@@ -88,9 +88,10 @@ class indexController extends empresasController {
 	public function getRfc($rfc) {
 		$valido = $this->_dbf->validarRfc($rfc);
 		if ($valido) {
-			$this->_modelo->getRfc($rfc);
+			$rfc = $this->_modelo->getRfc($rfc);
+
 		} else {
-			return 0;
+			return $this->_view->mensaje = "<div class='alert alert-warning' role='alert'>RFC no válido, veerifique su información</div>";
 		}
 	}
 
