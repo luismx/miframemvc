@@ -16,16 +16,12 @@
 	<script src="<?php print $_layoutArr['theme_js']?>bootstrap.min.js"></script>
 	<script src="<?php print BASE_URL?>modules/views/default/js/principal.js"></script>
 	<?php
-		
 	if (is_dir($this->_rutas['js'])) {
 		if ($dir = opendir($this->_rutas['js'])) {
-			while (false !== ($archivo = readdir($dir))) {
-				if (is_readable($archivo)) {
-					?>
-					<script src="<?php $archivo?>"></script>
-					<?php
+			while ($archivo = readdir($dir)) {
+				if (!is_dir($archivo)) {
+					echo '<script src="'.BASE_URL.$this->_rutas['js'].$archivo.'"></script>';
 				}
-				
 			}
 		}
 	}

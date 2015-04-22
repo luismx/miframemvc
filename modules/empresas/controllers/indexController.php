@@ -13,7 +13,7 @@ class indexController extends empresasController {
 	}
 
 	public function index() {
-		echo $this->_funciones->getPaises('text', 50);
+
 		$this->_view->empresas = $this->generarthEmpresas();
 		$this->_view->renderizar('index');
 	}
@@ -31,10 +31,6 @@ class indexController extends empresasController {
 		$this->_funciones->clean($post);
 
 		$columnas = $this->_modelo->getColumnas('empresas');
-
-		if (is_array($columnas) and count($columnas) > 0) {
-
-		}
 
 		if (count($errores) > 0) {
 			return $errores;
@@ -85,13 +81,20 @@ class indexController extends empresasController {
 	 * @return String realiza un ajax para activar/desactivar las empresas del usuario, buscar rfc
 	 */
 
-	public function getRfc($rfc) {
-		$valido = $this->_dbf->validarRfc($rfc);
-		if ($valido) {
-			$rfc = $this->_modelo->getRfc($rfc);
-
-		} else {
-			return $this->_view->mensaje = "<div class='alert alert-warning' role='alert'>RFC no válido, veerifique su información</div>";
+	public function getRfc() {
+		if (isset($_POST['rfc'])) {
+			$post   = $this->_funciones->quitarEspacios($_POST['rfc']);
+			$valido = $this->_funciones->validarRfc($post);
+			if ($valido) {
+				echo $rfc = $this->_modelo->getRfc($post);
+				if (is_array($rfc) and count($rfc) > 0) {
+					foreach ($rfc as $row) {
+						echo "$row";
+					}
+				}
+			} else {
+				echo 0;
+			}
 		}
 	}
 

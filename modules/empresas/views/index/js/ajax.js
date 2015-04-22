@@ -15,8 +15,6 @@ function modificarEmpresa(arreglo){
 	}
 }
 
-
-
 $(document).ready(function() {
 	$('.editar').click(function(event) {
 		var id = $(this).attr('valor');
@@ -37,14 +35,18 @@ $(document).ready(function() {
 		jsDialogoFuncion('dialogo','¿Está seguro de desactivar esta empresa?','Desactivar',modificarEmpresa,arr,'Aceptar','Cancelar');
 	});
 
-	$("#buscarEmpresa").click(function(e) {
-		//e.preventDefault();
-		//alert("hola");
-		if ($('#miRfc').text() != "") {
-			$.post('empresas/index/getRfc', {rfc: $('#miRfc').val()}, function(data, textStatus, xhr) {
-				alert(data);
-				console.log("Hola");
+	$("#buscarEmpresa").click(function(event) {
+		
+		if ($('#miRfc').val() != "") {
+			$.post('getRfc', {rfc:$('#miRfc').val()}, function(data) {
+				if (data == 0) {
+					$('#mensaje').html("<div class='alert alert-warning' role='alert'>RFC no válido, verifique su información</div>");
+				}
+				else{
+					console.log(data);
+				}
 			});
+			
 		}
 	});
 });

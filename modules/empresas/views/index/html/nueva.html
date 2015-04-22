@@ -2,8 +2,8 @@
 	<div class="row form-group">
 		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15"></div>
 		<div class="col-md-2 col-xs-12"><input type="button" id="buscarEmpresa" class="btn btn-primary" value="Buscar empresa"></div>
-		<div class="col-md-7 col-xs-12">
-			
+		<div class="col-md-7 col-xs-12" id="mensaje">
+			<?php if (isset($this->mensaje)) print $this->mensaje;?>
 		</div>
 	</div>	
 	<div id="campos" style="display:none">

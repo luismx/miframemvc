@@ -1,15 +1,25 @@
 <?php
 class Funciones {
+	/**
+	 * @method funciones para manipular datos GET/POST
+	 */
 	public static function clean($str) {$miVar = htmlentities(strip_tags($str), ENT_QUOTES);
 		return extract(array_map('clean', $miVar));
 	}
-	#resolver porque no puedo llamar la funcion clean desde aqui para ser usado en todo el sistema
+
+	/**
+	 * @method funciones de encriptacion
+	 */
 	public static function getHash($algoritmo, $dato, $llave) {
 		$hash = hash_init($algoritmo, HASH_HMAC, $llave);
 		hash_update($hash, $dato);
 
 		return hash_final($hash);
 	}
+
+	/**
+	 * @method funciones de paso a páginas
+	 */
 
 	public static function redireccionar($ruta = false) {
 		if ($ruta) {
@@ -19,6 +29,13 @@ class Funciones {
 		}
 	}
 
+	public static function redireccionarInicio() {
+		if (isset($_SESSION) and count($_SESSION) > 0) {} else {header('location:'.BASE_URL);}
+	}
+
+	/**
+	 * @method funciones de string
+	 */
 	public static function validarRfc($rfc) {
 		$rfcUsuario  = $rfc;
 		$cuartoValor = substr($rfc, 3, 1);
@@ -52,6 +69,13 @@ class Funciones {
 		}
 	}
 
+	public static function quitarEspacios($texto) {
+		return preg_replace('/\s+/', '', $texto);
+	}
+
+	/**
+	 * method funciones para manipular fechas
+	 */
 	public static function cambiarFecha($fecha, $lang) {
 		$fecha = str_replace('/', '-', $fecha);
 		if ($lang == 'db') {
@@ -63,6 +87,9 @@ class Funciones {
 		}
 	}
 
+	/**
+	 * @method funciones para manipular imagenes
+	 */
 	public static function recortarImagen($nombre, $nuevoNombre, $x, $y) {
 		include_once 'libs/upload/class.upload.php';
 
@@ -88,10 +115,9 @@ class Funciones {
 		}
 	}
 
-	public static function redireccionarInicio() {
-		if (isset($_SESSION) and count($_SESSION) > 0) {} else {header('location:'.BASE_URL);}
-	}
-
+	/**
+	 * @method funciones para manipular archivos externos como csv/txt
+	 */
 	public static function getPaises($tipo = false, $item = false) {
 		$fila = 0;
 

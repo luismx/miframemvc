@@ -19,12 +19,12 @@ class View {
 			$this->_rutas['header'] = ROOT.'modules'.DS.'views'.DS.'default'.DS.'header.html';
 			$this->_rutas['view']   = ROOT.'modules'.DS.$modulo.DS.'views'.DS.$controlador.DS.'html'.DS;
 			$this->_rutas['footer'] = ROOT.'modules'.DS.'views'.DS.'default'.DS.'footer.html';
-			$this->_rutas['js']     = ROOT.'modules/'.$modulo.'/views/'.$controlador.'/js/';
+			$this->_rutas['js']     = 'modules/'.$modulo.'/views/'.$controlador.'/js/';
 		} else {
 			$this->_rutas['header'] = ROOT.'views'.DS.'default'.DS.'header.html';
 			$this->_rutas['view']   = ROOT.'views'.DS.$controlador.DS.'html'.DS;
 			$this->_rutas['footer'] = ROOT.'views'.DS.'default'.DS.'footer.html';
-			$this->_rutas['js']     = ROOT.'views/'.$controlador.'/js/';
+			$this->_rutas['js']     = 'views/'.$controlador.'/js/';
 		}
 
 		$this->_js = $this->_rutas['js'];
@@ -36,22 +36,6 @@ class View {
 			'theme_js'  => DEFAULT_THEME.'js/',
 			'img'       => BASE_URL.'views/'.$this->_controlador.'/img/',
 		);
-
-		/*if (is_dir($this->_rutas['js'])) {
-		echo "is_dir";
-		if ($dir = opendir($this->_rutas['js'])) {
-		while (($file = readdir($dir)) !== false) {
-		echo $file;
-		$this->_js[] = $this->_rutas['js'].$file;
-		if (!is_dir($file)) {
-
-		}
-		}
-		} else {
-
-		echo "No openddir";
-		}
-		}*/
 
 		if (is_readable($this->_rutas['view'].$vista.'.html')) {
 			if ($this->_controlador == "error") {
