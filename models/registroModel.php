@@ -5,8 +5,13 @@ class registroModel extends Model {
 	}
 
 	public function getTipos() {
-		$data   = array('TABLE' => 'tipos', 'COLUMNS' => '*');
+		$select = "SELECT * FROM tipos";
+		$data   = array();
+		$q      = $this->_dbf->q($select, $data);
+
+		/*
 		$select = $this->_dbf->get_select_query($data);
+		$data   = array('TABLE' => 'tipos', 'COLUMNS' => '*');*/
 		$q      = $this->_db->query($select);
 		$string = "<option value='0'>Elige...</option>";
 

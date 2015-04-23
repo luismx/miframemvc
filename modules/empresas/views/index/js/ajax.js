@@ -39,7 +39,7 @@ $(document).ready(function() {
 		
 		if ($('#miRfc').val() != "") {
 			$.post('getRfc', {rfc:$('#miRfc').val()}, function(data) {
-				if (data == 0) {
+				if (data == '0') {
 					$('#mensaje').html("<div class='alert alert-warning' role='alert'>RFC no válido, verifique su información</div>");
 				}
 				else{

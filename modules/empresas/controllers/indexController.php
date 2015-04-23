@@ -86,7 +86,7 @@ class indexController extends empresasController {
 			$post   = $this->_funciones->quitarEspacios($_POST['rfc']);
 			$valido = $this->_funciones->validarRfc($post);
 			if ($valido) {
-				echo $rfc = $this->_modelo->getRfc($post);
+				$rfc = $this->_modelo->getRfc($post);
 				if (is_array($rfc) and count($rfc) > 0) {
 					foreach ($rfc as $row) {
 						echo "$row";

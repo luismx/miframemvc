@@ -40,8 +40,7 @@ class indexModel extends Model {
 		$data   = array("TABLE" => 'empresas', 'COLUMNS' => '*', 'WHERE' => "rfc='$rfc' AND id_padre = 0");
 		$select = $this->_dbf->get_select_query($data);
 		$q      = $this->_db->query($select);
-
-		if ($q->fetch() > 0) {
+		if ($q->fetchColumn() > 0) {
 			foreach ($q as $row) {
 				var_dump($row);
 			}
