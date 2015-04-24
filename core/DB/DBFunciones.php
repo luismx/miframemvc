@@ -71,10 +71,6 @@ class DBFunciones {
 
 	/**
 	 * Funciones SQL
-	 * @param  [type] $tabla   [description]
-	 * @param  [type] $columna [description]
-	 * @param  [type] $id      [description]
-	 * @return [type]          [description]
 	 */
 	public static function q($consulta, $valores = array()) {
 		$this->_stmt = $this->_conn->prepare($consulta);
@@ -85,7 +81,7 @@ class DBFunciones {
 		$this->_conn = NULL;
 	}
 
-	public function sql_get_list() {
+	public static function sql_get_list() {
 		$arr = array();
 		while ($row = $this->_stmt->fetch(PDO::FETCH_ASSOC)) {
 			$arr[] = $row;
