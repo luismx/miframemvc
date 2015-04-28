@@ -36,26 +36,18 @@ class indexModel extends Model {
 	}
 
 	public function getColumna($tabla, $columna, $id) {
-		//return $this->_dbf->sql_get_columna($tabla, $columna, $id);
-
-		$select = "SELECT $columna FROM $tabla WHERE id = :id";
-		$data   = array(':id' => $id);
-		$this->_dbf->q($select, $data);
+		$this->_dbf->select_query($tabla, array($columna), array('id' => '='));
 		return $this->_dbf->sql_get_list();
 	}
 
 	public function updateColumna($tabla, $columna, $valor, $id) {
-		$this->_dbf->insert_query($tabla, array($columna => '='), array('id'), '', array($valor, $id));
+		$this->_dbf->update_query($tabla, array($columna => '='), array('id' => '='), '', array($valor, $id));
 		return $this->_dbf->sql_get_list();
 	}
 
 	public function getTipos() {
-		//return $this->_dbf->sql_get_select('tipos', 'nombre', 'id != 4');
-		$select = "SELECT id, nombre FROM tipos WHERE id =! :id";
-		$data   = array(':id' => 4);
-		$this->_dbf->q($select, $data);
+		$this->_dbf->select_query('tipos', array('id', 'nombre'), array('id' => '!='), array(4));
 		return $this->_dbf->sql_get_list();
-
 	}
 }
 ?>
