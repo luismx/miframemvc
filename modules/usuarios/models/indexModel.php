@@ -9,33 +9,19 @@ class indexModel extends Model {
 	}
 
 	public function getCampos($tabla) {
-		$select = "SELECT FROM $tabla WHERE WHERE id > 0 LIMIT 1";
-		$data   = array();
-		$q      = $this->_dbf->q($select, $data);
-		/*$data   = array('TABLE' => $tabla, 'COLUMNS' => '*', 'WHERE' => 'id > 0 LIMIT 1');
-		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);*/
-		return $q->fetch(PDO::FETCH_ASSOC);
+		$this->_dbf->select_query($tabla, array('*'), array('id' => '>'), 'LIMIT 1', array(0));
+		$this->_dbf->sql_get_list();
 	}
 
 	public function getDatosUsuario($id) {
-		$data   = array('TABLE' => 'usuarios', 'COLUMNS' => '*', 'WHERE' => 'id = '.$id);
-		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);
-		if ($q) {
-			foreach ($q->fetch(PDO::FETCH_ASSOC) as $llave => $valor) {
-				$datos[$llave] = $valor;
-			}
-			return $datos;
-		}
+		$this->_dbf->select_query('usuarios', array('*'), array('id' => '='), '', array($id));
+		return $this->_dbf->sql_get_list();
+
 	}
 
 	public function getUsuario($usuario, $tipo) {
-		$data          = array('TABLE' => 'usuarios', 'COLUMNS' => 'id', 'WHERE' => "usuario = '$usuario' AND id_tipo = '$tipo' AND id <> " .Session::get('usuario', 'id'));
-		$select        = $this->_dbf->get_select_query($data);
-		$q             = $this->_db->query($select);
-		return $result = $q->fetch(PDO::FETCH_ASSOC);
-
+		$this->_dbf->select_query('usuarios', array('id'), array('usuario' => '=', 'id_tipo' => '=', 'id' => '<>'), '', array($usuario, $tipo, Session::get('usuario', 'id')));
+		return $this->_dbf->sql_get_list();
 	}
 
 	public function updateSession($id) {
@@ -59,9 +45,7 @@ class indexModel extends Model {
 	}
 
 	public function updateColumna($tabla, $columna, $valor, $id) {
-		$select = "UPDATE $tabla SET $columna = :valor WHERE id = :id";
-		$data   = array(':valor' => $valor, ':id' => $id);
-		$this->_dbf->q($select, $data);
+		$this->_dbf->insert_query($tabla, array($columna => '='), array('id'), '', array($valor, $id));
 		return $this->_dbf->sql_get_list();
 	}
 

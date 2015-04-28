@@ -13,7 +13,6 @@ class indexController extends empresasController {
 	}
 
 	public function index() {
-		var_dump($_SESSION);
 		$this->_view->empresas = $this->generarthEmpresas();
 		$this->_view->renderizar('index');
 	}

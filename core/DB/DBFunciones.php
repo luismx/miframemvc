@@ -7,14 +7,12 @@ class DBFunciones {
 	private $_numRows;
 	private $_error;
 
-	function __construct() {
-		$this->_conn = new Conexion();
-	}
-
 	public function q($consulta, $valores = array()) {
+		$this->_conn = new Conexion();
 		$this->_stmt = $this->_conn->prepare($consulta);
 		$this->_stmt->execute($valores);
 		$this->check_query();
+		$this->_conn = NULL;
 	}
 
 	public function get_num_rows() {
@@ -57,77 +55,100 @@ class DBFunciones {
 			$arr[] = $row;
 		}
 
-		return $arr;
+		$datos = array_pop($arr);
+
+		return $datos;
 	}
 
-	/*public static function get_json_query() {
-	return json_encode($this->sql_rows());
+	public function select_query($tabla, $columna = array(), $where = array(), $extra = null, $data = array()) {
+		$arr    = array();
+		$select = "SELECT ";
+
+		for ($i = 0; $i < count($columna); $i++) {
+			if ($i == 0) {
+				$select .= $columna[$i];
+			} else {
+				$select .= ", ".$columna[$i];
+			}
+		}
+		$select .= " FROM $tabla ";
+
+		if (count($where) > 0) {
+			$select .= " WHERE ";
+			$i = 0;
+			foreach ($where as $key => $value) {
+				if ($i == 0) {
+					$select .= "$key $value :$key";
+				} else {
+					$select .= " AND $key $value :$key";
+				}
+
+				$arr[':'.$key] = $data[$i];
+			}
+		}
+
+		$select .= " $extra";
+
+		$this->q($select, $arr);
 	}
 
-	public static function get_insert_query($p) {
-	$data = array($p['TABLE'], $p['COLUMNS'], $p['VALUES']);
-	return vsprintf("INSERT INTO %s (%s) VALUES (%s)", $data);
+	public function update_query($tabla, $columna = array(), $where = array(), $extra = null, $data = array()) {
+		$arr    = array();
+		$update = "UPDATE $tabla SET ";
+		$i      = 0;
+		foreach ($columna as $key => $value) {
+			if ($i == 0) {
+				$update .= "$key $value :$key";
+			} else {
+				$update .= ", $key $value :$key";
+			}
+
+			$arr[":".$key] = $data[$i];
+			$i++;
+		}
+		$i = 0;
+		$update .= " WHERE ";
+		foreach ($where as $key => $value) {
+			if ($i == 0) {
+				$update .= "$key $value :$key";
+			} else {
+				$update .= ", $key $value :$key";
+			}
+
+			$arr[":".$key] = $data[$i];
+			$i++;
+		}
+
+		echo $update .= " $extra";
+
+		$this->q($update, $arr);
 	}
 
-	public static function get_update_query($p) {
-	$data = array($p['TABLE'], $p['COLUMNS'], $p['WHERE']);
-	return vsprintf("UPDATE %s SET %s WHERE %s", $data);
+	public function insert_query($tabla, $columna = array()) {
+		$insert = "INSERT INTO $tabla (";
+		$i      = 0;
+		$val    = " VALUES(";
+		$arr    = array();
+		foreach ($columna as $key => $value) {
+			if ($i == 0) {
+				$insert .= "$key";
+				$val .= ":$key";
+			} else {
+				$insert .= ", $key";
+				$val .= ",:$key";
+			}
+
+			$arr[':'.$key] = $value;
+			$i++;
+		}
+		$value .= ")";
+		echo $insert .= ") $value";
+		//$this->q($insert, $arr);
 	}
-
-	public static function get_select_query($p) {
-	if (!isset($p['WHERE'])) {
-	$data = array($p['COLUMNS'], $p['TABLE']);
-	return vsprintf("SELECT %s FROM %s", $data);
-	} else {
-	$data = array($p['COLUMNS'], $p['TABLE'], $p['WHERE']);
-	return vsprintf("SELECT %s FROM %s WHERE %s", $data);
+	public function delete_query($tabla, $columna, $val) {
+		$delete = "DELETE FROM $tabla WHERE $columna = :$columna";
+		$data   = array(":$columna"=> $val);
+		$this->q($delete, $data);
 	}
-	}
-
-	public static function get_delete_query($p) {
-	$data = array($p->table, $p->property_id);
-	return vsprintf("DELETE FROM %s WHERE %s = ?", $data);
-	}*/
-
-	/*
-public function sql_get_columna($tabla, $columna, $id) {
-$data   = array('TABLE' => $tabla, 'COLUMNS' => $columna, 'WHERE' => "id = $id");
-$select = self::get_select_query($data);
-$q      = $this->_conn->query($select);
-if ($q) {
-return $q->fetch(PDO::FETCH_ASSOC);
-}
-}
-
-public function sql_update_columna($tabla, $columna, $valor, $id) {
-$data   = array('TABLE' => $tabla, 'COLUMNS' => "$columna = '$valor'", 'WHERE' => "id = $id");
-$update = self::get_update_query($data);
-$q      = $this->_conn->query($update);
-return $q;
-}
-
-public function sql_get_nombreColumnas($tabla) {
-$select = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$tabla'";
-$q      = $this->_conn->query($select);
-$q->fetch(PDO::FETCH_ASSOC);
-if ($q) {
-foreach ($q as $key => $value) {
-foreach ($value as $llave)
-$columna[] = $llave;
-}
-return array_unique($columna);
-}
-}
-
-
-public function sql_get_menu($idTipo) {
-$arreglo = array();
-$select  = "SELECT * FROM menu WHERE id_tipo <= $idTipo ORDER BY id_tipo";
-if ($q) {
-foreach ($q->fetchAll(PDO::FETCH_ASSOC) as $row) {
-
-}
-}
-}*/
 }
 ?>

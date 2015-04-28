@@ -15,6 +15,7 @@ class indexController extends usuariosController {
 
 	public function index() {
 		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
+		var_dump($this->_view->datosUsuario);
 		$this->_view->renderizar('index');
 	}
 
@@ -39,7 +40,8 @@ class indexController extends usuariosController {
 					$this->_funciones->redireccionar('usuarios');
 				} else {
 					if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
-						$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
+						$datosGuardados = $this->guardar($_POST, 'usuarios', $miVariable[0]);
+
 						$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 					}
 				}
@@ -56,15 +58,20 @@ class indexController extends usuariosController {
 		$errores = array();
 		if (is_array($post) and count($post) > 0) {
 			$columnas = $this->_modelo->getCampos($tabla);
-			if ($columnas) {
+			var_dump($columnas);
+			//$columnas = array_pop($arr);
+
+			if (count($columnas) > 0) {
 				foreach ($columnas as $llaveColumna => $valorColumna) {
 					$actualizado = "";
+
 					foreach ($post as $llavePost => $valorPost) {
 						if ($valorPost != "" and $llavePost == $llaveColumna) {
 							if ($llavePost == 'clave') {
 								$actualizado = $this->_modelo->updateColumna('usuarios', 'clave', $this->_funciones->gethash('sha1', $valorPost, HASH_KEY), $id);
 							} elseif ($llavePost == 'usuario') {
 								$exite = $this->_modelo->getUsuario($valorPost, Session::get('usuario', 'id_tipo'));
+
 								if (!$exite) {
 									$actualizado = $this->_modelo->updateColumna('usuarios', 'usuario', $valorPost, $id);
 								}
