@@ -11,33 +11,53 @@ class DBFunciones {
 		$this->_conn = new Conexion();
 	}
 
+	public function q($consulta, $valores = array()) {
+		$this->_stmt = $this->_conn->prepare($consulta);
+		$this->_stmt->execute($valores);
+		$this->check_query();
+	}
+
+	public function get_num_rows() {
+		return $this->_stmt->fetchColumn();
+	}
+
 	/**
 	 * Funciones GET
 	 * @param  [type] $p [description]
 	 * @return [type]    [description]
 	 */
 
-	public static function get_num_rows() {
-		return $this->_numRows;
-	}
-
-	public static function get_insert_id() {
+	public function get_insert_id() {
 		return $this->_conn->lastInsertId();
 	}
 
 	private function check_query() {
-		$this->_error = $this->stmt->errorInfo();
+		$this->_error = $this->_stmt->errorInfo();
+
 		if (!PRODUCTION) {
-			echo $this->getError();
+			$this->get_error();
 		}
 	}
 
-	private function get_error() {
+	public function get_error() {
 		$e         = array();
 		$e['ref']  = $this->_error[0];
 		$e['code'] = $this->_error[1];
 		$e['desc'] = $this->_error[2];
+
 		return $e;
+	}
+
+	/**
+	 * Funciones SQL
+	 */
+	public function sql_get_list() {
+		$arr = array();
+		while ($row = $this->_stmt->fetch(PDO::FETCH_ASSOC)) {
+			$arr[] = $row;
+		}
+
+		return $arr;
 	}
 
 	/*public static function get_json_query() {
@@ -69,27 +89,6 @@ class DBFunciones {
 	return vsprintf("DELETE FROM %s WHERE %s = ?", $data);
 	}*/
 
-	/**
-	 * Funciones SQL
-	 */
-	public static function q($consulta, $valores = array()) {
-		$this->_stmt = $this->_conn->prepare($consulta);
-		$this->_stmt->execute($valores);
-		$this->checkQuery();
-		$this->_numRows = $this->_stmt->fetchColumn();
-
-		$this->_conn = NULL;
-	}
-
-	public static function sql_get_list() {
-		$arr = array();
-		while ($row = $this->_stmt->fetch(PDO::FETCH_ASSOC)) {
-			$arr[] = $row;
-		}
-
-		return $arr;
-	}
-
 	/*
 public function sql_get_columna($tabla, $columna, $id) {
 $data   = array('TABLE' => $tabla, 'COLUMNS' => $columna, 'WHERE' => "id = $id");
@@ -120,26 +119,6 @@ return array_unique($columna);
 }
 }
 
-public function sql_get_select($tabla, $columna, $where = false, $limit = false) {
-$option = "<option value=''>Elige...</option>";
-if ($where) {
-$where = " WHERE $where";
-}
-
-if ($limit) {
-$limit = " LIMIT $limit";
-}
-
-$select = "SELECT id, $columna FROM $tabla $where ORDER BY $columna ASC $limit";
-$q      = $this->_conn->query($select);
-if ($q) {
-while ($row = $q->fetch(PDO::FETCH_ASSOC)) {
-$option .= "<option value='".$row['id']."'>".$row[$columna]."</option>";
-}
-
-return $option;
-}
-}
 
 public function sql_get_menu($idTipo) {
 $arreglo = array();

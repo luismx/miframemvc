@@ -14,7 +14,6 @@ class indexController extends dashboardController {
 	}
 
 	public function index() {
-		//var_dump($_SESSION);
 		$tipo = Session::get('usuario', 'id_tipo');
 		if (isset($tipo)) {
 			switch ($tipo) {

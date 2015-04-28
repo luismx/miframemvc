@@ -1,6 +1,6 @@
 <?php
 /**
- * Luis Perera
+ * @Dev Luis Perera
  */
 class indexModel extends Model {
 
@@ -9,9 +9,12 @@ class indexModel extends Model {
 	}
 
 	public function getCampos($tabla) {
-		$data   = array('TABLE' => $tabla, 'COLUMNS' => '*', 'WHERE' => 'id > 0 LIMIT 1');
+		$select = "SELECT FROM $tabla WHERE WHERE id > 0 LIMIT 1";
+		$data   = array();
+		$q      = $this->_dbf->q($select, $data);
+		/*$data   = array('TABLE' => $tabla, 'COLUMNS' => '*', 'WHERE' => 'id > 0 LIMIT 1');
 		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);
+		$q      = $this->_db->query($select);*/
 		return $q->fetch(PDO::FETCH_ASSOC);
 	}
 
@@ -47,15 +50,28 @@ class indexModel extends Model {
 	}
 
 	public function getColumna($tabla, $columna, $id) {
-		return $this->_dbf->sql_get_columna($tabla, $columna, $id);
+		//return $this->_dbf->sql_get_columna($tabla, $columna, $id);
+
+		$select = "SELECT $columna FROM $tabla WHERE id = :id";
+		$data   = array(':id' => $id);
+		$this->_dbf->q($select, $data);
+		return $this->_dbf->sql_get_list();
 	}
 
 	public function updateColumna($tabla, $columna, $valor, $id) {
-		return $this->_dbf->sql_update_columna($tabla, $columna, $valor, $id);
+		$select = "UPDATE $tabla SET $columna = :valor WHERE id = :id";
+		$data   = array(':valor' => $valor, ':id' => $id);
+		$this->_dbf->q($select, $data);
+		return $this->_dbf->sql_get_list();
 	}
 
 	public function getTipos() {
-		return $this->_dbf->sql_get_select('tipos', 'nombre', 'id != 4');
+		//return $this->_dbf->sql_get_select('tipos', 'nombre', 'id != 4');
+		$select = "SELECT id, nombre FROM tipos WHERE id =! :id";
+		$data   = array(':id' => 4);
+		$this->_dbf->q($select, $data);
+		return $this->_dbf->sql_get_list();
+
 	}
 }
 ?>

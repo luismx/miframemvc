@@ -7,7 +7,6 @@ class indexController extends Controller {
 	}
 
 	public function index() {
-		var_dump($_SESSION);
 		if (isset($_POST['sesion']) and $_POST['sesion'] == 1) {
 			$error = $this->login();
 			if ($error) {
@@ -25,20 +24,20 @@ class indexController extends Controller {
 		extract(array_map('clean', $_POST));
 
 		$hash   = $this->_funciones->getHash('sha1', $claveUsuario, HASH_KEY);
-		$select = "SELECT * FROM usuarios WHERE id_tipo = : id_tipo AND usuario = :nombre AND clave = :hash";
-		$data   = array(':id_tipo' => $tipoUsuario, ':nombre' => $nombreUsuario, ':clave' => $hash);
+		$select = "SELECT * FROM usuarios WHERE id_tipo = :id_tipo AND usuario = :nombre AND clave = :hash";
+		$data   = array(':id_tipo' => $tipoUsuario, ':nombre' => $nombreUsuario, ':hash' => $hash);
 		$datos  = $this->_modelo->getDatosUsuario($select, $data);
 
-		if ($datos) {
+		if (count($datos) > 0) {
 			$update = $this->_modelo->setDato('session_id', session_id(), $datos['id']);
 
 			if ($update) {
 				$sesion = $this->guardarSesion($datos);
+
 				if ($sesion) {
 					if ($datos['status'] == 1) {
 						$this->_funciones->redireccionar('dashboard');
 					} else {
-
 						$this->_funciones->redireccionar('empresas');
 					}
 				}
@@ -49,14 +48,17 @@ class indexController extends Controller {
 	}
 
 	public function guardarSesion($arr) {
-		foreach ($arr as $llave => $valor) {
-			if ($llave != 'clave') {
-				$_SESSION['usuario'][$llave] = $valor;
-			}
+		foreach ($arr as $row) {
+			foreach ($row as $llave => $valor) {
+				echo "<pre>$llave = $valor</pre>";
+				if ($llave != 'clave') {
+					$_SESSION['usuario'][$llave] = $valor;
+				}
 
-			if ($llave == 'session_id') {
-				$_SESSION['usuario'][$llave] = session_id();
+				if ($llave == 'session_id') {
+					$_SESSION['usuario'][$llave] = session_id();
 
+				}
 			}
 		}
 

@@ -14,32 +14,45 @@ class indexModel extends Model {
 	}
 
 	public function getNumEmpresas() {
-		$data   = array('TABLE' => 'empresas', 'COLUMNS' => '*', 'WHERE' => 'id_usuario = '.Session::get('usuario', 'id').' LIMIT 1');
-		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);
-		if ($q) {
-			return $q->fetch(PDO::FETCH_NUM);
+		$select = "SELECT * FROM empresas WHERE id_usuario=:id_usuario LIMIT 1";
+		$data   = array(':id_usuario' => Session::get('usuario', 'id'));
+		$this->_dbf->q($select, $data);
+		if ($this->_dbf->get_num_rows() > 0) {
+			return $this->_dbf->sql_get_list();
 		}
 	}
 
 	public function generarthEmpresas() {
-		$data   = array('TABLE' => 'empresas', 'COLUMNS' => 'nombre,razon_social,rfc,contacto,email,status,id', 'WHERE' => 'id_usuario = '.Session::get('usuario', 'id').' ORDER BY status,nombre ASC LIMIT 25');
-		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);
-		if ($q->fetch(PDO::FETCH_NUM) > 0) {
-			return $q->fetchAll(PDO::FETCH_NUM);
+		$select = "SELECT nombre,razon_social,rfc,contacto,email,status,id FROM empresas WHERE id_usuario = :id_usuario ORDER BY ORDER BY status,nombre ASC LIMIT 25";
+		$data   = array('id_usuario' => Session::get('usuario', 'id'));
+		$this->_dbf->q($select, $data);
+		if ($this->_dbf->get_num_rows() > 0) {
+			return $this->_dbf->sql_get_list();
 		}
 	}
 
 	public function setStatus($id, $valor) {
-		return $update = $this->_dbf->sql_update_columna('empresas', 'status', $valor, $id);
+		$update = "UPDATE empresas SET status = :status WHERE id = :id";
+		$data   = array(':status' => $valor, ':id' => $id);
+		$this->_dbf->q($update, $data);
+		if ($this->_dbf->get_num_rows() > 0) {
+			return true;
+		}
 	}
 
 	public function getRfc($rfc) {
 		$arrRfc = array();
-		$data   = array("TABLE" => 'empresas', 'COLUMNS' => '*', 'WHERE' => "rfc='$rfc' AND id_padre = 0");
-		$select = $this->_dbf->get_select_query($data);
-		$q      = $this->_db->query($select);
+		$select = "SELECT * FROM empresas WHERE rfc = :rfc AND id_padre = :id_padre";
+		$data   = array(':rfc' => $rfc, ':id_padre' => 0);
+		$this->_dbf->q($select, $data);
+		if ($this->_dbf->get_num_rows() > 0) {
+			foreach ($this->_dbf->sql_get_list() as $row) {
+
+			}
+		}
+		/*$data   = array("TABLE" => 'empresas', 'COLUMNS' => '*', 'WHERE' => "rfc='$rfc' AND id_padre = 0");
+		$select = $this->_dbf->get_select_query($data);*/
+		$q = $this->_db->query($select);
 		if ($q->fetchColumn() > 0) {
 			foreach ($q as $row) {
 				var_dump($row);
