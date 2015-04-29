@@ -6,6 +6,7 @@ class DBFunciones {
 	private $_stmt;
 	private $_numRows;
 	private $_error;
+	private $_affectedRows;
 
 	public function q($consulta, $valores = array()) {
 		$this->_conn = new Conexion();
@@ -17,6 +18,10 @@ class DBFunciones {
 
 	public function get_num_rows() {
 		return $this->_stmt->fetchColumn();
+	}
+
+	public function get_affected_rows() {
+		return $this->_affectedRows;
 	}
 
 	/**
@@ -83,10 +88,11 @@ class DBFunciones {
 					$select .= " AND $key $value :$key";
 				}
 
-				$arr[':'.$key] = $data[$i];
+				$arr[":".$key] = $data[$i];
+
+				$i++;
 			}
 		}
-
 		$select .= " $extra";
 
 		$this->q($select, $arr);
@@ -106,22 +112,26 @@ class DBFunciones {
 			$arr[":".$key] = $data[$i];
 			$i++;
 		}
-		$i = 0;
+
 		$update .= " WHERE ";
+		$j = 0;
 		foreach ($where as $key => $value) {
-			if ($i == 0) {
+			if ($j == 0) {
 				$update .= "$key $value :$key";
 			} else {
 				$update .= ", $key $value :$key";
 			}
 
 			$arr[":".$key] = $data[$i];
+			$j++;
 			$i++;
 		}
 
-		echo $update .= " $extra";
+		$update .= " $extra";
 
 		$this->q($update, $arr);
+
+		$this->_affectedRows = $this->_stmt->rowCount();
 	}
 
 	public function insert_query($tabla, $columna = array()) {
@@ -142,13 +152,16 @@ class DBFunciones {
 			$i++;
 		}
 		$value .= ")";
-		echo $insert .= ") $value";
-		//$this->q($insert, $arr);
+		$insert .= ") $value";
+		$this->q($insert, $arr);
+
+		$this->_affectedRows = $this->_stmt->rowCount();
 	}
 	public function delete_query($tabla, $columna, $val) {
 		$delete = "DELETE FROM $tabla WHERE $columna = :$columna";
 		$data   = array(":$columna"=> $val);
 		$this->q($delete, $data);
+		$this->_affectedRows = $this->_stmt->rowCount();
 	}
 }
 ?>

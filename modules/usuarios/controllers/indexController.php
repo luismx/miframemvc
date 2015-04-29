@@ -10,12 +10,10 @@ class indexController extends usuariosController {
 		$this->_view->errores = array();
 		$this->_modelo        = $this->loadModel('index');
 		$this->_view->tipo    = $this->_modelo->getColumna('tipos', 'nombre', Session::get('usuario', 'id_tipo'));
-		$this->_view->tipos   = $this->_modelo->getTipos();
 	}
 
 	public function index() {
 		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
-		var_dump($this->_view->datosUsuario);
 		$this->_view->renderizar('index');
 	}
 
@@ -26,6 +24,7 @@ class indexController extends usuariosController {
 
 	public function editar() {
 		if ($this->_req->getArgs() and count($this->_req->getArgs()) > 0) {
+			$this->_view->tipos        = $this->_modelo->getTipos();
 			$miVariable                = $this->_req->getArgs();
 			$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
 			$tipoUsuario               = Session::get('usuario', 'id_tipo');
@@ -58,8 +57,6 @@ class indexController extends usuariosController {
 		$errores = array();
 		if (is_array($post) and count($post) > 0) {
 			$columnas = $this->_modelo->getCampos($tabla);
-			var_dump($columnas);
-			//$columnas = array_pop($arr);
 
 			if (count($columnas) > 0) {
 				foreach ($columnas as $llaveColumna => $valorColumna) {
@@ -88,8 +85,8 @@ class indexController extends usuariosController {
 							} else {
 								$actualizado = $this->_modelo->updateColumna('usuarios', $llavePost, $valorPost, $id);
 							}
-							if (!$actualizado) {
-								$this->_view->errores[$llavePost] = "Error $llavePost, verifique su información";
+							if ($actualizado == 0) {
+								$this->_view->errores[$llavePost] = "Error en el valor $valorPost, verifique su información";
 							}
 						}
 					}

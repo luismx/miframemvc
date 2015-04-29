@@ -1,27 +1,21 @@
 <?php
 
-/* 
+/*
  * @Dev Luis Perera
  */
 
-class indexModel extends Model{
-    public function __construct() {
-        parent::__construct();
-    }
-    
-    public function getNumEmpresas(){
-    	$data = array('TABLE'=>'empresas','COLUMNS'=>'*','WHERE'=>'id > 0 LIMIT 1');
-    	$select = $this->_dbf->get_select_query($data);
-    	$q = $this->_db->query($select);
-    	if ($q) 
-    		return $q->fetch(PDO::FETCH_NUM);
-    }
+class indexModel extends Model {
+	public function __construct() {
+		parent::__construct();
+	}
 
-    public function getNumFacturas(){
-    	$data = array('TABLE'=>'facturas','COLUMNS'=>'*','WHERE'=>'id > 0 LIMIT 1');
-    	$select = $this->_dbf->get_select_query($data);
-    	$q = $this->_db->query($select);
-    	if ($q) 
-    		return $q->fetch(PDO::FETCH_NUM);
-    }
+	public function getNumEmpresas() {
+		$this->_dbf->select_query('empresas', array('*'), array('id' => '>'), 'LIMIT 1', array(0));
+		return $this->_dbf->sql_get_list();
+	}
+
+	public function getNumFacturas() {
+		$this->_dbf->select_query('facturas', array('*'), array('id' => '>'), 'LIMIT 1', array(0));
+		return $this->_dbf->sql_get_list();
+	}
 }

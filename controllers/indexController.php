@@ -32,6 +32,7 @@ class indexController extends Controller {
 			$update = $this->_modelo->setDato('session_id', session_id(), $datos['id']);
 
 			if ($update) {
+
 				$sesion = $this->guardarSesion($datos);
 
 				if ($sesion) {
@@ -47,18 +48,15 @@ class indexController extends Controller {
 		}
 	}
 
-	public function guardarSesion($arr) {
-		foreach ($arr as $row) {
-			foreach ($row as $llave => $valor) {
-				echo "<pre>$llave = $valor</pre>";
-				if ($llave != 'clave') {
-					$_SESSION['usuario'][$llave] = $valor;
-				}
+	public function guardarSesion($datos) {
+		foreach ($datos as $llave => $valor) {
+			if ($llave != 'clave') {
+				$_SESSION['usuario'][$llave] = $valor;
+			}
 
-				if ($llave == 'session_id') {
-					$_SESSION['usuario'][$llave] = session_id();
+			if ($llave == 'session_id') {
+				$_SESSION['usuario'][$llave] = session_id();
 
-				}
 			}
 		}
 
