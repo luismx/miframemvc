@@ -54,15 +54,22 @@ class DBFunciones {
 	/**
 	 * Funciones SQL
 	 */
-	public function sql_get_list() {
+	public function sql_get_assoc() {
 		$arr = array();
 		while ($row = $this->_stmt->fetch(PDO::FETCH_ASSOC)) {
 			$arr[] = $row;
 		}
 
-		$datos = array_pop($arr);
+		return $arr;
+	}
+	
+	public function sql_get_num() {
+		$arr = array();
+		while ($row = $this->_stmt->fetch(PDO::FETCH_NUM)) {
+			$arr[] = $row;
+		}
 
-		return $datos;
+		return $arr;
 	}
 
 	public function select_query($tabla, $columna = array(), $where = array(), $extra = null, $data = array()) {
