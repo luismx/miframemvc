@@ -3,7 +3,6 @@
  * @Dev Luis Perera
  */
 class errorController extends Controller {
-
 	public function __construct() {
 		parent::__construct();
 	}
