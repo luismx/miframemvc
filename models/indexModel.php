@@ -10,18 +10,12 @@ class indexModel extends Model {
 
 	public function getDatosUsuario($select, $data) {
 		$this->_dbf->q($select, $data);
-		return $this->_dbf->sql_get_list();
+		return $this->_dbf->sql_get_assoc();
 
 	}
 
 	public function setDato($columna, $valor, $id) {
-		$update = "UPDATE usuarios SET $columna = :valor WHERE id = :id";
-		$data   = array(':valor' => $valor, ':id' => $id);
-		//$this->_dbf->q($update, $data);
-		$this->_dbf->q($update, $data);
-		return true;
-		//return $this->_dbf->sql_get_list();
-		/*if (count($error) == 0) {*/
-
+		$this->_dbf->select_query('usuarios',array($columna=>'='),array('id'=>'='),'',array($valor,$id));
+		return $this->_dbf->sql_get_assoc();
 	}
 }

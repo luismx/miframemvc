@@ -13,7 +13,8 @@ class indexController extends usuariosController {
 	}
 
 	public function index() {
-		$this->_view->datosUsuario = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
+		$datos = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
+		$this->_view->datosUsuario = array_pop($datos);
 		$this->_view->renderizar('index');
 	}
 
@@ -26,13 +27,15 @@ class indexController extends usuariosController {
 		if ($this->_req->getArgs() and count($this->_req->getArgs()) > 0) {
 			$this->_view->tipos        = $this->_modelo->getTipos();
 			$miVariable                = $this->_req->getArgs();
-			$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
+			$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+			$this->_view->datosUsuario = array_pop($datos);
 			$tipoUsuario               = Session::get('usuario', 'id_tipo');
 
 			if ($tipoUsuario == 4) {
 				if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
 					$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
-					$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
+					$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+					$this->_view->datosUsuario = array_pop($datos);
 				}
 			} else {
 				if ($miVariable[0] != Session::get('usuario', 'id')) {
@@ -40,8 +43,8 @@ class indexController extends usuariosController {
 				} else {
 					if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
 						$datosGuardados = $this->guardar($_POST, 'usuarios', $miVariable[0]);
-
-						$this->_view->datosUsuario = $this->_modelo->getDatosUsuario($miVariable[0]);
+						$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+						$this->_view->datosUsuario = array_pop($datos);
 					}
 				}
 			}

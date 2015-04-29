@@ -14,21 +14,13 @@ class indexModel extends Model {
 	}
 
 	public function getNumEmpresas() {
-		$select = "SELECT * FROM empresas WHERE id_usuario=:id_usuario LIMIT 1";
-		$data   = array(':id_usuario' => Session::get('usuario', 'id'));
-		$this->_dbf->q($select, $data);
-		if ($this->_dbf->get_num_rows() > 0) {
-			return $this->_dbf->sql_get_list();
-		}
+		$this->_dbf->select_query('empresas',array('*'),array('id_usuario'=>'='),'LIMIT 1',array(Session::get('usuario', 'id')));
+		return $this->_dbf->sql_get_assoc();
 	}
 
 	public function generarthEmpresas() {
-		$select = "SELECT nombre,razon_social,rfc,contacto,email,status,id FROM empresas WHERE id_usuario = :id_usuario ORDER BY ORDER BY status,nombre ASC LIMIT 25";
-		$data   = array('id_usuario' => Session::get('usuario', 'id'));
-		$this->_dbf->q($select, $data);
-		if ($this->_dbf->get_num_rows() > 0) {
-			return $this->_dbf->sql_get_list();
-		}
+		$this->_dbf->select_query('empresas',array('nombre','razon_social','rfc','contacto','email','status','id'),array('id_usuario'=>'='),'ORDER BY status,nombre ASC LIMIT 25',array(Session::get('usuario', 'id')));
+		return $this->_dbf->sql_get_num();
 	}
 
 	public function setStatus($id, $valor) {
@@ -46,7 +38,7 @@ class indexModel extends Model {
 		$data   = array(':rfc' => $rfc, ':id_padre' => 0);
 		$this->_dbf->q($select, $data);
 		if ($this->_dbf->get_num_rows() > 0) {
-			foreach ($this->_dbf->sql_get_list() as $row) {
+			foreach ($this->_dbf->sql_get_assoc() as $row) {
 
 			}
 		}
