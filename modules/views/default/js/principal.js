@@ -80,7 +80,8 @@ function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
 		modal:true,draggable:false,title:titulo,resizable:false,
 		buttons:[{text:btnAceptarTxt,click:function(){
 			$(this).dialog('close');
-			var ejecutar = funcion();
+			if (funcion != "") 
+				var ejecutar = funcion();
 		}}]
 	});
 }

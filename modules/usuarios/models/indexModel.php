@@ -25,7 +25,9 @@ class indexModel extends Model {
 	}
 
 	public function updateSession($id) {
-		$datos = $this->getDatosUsuario($id);
+		$arreglo = $this->getDatosUsuario($id);
+		$datos   = array_pop($arreglo);
+
 		if ($datos) {
 			foreach ($datos as $key => $value) {
 				if ($key != 'clave') {

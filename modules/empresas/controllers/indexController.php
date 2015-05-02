@@ -39,14 +39,14 @@ class indexController extends empresasController {
 	public function generarthEmpresas() {
 		$empresas = $this->_modelo->generarthEmpresas();
 		if (is_array($empresas) and count($empresas) > 0) {
-		$i = 1;			
+			$i = 1;
 			foreach ($empresas as $row) {
 				if ($row[5] == 0) {
 					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
 				} else {
 					$arr[] = "<tr><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button type='button' class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></tr>";
 				}
-				
+
 				$i++;
 			}
 
@@ -83,15 +83,25 @@ class indexController extends empresasController {
 		if (isset($_POST['rfc'])) {
 			$post   = $this->_funciones->quitarEspacios($_POST['rfc']);
 			$valido = $this->_funciones->validarRfc($post);
+
 			if ($valido) {
-				$rfc = $this->_modelo->getRfc($post);
-				if (is_array($rfc) and count($rfc) > 0) {
-					foreach ($rfc as $row) {
-						echo "$row";
+				$arreglo = array();
+				$data    = $this->_modelo->getRfc($post, 0, array('rfc' => '=', 'id_padre' => '='));
+
+				if (is_array($data) and count($data) > 0) {
+					foreach ($data as $row) {
+						$arreglo[] = $row;
+						$data      = $this->_modelo->getRfc($post, $row['id'], array('rfc' => '=', 'id_padre' => '='));
+
+						if (is_array($data) and count($data) > 0) {
+							foreach ($data as $row) {
+								$arreglo[] = $row;
+							}
+						}
+
 					}
 				}
-			} else {
-				echo 0;
+				echo json_encode($arreglo);
 			}
 		}
 	}

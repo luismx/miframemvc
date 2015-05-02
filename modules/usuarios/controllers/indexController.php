@@ -9,11 +9,12 @@ class indexController extends usuariosController {
 		parent::__construct();
 		$this->_view->errores = array();
 		$this->_modelo        = $this->loadModel('index');
-		$this->_view->tipo    = $this->_modelo->getColumna('tipos', 'nombre', Session::get('usuario', 'id_tipo'));
+		$nombre               = $this->_modelo->getColumna('tipos', 'nombre', Session::get('usuario', 'id_tipo'));
+		$this->_view->tipo    = array_pop($nombre);
 	}
 
 	public function index() {
-		$datos = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
+		$datos                     = $this->_modelo->getDatosUsuario(Session::get('usuario', 'id'));
 		$this->_view->datosUsuario = array_pop($datos);
 		$this->_view->renderizar('index');
 	}
@@ -27,14 +28,14 @@ class indexController extends usuariosController {
 		if ($this->_req->getArgs() and count($this->_req->getArgs()) > 0) {
 			$this->_view->tipos        = $this->_modelo->getTipos();
 			$miVariable                = $this->_req->getArgs();
-			$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+			$datos                     = $this->_modelo->getDatosUsuario($miVariable[0]);
 			$this->_view->datosUsuario = array_pop($datos);
 			$tipoUsuario               = Session::get('usuario', 'id_tipo');
 
 			if ($tipoUsuario == 4) {
 				if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
 					$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
-					$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+					$datos                     = $this->_modelo->getDatosUsuario($miVariable[0]);
 					$this->_view->datosUsuario = array_pop($datos);
 				}
 			} else {
@@ -42,8 +43,8 @@ class indexController extends usuariosController {
 					$this->_funciones->redireccionar('usuarios');
 				} else {
 					if (isset($_POST['guardar']) and $_POST['guardar'] == 1) {
-						$datosGuardados = $this->guardar($_POST, 'usuarios', $miVariable[0]);
-						$datos = $this->_modelo->getDatosUsuario($miVariable[0]);
+						$datosGuardados            = $this->guardar($_POST, 'usuarios', $miVariable[0]);
+						$datos                     = $this->_modelo->getDatosUsuario($miVariable[0]);
 						$this->_view->datosUsuario = array_pop($datos);
 					}
 				}
@@ -62,7 +63,9 @@ class indexController extends usuariosController {
 			$columnas = $this->_modelo->getCampos($tabla);
 
 			if (count($columnas) > 0) {
-				foreach ($columnas as $llaveColumna => $valorColumna) {
+				$arreglo = array_pop($columnas);
+
+				foreach ($arreglo as $llaveColumna => $valorColumna) {
 					$actualizado = "";
 
 					foreach ($post as $llavePost => $valorPost) {
@@ -89,7 +92,7 @@ class indexController extends usuariosController {
 								$actualizado = $this->_modelo->updateColumna('usuarios', $llavePost, $valorPost, $id);
 							}
 							if ($actualizado == 0) {
-								$this->_view->errores[$llavePost] = "Error en el valor $valorPost, verifique su información";
+								$this->_view->errores[$llavePost] = "Error al ingresar $valorPost, verifique su información";
 							}
 						}
 					}

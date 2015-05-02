@@ -8,7 +8,7 @@ class DBFunciones {
 	private $_error;
 	private $_affectedRows;
 
-	public function q($consulta, $valores = array()) {
+	private function q($consulta, $valores = array()) {
 		$this->_conn = new Conexion();
 		$this->_stmt = $this->_conn->prepare($consulta);
 		$this->_stmt->execute($valores);
@@ -17,7 +17,12 @@ class DBFunciones {
 	}
 
 	public function get_num_rows() {
-		return $this->_stmt->fetchColumn();
+		$i = 0;
+		while ($this->_stmt->fetch(PDO::FETCH_NUM)) {
+			$i++;
+		}
+
+		return $i;
 	}
 
 	public function get_affected_rows() {
@@ -38,7 +43,9 @@ class DBFunciones {
 		$this->_error = $this->_stmt->errorInfo();
 
 		if (!PRODUCTION) {
-			$this->get_error();
+			if (count($this->_error[1]) > 0) {
+				var_dump($this->get_error());
+			}
 		}
 	}
 
@@ -62,7 +69,7 @@ class DBFunciones {
 
 		return $arr;
 	}
-	
+
 	public function sql_get_num() {
 		$arr = array();
 		while ($row = $this->_stmt->fetch(PDO::FETCH_NUM)) {
@@ -135,9 +142,7 @@ class DBFunciones {
 		}
 
 		$update .= " $extra";
-
 		$this->q($update, $arr);
-
 		$this->_affectedRows = $this->_stmt->rowCount();
 	}
 

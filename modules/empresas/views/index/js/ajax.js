@@ -1,3 +1,4 @@
+/* global $ */
 function modificarEmpresa(arreglo){
 	var id = arreglo[0];
 	var metodo = arreglo[1];
@@ -9,8 +10,10 @@ function modificarEmpresa(arreglo){
 		});
 	}else{
 		$.post('empresas/index/'+metodo, {id:id}, function(data) {
-			if (data)
+			if (data == 1)
 				jsDialogoAlerta('dialogo','Se ha llevado a cabo la solicitud, se recargará la pagina.','',recargarPagina,'Aceptar');
+			else
+				jsDialogoAlerta('dialogo','Ha ocurrido un error.','','','Aceptar');
 		});
 	}
 }
@@ -36,15 +39,12 @@ $(document).ready(function() {
 	});
 
 	$("#buscarEmpresa").click(function(event) {
-		
 		if ($('#miRfc').val() != "") {
 			$.post('getRfc', {rfc:$('#miRfc').val()}, function(data) {
-				if (data == '0') {
-					$('#mensaje').html("<div class='alert alert-warning' role='alert'>RFC no válido, verifique su información</div>");
-				}
-				else{
-					console.log(data);
-				}
+				var datos = data.split(',');
+				$.each(datos,function(index, el) {
+					$('#empresa').append(datos[index].rfc);
+				});
 			});
 			
 		}
