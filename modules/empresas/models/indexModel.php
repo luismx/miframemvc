@@ -25,12 +25,17 @@ class indexModel extends Model {
 
 	public function setStatus($id, $valor) {
 		$this->_dbf->update_query('empresas', array('status' => '='), array('id' => '='), '', array($valor, $id));
-		echo $this->_dbf->get_affected_rows();
+		return $this->_dbf->get_affected_rows();
 	}
 
 	public function getRfc($rfc,$valor,$where) {
 		$arrRfc = array();
 		$this->_dbf->select_query('empresas',array('id','rfc','razon_social','id_padre'),$where,'',array($rfc,$valor));
+		return $this->_dbf->sql_get_assoc();
+	}
+	
+	public function getEmpresa($id){
+		$this->_dbf->select_query('empresas',array('*'),array('id'=>'='),'',array($id));
 		return $this->_dbf->sql_get_assoc();
 	}
 }

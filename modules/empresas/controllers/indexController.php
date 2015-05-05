@@ -127,6 +127,25 @@ class indexController extends empresasController {
 	}
 
 	public function buscarEmpresa($rfc) {
-		$existe = $this->_funciones->validarRfc($rfc);
+		$this->_funciones->validarRfc($rfc);
+	}
+
+	public function validarRfc() {
+		if (isset($_POST['rfc'])) {
+			$rfc    = $_POST['rfc'];
+			$valido = $this->_funciones->validarRfc($rfc);
+			if ($valido) {
+				echo 1;
+			} else {
+				echo 0;
+			}
+		}
+	}
+	
+	public function getEmpresa(){
+		if(isset($_POST['id'])){
+			$arr = $this->_modelo->getEmpresa($_POST['id']);
+			echo json_encode($arr);
+		}
 	}
 }

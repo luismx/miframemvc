@@ -75,7 +75,6 @@ if (isset($this->datosUsuario)) {
     $(document).ready(function() {
         var fecha = $("input[name='fecha_nacimiento']").attr('placeholder');
         $("input[name='fecha_nacimiento']").attr('placeholder', cambiarFecha(fecha,'es'));
-
         $('#btnGuardar').click(function(e) {
             $('#guardar').val(1);
         });

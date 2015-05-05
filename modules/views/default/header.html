@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" ng-app="cfdifacturacionApp">
 <head>
 	<title><?php print DEFAULT_TITLE;?></title>
 	<meta charset="utf-8">
@@ -11,10 +11,12 @@
 	<link rel="stylesheet" type="text/css" href="modules/views/default/css/dashboard.css">
 	<link rel="icon" href="<?php print BASE_URL;?>favicon.ico">
 	<!-- Javascripts -->
-	<script src="<?php print BASE_URL.'libs/jquery/'?>jquery-1.11.2.min.js"></script>
+	<script src="<?php print BASE_URL.'libs/jquery/'?>jquery-2.1.4.js"></script>
+	<!--<script src="<?php print BASE_URL.'libs/angularjs/'?>angular.min.js"></script>-->
 	<script src="<?php print $_layoutArr['theme_js']?>jquery-ui.min.js"></script>
 	<script src="<?php print $_layoutArr['theme_js']?>bootstrap.min.js"></script>
 	<script src="<?php print BASE_URL?>modules/views/default/js/principal.js"></script>
+		<!--<script src="<?php print BASE_URL?>modules/views/default/js/app.js"></script>-->
 	<?php
 	if (is_dir($this->_rutas['js'])) {
 		if ($dir = opendir($this->_rutas['js'])) {
@@ -27,7 +29,7 @@
 	}
 	?>
 </head>
-<body>
+<body ng-controller="mainController">
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -120,6 +122,9 @@
 							}
 							?>
 							<li><a class="navbar-brand" href="#"><?php print APP_NAME?></a></li>
+							<li class="dropdown">
+								<a class="glyphicon glyphicon-envelope" data-toggle="dropdown" role="button"></a>
+							</li>
 						</ul>
 					</div>
 				</div>

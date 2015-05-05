@@ -61,7 +61,8 @@ function jsDialogoFuncion(clase,texto,titulo,funcion,valores,btnAceptarTxt,btnCa
 		buttons:[{
 			text:btnAceptarTxt, click:function(){
 				$(this).dialog('close');
-				var ejecutar = funcion(valores);
+				if (funcion != "") 
+					var ejecutar = funcion(valores);
 			}
 		},
 		{

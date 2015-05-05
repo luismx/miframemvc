@@ -1,4 +1,3 @@
-/* global $ */
 function modificarEmpresa(arreglo){
 	var id = arreglo[0];
 	var metodo = arreglo[1];
@@ -16,6 +15,29 @@ function modificarEmpresa(arreglo){
 				jsDialogoAlerta('dialogo','Ha ocurrido un error.','','','Aceptar');
 		});
 	}
+}
+
+function mostrarForm(id){
+	var form = $('#'+id);
+	$('#'+id).fadeIn('slow');
+}
+
+function buscarEmpresa(id){
+	$.ajax({url:'getEmpresa',type:'POST',dataType:'json',data:{id:id}})
+	.done(function(data) {
+		$.each(data, function(index,val){
+			$.each(val,function(key,value){
+				$('#campos input').each(function(i,v) {
+					if (v.name == key) {
+						$('input[name="'+key+'"]').val(value);
+					}
+				});
+			});
+		});
+		$('#campos').fadeIn('slow');
+	}).fail(function(x,y,z) {
+		console.log(x+y+z);
+	});
 }
 
 $(document).ready(function() {
@@ -38,15 +60,38 @@ $(document).ready(function() {
 		jsDialogoFuncion('dialogo','¿Está seguro de desactivar esta empresa?','Desactivar',modificarEmpresa,arr,'Aceptar','Cancelar');
 	});
 
-	$("#buscarEmpresa").click(function(event) {
+	$("#buscarEmpresa").click(function(e) {
 		if ($('#miRfc').val() != "") {
-			$.post('getRfc', {rfc:$('#miRfc').val()}, function(data) {
-				var datos = data.split(',');
-				$.each(datos,function(index, el) {
-					$('#empresa').append(datos[index].rfc);
-				});
-			});
+			$('#campos').fadeOut('fast');
+			$('#campos input[type="text"]').val('');
 			
+			$.post('validarRfc', {rfc:$('#miRfc').val()}, function(data) {
+				if (data == 1) {
+					$("#empresa").empty().append('<option value="0">Elige..</option>');
+					$.ajax({
+						url:'getRfc',type:'POST',dataType:'json',data:{rfc:$("#miRfc").val()}
+					}).done(function(dato) {
+						if (dato.length > 0) {
+							$.each(dato,function(i, val) {
+								$("#empresa").append('<option value="'+val.id+'">'+val.razon_social+'</option>').fadeIn();
+						 	});	
+						}else{
+							$('#empresa').css('display','none');
+							jsDialogoFuncion('dialogo','RFC no registrado, ¿quieres dar de alta una empresa con este RFC?','Alta',mostrarForm,'campos','Aceptar','Cancelar');
+						}
+					});
+				}else{
+					jsDialogoAlerta('dialogo','Formato de RFC no válido.','','','Aceptar');
+				}
+			});
+		}
+	});
+	
+	
+	$('#empresa').change(function(){
+		if ($(this).val() != '0') {
+			var id = $(this).val();
+			buscarEmpresa(id);
 		}
 	});
 });

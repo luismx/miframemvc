@@ -1,4 +1,5 @@
 <form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
+<div class="dialogo"></div>
 	<div class="row form-group">
 		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15"></div>
 		<div class="col-md-2 col-md-offset-1 col-xs-12"><input type="button" id="buscarEmpresa" class="btn btn-primary" value="Buscar empresa"></div>
@@ -71,8 +72,12 @@
 			</div>
 		</div>
 		<div class="row form-group">
-			<div class="col-md-6 col-md-offset-5">
-				<button class="btn btn-primary" id="btnGuardar">Guardar</button>
+			<div class="col-md-6 col-md-offset-5" style="display:none">
+				<button class="btn btn-primary" id="btnGuardar">Registrar</button>
+				<input type="hidden" name="guardar" id="guardar">
+			</div>
+			<div class="col-md-6 col-md-offset-5" style="display:none">
+				<button class="btn btn-primary" id="btnGuardar">Solicitar empresa</button>
 				<input type="hidden" name="guardar" id="guardar">
 			</div>
 		</div>
@@ -80,12 +85,14 @@
 </form>
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('#miRfc').click(function(e) {e.preventDefault();});
 		$("#imgEmpresa").change(function(e) {
 			imgVistaPrevia(this);
 		});
-
-		$('#btnGuardar').click(function() {
+		$('#btnGuardar').click(function(e) {e.preventDefault();});
+		/*$('#btnGuardar').click(function() {
 			validarFormEmpresas('empresasForm');
-		});
+		});*/
+		$("#empresa").css('display','none');
 	});
 </script>
