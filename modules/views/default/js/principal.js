@@ -87,4 +87,4 @@ function jsDialogoAlerta(clase,texto,titulo,funcion,btnAceptarTxt){
 	});
 }
 
- 
+function parpadear(id) { $('#'+id).fadeIn(500).delay(250).fadeOut(500, parpadear) }

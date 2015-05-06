@@ -144,8 +144,8 @@ class indexController extends empresasController {
 	
 	public function getEmpresa(){
 		if(isset($_POST['id'])){
-			$arr = $this->_modelo->getEmpresa($_POST['id']);
-			echo json_encode($arr);
+			$data = $this->_modelo->getEmpresa($_POST['id']);
+			echo json_encode($data);
 		}
 	}
 }

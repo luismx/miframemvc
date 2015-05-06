@@ -5,19 +5,14 @@ class registroModel extends Model {
 	}
 
 	public function getTipos() {
-		$select = "SELECT * FROM tipos";
-		$data   = array();
-		$q      = $this->_dbf->q($select, $data);
+		$this->_dbf->select_query('tipos',array('*'));
+		$arr = $this->_dbf->sql_get_assoc();
 
-		/*
-		$select = $this->_dbf->get_select_query($data);
-		$data   = array('TABLE' => 'tipos', 'COLUMNS' => '*');*/
-		$q      = $this->_db->query($select);
 		$string = "<option value='0'>Elige...</option>";
-
-		if (count($q->fetch(PDO::FETCH_ASSOC)) > 0) {
-			foreach ($q as $row) {
-				$string .= "<option value='".$row['id']."'>".$row['nombre']."</option>";
+		if (count($arr) > 0) {
+			foreach ($arr as $row) {
+				if ($row['id'] != 4) 
+					$string .= "<option value='".$row['id']."'>".$row['nombre']."</option>";
 			}
 		}
 
@@ -32,9 +27,10 @@ class registroModel extends Model {
 	}
 
 	function buscar($arr) {
-		$select = $this->_dbf->get_select_query($arr);
+		$this->_dbf->select_query();
+		/*$select = $this->_dbf->get_select_query($arr);
 		$q      = $this->_db->query($select);
-		return $q->fetch(PDO::FETCH_NUM);
+		return $q->fetch(PDO::FETCH_NUM);*/
 	}
 
 	function getUsuario($usuario) {

@@ -79,7 +79,7 @@ class DBFunciones {
 		return $arr;
 	}
 
-	public function select_query($tabla, $columna = array(), $where = array(), $extra = null, $data = array()) {
+	public function select_query($tabla, $columna = array(), $where = array(), $data = array(), $inners = false, $extra = false) {
 		$arr    = array();
 		$select = "SELECT ";
 

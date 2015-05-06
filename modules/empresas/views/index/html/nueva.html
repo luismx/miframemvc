@@ -1,13 +1,17 @@
 <form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 <div class="dialogo"></div>
 	<div class="row form-group">
-		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15"></div>
-		<div class="col-md-2 col-md-offset-1 col-xs-12"><input type="button" id="buscarEmpresa" class="btn btn-primary" value="Buscar empresa"></div>
+		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15" placeholder="RFC..."></div>
+	</div>	
+	<div class="row form-group">
+		<div class="col-md-2 col-xs-12"><input type="button" id="buscarEmpresa" class="btn btn-primary" value="Buscar empresa"></div>
+	</div>
+	<div class="row form-group">
 		<div class="col-md-6 col-xs-12"><select id="empresa"></select></div>
 		<div class="col-md-7 col-xs-12" id="mensaje">
 			<?php if (isset($this->mensaje)) print $this->mensaje;?>
 		</div>
-	</div>	
+	</div>
 	<div id="campos" style="display:none">
 		<div class="row form-group">
 			<div class="col-md-5">
@@ -71,15 +75,20 @@
 				<input type="text" class="form-control" name="numero_exterior">
 			</div>
 		</div>
+		<div class="row form-group" id="upload" style="display:none">
+			<div class="col-md-5">
+				<label for="alta_hacienda">Alta de hacienda</label>
+				<input type="file" placeholder="Archivo" />
+			</div>
+		</div>
 		<div class="row form-group">
-			<div class="col-md-6 col-md-offset-5" style="display:none">
-				<button class="btn btn-primary" id="btnGuardar">Registrar</button>
-				<input type="hidden" name="guardar" id="guardar">
+			<div class="col-md-6 col-md-offset-5" style="display:none" id="registrar">
+				<a class="btn btn-primary" id="btnGuardar">Registrar</a>
 			</div>
-			<div class="col-md-6 col-md-offset-5" style="display:none">
-				<button class="btn btn-primary" id="btnGuardar">Solicitar empresa</button>
-				<input type="hidden" name="guardar" id="guardar">
+			<div class="col-md-6 col-md-offset-5" style="display:none" id="solicitar">
+				<a class="btn btn-primary" id="btnSolicitar">Solicitar empresa</a>
 			</div>
+			<input type="hidden" name="guardar" id="guardar">
 		</div>
 	</div>
 </form>

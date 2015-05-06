@@ -9,7 +9,7 @@ class indexModel extends Model {
 	}
 
 	public function getDatosUsuario($tabla, $columnas, $where, $data) {
-		$this->_dbf->select_query($tabla, $columnas, $where, '', $data);
+		$this->_dbf->select_query($tabla, $columnas, $where, $data);
 		return $this->_dbf->sql_get_assoc();
 
 	}
@@ -20,7 +20,7 @@ class indexModel extends Model {
 	}
 
 	public function getSession($id) {
-		$this->_dbf->select_query('usuarios', array('session_id'), array('id' => '='), '', array($id));
+		$this->_dbf->select_query('usuarios', array('session_id'), array('id' => '='), array($id));
 		return $this->_dbf->sql_get_num();
 	}
 }

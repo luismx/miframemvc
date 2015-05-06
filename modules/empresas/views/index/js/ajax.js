@@ -1,3 +1,4 @@
+/* global $ */
 function modificarEmpresa(arreglo){
 	var id = arreglo[0];
 	var metodo = arreglo[1];
@@ -19,7 +20,10 @@ function modificarEmpresa(arreglo){
 
 function mostrarForm(id){
 	var form = $('#'+id);
-	$('#'+id).fadeIn('slow');
+	$('#'+id+', input').each(function(i,val) {
+		$(i).removeAttr('readonly').val('');
+	});
+	$('#'+id+', #registrar').fadeIn('slow');
 }
 
 function buscarEmpresa(id){
@@ -29,12 +33,13 @@ function buscarEmpresa(id){
 			$.each(val,function(key,value){
 				$('#campos input').each(function(i,v) {
 					if (v.name == key) {
-						$('input[name="'+key+'"]').val(value);
+						$('input[name="'+key+'"]').val(value).attr('readonly',true);
 					}
 				});
 			});
 		});
-		$('#campos').fadeIn('slow');
+		$('#campos, #solicitar').fadeIn('slow');
+		console.log(data);
 	}).fail(function(x,y,z) {
 		console.log(x+y+z);
 	});
@@ -62,7 +67,7 @@ $(document).ready(function() {
 
 	$("#buscarEmpresa").click(function(e) {
 		if ($('#miRfc').val() != "") {
-			$('#campos').fadeOut('fast');
+			$('#campos, #solicitar, #registrar').fadeOut('fast');
 			$('#campos input[type="text"]').val('');
 			
 			$.post('validarRfc', {rfc:$('#miRfc').val()}, function(data) {
