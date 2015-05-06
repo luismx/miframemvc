@@ -18,7 +18,7 @@ class Funciones {
 	}
 
 	/**
-	 * @method funciones de paso a páginas
+	 * @method funciones de redirección a páginas
 	 */
 
 	public static function redireccionar($ruta = false) {
@@ -118,24 +118,25 @@ class Funciones {
 	/**
 	 * @method funciones para manipular archivos externos como csv/txt
 	 */
-	public static function getPaises($tipo = false, $item = false) {
-		$fila = 0;
-
+	public static function getPaises($tipo = 'text', $item = false) {
+		$fila  = 0;
+		$valor = "";
 		if (($gestor = fopen("utilities/paises.csv", "r")) !== FALSE) {
 			if ($tipo == "text") {
 				while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
 					$numero = count($datos);
 					if ($fila > 0) {
 						if ($datos[0] == $item) {
-							return $datos[3];
+							$valor = $datos[3];
 						}
 					}
 
 					$fila++;
 				}
 				fclose($gestor);
+				return $valor;
 			} elseif ($tipo == "select") {
-				$options = '<option value="0">Elige...</option>';
+				$valor = '<option value="0">Elige...</option>';
 				while (($datos = fgetcsv($gestor, 1000, ";")) !== FALSE) {
 					$numero = count($datos);
 					if ($fila > 0) {
@@ -144,14 +145,27 @@ class Funciones {
 							$selected = "";
 						}
 
-						$options .= "<option value=".$datos[0]." $selected>" .$datos[3]."</option>";
+						$valor .= "<option value=".$datos[0]." $selected>" .$datos[3]."</option>";
 					}
 
 					$fila++;
 				}
 				fclose($gestor);
+				return $valor;
 			}
 		}
+	}
+
+	public static function validarRfcCliente($rfc) {
+
+	}
+
+	/**
+	 * @method true subirArchivo() subir archivos pdf,word,excel,imágenes
+	 */
+
+	public static function subirArchivo($nombre) {
+
 	}
 }
 
