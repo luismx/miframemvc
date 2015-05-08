@@ -1,0 +1,30 @@
+div.container-fluid
+	div.row
+		div#carrusel.carousel.slide(data-ride="carousel")
+			ol.carousel-indicators
+				li.active(data-target="#carrusel", data-slide-to="0")
+				li.active(data-target="#carrusel", data-slide-to="0")
+				li.active(data-target="#carrusel", data-slide-to="0")
+			div.carousel-inner(role="listbox")
+				div.item.active
+					div.carousel-caption
+						h3 Bienvenido al sistema de facturación
+						p
+							|	Si ya tienes una cuenta con nosotros y quieres facturar, por favor inicia sesión.
+							|	O registrate para poder tener acceso.
+							|	No recomendamos hacer una factura sin iniciar sesión.
+						p Por favor checa nuestra seccion de dudas preparada para explicar lo sencillo que es facturar con nuestra empresa.
+				div.item
+					img.img-responsive(src="")
+					div.carousel-caption
+				div.item
+					img.img-responsive(src="")
+					div.carousel-caption
+			a.lef.carousel-control(href="#carrusel",role="button",data-slide="prev")
+				span.glyphicon.glyphicon-chevron-left(aria-hidden="true")
+				span.sr-only Prev
+			a.right.carousel-control(href="#carrusel",role="button",data-slide="next")
+				span.glyphicon.glyphicon-chevron-next
+				span.sr-only Next
+				
+		
