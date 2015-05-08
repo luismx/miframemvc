@@ -82,12 +82,13 @@
 			</div>
 		</div>
 		<div class="row form-group">
-			<div class="col-md-6 col-md-offset-5" style="display:none" id="registrar">
+			<div class="col-md-2 col-md-offset-5" style="display:none" id="registrar">
 				<a class="btn btn-primary" id="btnGuardar">Registrar</a>
 			</div>
-			<div class="col-md-6 col-md-offset-5" style="display:none" id="solicitar">
+			<div class="col-md-2 col-md-offset-5" style="display:none" id="solicitar">
 				<a class="btn btn-primary" id="btnSolicitar">Solicitar empresa</a>
 			</div>
+			<div class="col-md-offset-5"></div>
 			<input type="hidden" name="guardar" id="guardar">
 		</div>
 	</div>
@@ -99,6 +100,7 @@
 			imgVistaPrevia(this);
 		});
 		$('#btnGuardar').click(function(e) {e.preventDefault();});
+		$('#solicitar').click(function(e) {e.preventDefault();});
 		/*$('#btnGuardar').click(function() {
 			validarFormEmpresas('empresasForm');
 		});*/

@@ -19,8 +19,7 @@ class indexModel extends Model {
 	}
 
 	public function generarthEmpresas() {
-		/*$this->_dbf->select_query('usuarios_empresas',array('id_usuario','id_empresa','status'),array('id_usuario'=>'='));*/
-		$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email', 'status', 'id'), array('id_usuario' => '='), 'ORDER BY status,nombre ASC LIMIT 25', array(Session::get('usuario', 'id')));
+		$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email', 'status', 'id'), array('id_usuario' => '='), array(Session::get('usuario', 'id')), 'INNER JOIN usuarios_empresas', 'ORDER BY status,nombre ASC LIMIT 25');
 		return $this->_dbf->sql_get_num();
 	}
 

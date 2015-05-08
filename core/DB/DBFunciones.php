@@ -90,7 +90,7 @@ class DBFunciones {
 				$select .= ", ".$columna[$i];
 			}
 		}
-		$select .= " FROM $tabla ";
+		$select .= " FROM $tabla $inners";
 
 		if (count($where) > 0) {
 			$select .= " WHERE ";
