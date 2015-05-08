@@ -65,7 +65,6 @@ class View {
 				include_once $this->_rutas['header'];
 				$this->_template = $this->_rutas['view'].$vista.'.jade';
 				echo $jade->render($this->_template);
-				//include_once $this->_rutas['view'].$vista.'.html';
 				include_once $this->_rutas['footer'];
 			}
 		} else {
