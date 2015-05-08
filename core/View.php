@@ -1,4 +1,15 @@
 <?php
+require (ROOT.'libs/jade/autoload.php.dist');
+use Everzet\Jade\Dumper\PHPDumper;use
+Everzet\Jade\Filter\CDATAFilter;use
+Everzet\Jade\Filter\CSSFilter;use
+Everzet\Jade\Filter\JavaScriptFilter;use
+Everzet\Jade\Filter\PHPFilter;use
+Everzet\Jade\Jade;use
+Everzet\Jade\Lexer\Lexer;use
+Everzet\Jade\Parser;use
+Everzet\Jade\Visitor\AutotagsVisitor;
+
 class View {
 	private $_controlador;
 	private $_js;
@@ -7,11 +18,12 @@ class View {
 	private $_template;
 
 	public function __construct(Request $r) {
+
 		$this->_req         = $r;
 		$this->_controlador = $r->getControlador();
 		$this->_js          = array();
 		$this->_rutas       = array();
-		$this->_template    = STATIC_DIR;
+		//$this->_template    = STATIC_DIR;
 
 		$modulo      = $this->_req->getModulo();
 		$controlador = $this->_req->getControlador();
@@ -31,6 +43,15 @@ class View {
 	}
 
 	public function renderizar($vista, $item = false) {
+		$dumper = new PHPDumper();
+		$dumper->registerVisitor('tag', new AutotagsVisitor());
+		$dumper->registerFilter('javascript', new JavaScriptFilter());
+		$dumper->registerFilter('cdata', new CDATAFilter());
+		$dumper->registerFilter('php', new PHPFilter());
+		$dumper->registerFilter('style', new CSSFilter());
+		$parser = new Parser(new Lexer());
+		$jade   = new Jade($parser, $dumper);
+
 		$_layoutArr = array(
 			'theme_css' => DEFAULT_THEME.'css/',
 			'theme_js'  => DEFAULT_THEME.'js/',
@@ -42,7 +63,9 @@ class View {
 				include_once $this->_rutas['view'].$vista.'.html';
 			} else {
 				include_once $this->_rutas['header'];
-				include_once $this->_rutas['view'].$vista.'.html';
+				$this->_template = $this->_rutas['view'].$vista.'.jade';
+				echo $jade->render($this->_template);
+				//include_once $this->_rutas['view'].$vista.'.html';
 				include_once $this->_rutas['footer'];
 			}
 		} else {
