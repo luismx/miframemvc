@@ -14,12 +14,12 @@ class indexModel extends Model {
 	}
 
 	public function getNumEmpresas() {
-		$this->_dbf->select_query('empresas', array('*'), array('id_usuario' => '='), array(Session::get('usuario', 'id')),'','LIMIT 1');
+		$this->_dbf->select_query('empresas', array('*'), array('id_usuario' => '='), array(Session::get('usuario', 'id')), '', 'LIMIT 1');
 		return $this->_dbf->sql_get_assoc();
 	}
 
 	public function generarthEmpresas() {
-		$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email', 'status', 'id'), array('id_usuario' => '='), array(Session::get('usuario', 'id')), 'INNER JOIN usuarios_empresas', 'ORDER BY status,nombre ASC LIMIT 25');
+		$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email', 'empresas.status', 'empresas.id'), array('empresas.id_usuario' => '='), array(Session::get('usuario', 'id')), 'INNER JOIN usuarios_empresas u_e ON u_e.id_empresa = empresas.id', 'ORDER BY status,nombre ASC LIMIT 25');
 		return $this->_dbf->sql_get_num();
 	}
 
@@ -28,14 +28,14 @@ class indexModel extends Model {
 		return $this->_dbf->get_affected_rows();
 	}
 
-	public function getRfc($rfc,$valor,$where) {
+	public function getRfc($rfc, $valor, $where) {
 		$arrRfc = array();
-		$this->_dbf->select_query('empresas',array('id','rfc','razon_social','id_padre'),$where,array($rfc,$valor));
+		$this->_dbf->select_query('empresas', array('id', 'rfc', 'razon_social', 'id_padre'), $where, array($rfc, $valor));
 		return $this->_dbf->sql_get_assoc();
 	}
-	
-	public function getEmpresa($id){
-		$this->_dbf->select_query('empresas',array('*'),array('id'=>'='),array($id),'');
+
+	public function getEmpresa($id) {
+		$this->_dbf->select_query('empresas', array('*'), array('id' => '='), array($id), '');
 		return $this->_dbf->sql_get_assoc();
 	}
 }
