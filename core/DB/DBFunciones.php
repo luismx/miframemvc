@@ -107,6 +107,7 @@ class DBFunciones {
 				$i++;
 			}
 		}
+
 		$select .= " $extra";
 
 		$this->q($select, $arr);
@@ -174,6 +175,10 @@ class DBFunciones {
 		$data   = array(":$columna"=> $val);
 		$this->q($delete, $data);
 		$this->_affectedRows = $this->_stmt->rowCount();
+	}
+
+	public function create_query($string, $array = array()) {
+		$this->q($string, $array);
 	}
 }
 ?>

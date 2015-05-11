@@ -38,9 +38,11 @@ class indexController extends empresasController {
 
 	public function generarthEmpresas() {
 		$empresas = $this->_modelo->generarthEmpresas();
+
 		if (is_array($empresas) and count($empresas) > 0) {
 			$i = 1;
 			foreach ($empresas as $row) {
+				echo $row[5]."<br>";
 				if ($row[5] == 0) {
 					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
 				} else {
@@ -141,9 +143,9 @@ class indexController extends empresasController {
 			}
 		}
 	}
-	
-	public function getEmpresa(){
-		if(isset($_POST['id'])){
+
+	public function getEmpresa() {
+		if (isset($_POST['id'])) {
 			$data = $this->_modelo->getEmpresa($_POST['id']);
 			echo json_encode($data);
 		}

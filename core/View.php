@@ -1,5 +1,5 @@
 <?php
-require (ROOT.'libs/jade/autoload.php.dist');
+/*require (ROOT.'libs/jade/autoload.php.dist');
 use Everzet\Jade\Dumper\PHPDumper;use
 Everzet\Jade\Filter\CDATAFilter;use
 Everzet\Jade\Filter\CSSFilter;use
@@ -8,7 +8,7 @@ Everzet\Jade\Filter\PHPFilter;use
 Everzet\Jade\Jade;use
 Everzet\Jade\Lexer\Lexer;use
 Everzet\Jade\Parser;use
-Everzet\Jade\Visitor\AutotagsVisitor;
+Everzet\Jade\Visitor\AutotagsVisitor;*/
 
 class View {
 	private $_controlador;
@@ -43,14 +43,14 @@ class View {
 	}
 
 	public function renderizar($vista, $item = false) {
-		$dumper = new PHPDumper();
+		/*$dumper = new PHPDumper();
 		$dumper->registerVisitor('tag', new AutotagsVisitor());
 		$dumper->registerFilter('javascript', new JavaScriptFilter());
 		$dumper->registerFilter('cdata', new CDATAFilter());
 		$dumper->registerFilter('php', new PHPFilter());
 		$dumper->registerFilter('style', new CSSFilter());
 		$parser = new Parser(new Lexer());
-		$jade   = new Jade($parser, $dumper);
+		$jade   = new Jade($parser, $dumper);*/
 
 		$_layoutArr = array(
 			'theme_css' => DEFAULT_THEME.'css/',
@@ -63,14 +63,12 @@ class View {
 				include_once $this->_rutas['view'].$vista.'.html';
 			} else {
 				include_once $this->_rutas['header'];
-				$this->_template = $this->_rutas['view'].$vista.'.jade';
-				echo $jade->render($this->_template);
+				include_once $this->_rutas['view'].$vista.'.html';
 				include_once $this->_rutas['footer'];
 			}
 		} else {
 			header('location:'.BASE_URL.'error/_404');
 		}
-
 	}
 }
 ?>

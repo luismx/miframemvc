@@ -1,4 +1,1 @@
-var angularTodo = angular.module('cfdifacturacionApp',[]);
-function ngController($scope, $http) {
-	
-}
+var app = angular.module('cfdifacturacion');

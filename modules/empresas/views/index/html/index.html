@@ -4,7 +4,7 @@
  * **/
 /*$nivel = 3;
 Session::acceso($nivel);*/
-if ($this->numEmpresas) {
+if (count($this->numEmpresas) > 0) {
 	?>
 	<input type="hidden" id="idEmpresa" value="">
 
@@ -21,8 +21,10 @@ if ($this->numEmpresas) {
 				<th>Acción</th>
 			</tr>
 			<?php
-				foreach ($this->empresas as $row) {
-					print $row;
+				if (count($this->empresas) > 0) {
+					foreach ($this->empresas as $row) {
+						print $row;
+					}
 				}
 			?>
 		</table>
