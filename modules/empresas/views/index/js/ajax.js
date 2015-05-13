@@ -21,9 +21,9 @@ function modificarEmpresa(arreglo){
 function mostrarForm(id){
 	var form = $('#'+id);
 	$('#'+id+', input').each(function(i,val) {
-		$(i).removeAttr('readonly').val('');
+		$(val).removeAttr('readonly').val('');
 	});
-	$('#'+id+', #registrar').fadeIn('slow');
+	$('#'+id+', #registrar, #upload').fadeIn('slow');
 }
 
 function buscarEmpresa(id){
@@ -79,7 +79,8 @@ $(document).ready(function() {
 						if (dato.length > 0) {
 							$.each(dato,function(i, val) {
 								$("#empresa").append('<option value="'+val.id+'">'+val.razon_social+'</option>').fadeIn();
-						 	});	
+						 	});
+						 	$('#upload').fadeOut('fast');
 						}else{
 							$('#empresa').css('display','none');
 							jsDialogoFuncion('dialogo','RFC no registrado, ¿quieres dar de alta una empresa con este RFC?','Alta',mostrarForm,'campos','Aceptar','Cancelar');

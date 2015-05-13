@@ -64,7 +64,6 @@ class Funciones {
 		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 			return true;
 		} else {
-
 			return false;
 		}
 	}
@@ -155,11 +154,6 @@ class Funciones {
 			}
 		}
 	}
-
-	public static function validarRfcCliente($rfc) {
-
-	}
-
 	/**
 	 * @method true subirArchivo() subir archivos pdf,word,excel,imágenes
 	 */

@@ -25,29 +25,29 @@ class indexController extends empresasController {
 		$this->_view->renderizar('nueva');
 	}
 
-	public function guardar($post) {
-		$errores = array();
-		$this->_funciones->clean($post);
-
-		$columnas = $this->_modelo->getColumnas('empresas');
-
-		if (count($errores) > 0) {
-			return $errores;
-		}
-	}
-
 	public function generarthEmpresas() {
 		$empresas = $this->_modelo->generarthEmpresas();
 		if (is_array($empresas) and count($empresas) > 0) {
 			$i = 1;
-			foreach ($empresas as $key => $row) {
-				var_dump($key);
-				if ($key == 0) {
-					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
+			foreach ($empresas as $row) {
+				if ($row[1] == 0) {
+					$arr[] = "<tr class='danger'>
+					<td>$i</td>
+					<td>" .$row[2]."</td>
+					<td>".$row[3]."</td>
+					<td>".$row[4]."</td>
+					<td>".$row[5]."</td>
+					<td>".$row[6]."</td>
+					<td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[0]."'><a class='glyphicon glyphicon-ok'></a></button></td></tr>";
 				} else {
-					$arr[] = "<tr><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button type='button' class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></tr>";
+					$arr[] = "<tr><td>$i</td>
+					<td>" .$row[2]."</td>
+					<td>".$row[3]."</td>
+					<td>".$row[4]."</td>
+					<td>".$row[5]."</td>
+					<td>".$row[6]."</td>
+					<td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[0]."'><a class='glyphicon glyphicon-remove'></a></button></td></tr>";
 				}
-
 				$i++;
 			}
 
@@ -62,9 +62,23 @@ class indexController extends empresasController {
 			$i = 1;
 			foreach ($empresas as $row) {
 				if ($row[5] == 0) {
-					$arr[] = "<tr class='danger'><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></tr>";
+					$arr[] = "<tr class='danger'>
+					<td>$i</td>
+					<td>" .$row[0]."</td>
+					<td>".$row[1]."</td>
+					<td>".$row[2]."</td>
+					<td>".$row[3]."</td>
+					<td>".$row[4]."</td>
+					<td><button type='button' class='btn btn-default activar' title='Activar' valor='".$row[6]."'><a class='glyphicon glyphicon-ok'></a></button></td></tr>";
 				} else {
-					$arr[] = "<tr><td>$i</td><td>" .$row[0]."</td><td>".$row[1]."</td><td>".$row[2]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td><button type='button' class='btn btn-default editar' valor='".$row[6]."'><a class='glyphicon glyphicon-pencil'></a></button></td><td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></tr>";
+					$arr[] = "<tr>
+					<td>$i</td>
+					<td>" .$row[0]."</td>
+					<td>".$row[1]."</td>
+					<td>".$row[2]."</td>
+					<td>".$row[3]."</td>
+					<td>".$row[4]."</td>
+					<td><button type='button' class='btn btn-default desactivar' title='Desactivar' valor='".$row[6]."'><a class='glyphicon glyphicon-remove'></a></button></td></tr>";
 				}
 
 				$i++;
@@ -107,6 +121,17 @@ class indexController extends empresasController {
 		}
 	}
 
+	public function guardar($post) {
+		$errores = array();
+		$this->_funciones->clean($post);
+
+		$columnas = $this->_modelo->getColumnas('empresas');
+
+		if (count($errores) > 0) {
+			return $errores;
+		}
+	}
+
 	public function editar() {
 		if (isset($_POST['id'])) {
 			echo "Empresa editada.";
@@ -116,14 +141,14 @@ class indexController extends empresasController {
 	public function activar() {
 		if (isset($_POST['id'])) {
 			$id = $_POST['id'];
-			return $this->_modelo->setStatus($id, 1);
+			echo $this->_modelo->setStatus($id, 1);
 		}
 	}
 
 	public function desactivar() {
 		if (isset($_POST['id'])) {
 			$id = $_POST['id'];
-			return $this->_modelo->setStatus($id, 0);
+			echo $this->_modelo->setStatus($id, 0);
 		}
 	}
 

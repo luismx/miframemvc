@@ -4,7 +4,7 @@
 		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15" placeholder="RFC..."></div>
 	</div>	
 	<div class="row form-group">
-		<div class="col-md-2 col-xs-12"><input type="button" id="buscarEmpresa" class="btn btn-primary" value="Buscar empresa"></div>
+		<div class="col-md-2 col-xs-12"><button id="buscarEmpresa" class="btn btn-primary">Buscar empresa</button></div>
 	</div>
 	<div class="row form-group">
 		<div class="col-md-6 col-xs-12"><select id="empresa"></select></div>
@@ -76,17 +76,12 @@
 			</div>
 		</div>
 		<div class="row form-group" id="upload" style="display:none">
-			<div class="col-md-5">
-				<label for="alta_hacienda">Alta de hacienda</label>
-				<input type="file" placeholder="Archivo" />
-			</div>
+			<label for="alta_hacienda">Documento Hacienda.</label>
+			<input type="file" id="alta_hacienda">
 		</div>
 		<div class="row form-group">
 			<div class="col-md-2 col-md-offset-5" style="display:none" id="registrar">
 				<a class="btn btn-primary" id="btnGuardar">Registrar</a>
-			</div>
-			<div class="col-md-2 col-md-offset-5" style="display:none" id="solicitar">
-				<a class="btn btn-primary" id="btnSolicitar">Solicitar empresa</a>
 			</div>
 			<div class="col-md-offset-5"></div>
 			<input type="hidden" name="guardar" id="guardar">
@@ -99,6 +94,7 @@
 		$("#imgEmpresa").change(function(e) {
 			imgVistaPrevia(this);
 		});
+		$('#buscarEmpresa').click(function(e) {e.preventDefault();});
 		$('#btnGuardar').click(function(e) {e.preventDefault();});
 		$('#solicitar').click(function(e) {e.preventDefault();});
 		/*$('#btnGuardar').click(function() {

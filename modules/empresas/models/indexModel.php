@@ -21,19 +21,19 @@ class indexModel extends Model {
 
 	public function generarthEmpresas() {
 		$arreglo = array();
-		$this->_dbf->select_query('usuarios_empresas', array('id_empresa,status'), array('id_usuario' => '=', 'status' => '>='), array(Session::get('usuario', 'id'), 0));
+		$this->_dbf->select_query('usuarios_empresas', array('id', 'id_empresa,status'), array('id_usuario' => '=', 'status' => '>='), array(Session::get('usuario', 'id'), 0));
 		$id = $this->_dbf->sql_get_assoc();
 		foreach ($id as $key => $value) {
 
-			$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email', 'status', 'id'), array('id' => '=', 'status' => '='), array($value['id_empresa'], 1), '', 'ORDER BY status,nombre ASC');
+			$this->_dbf->select_query('empresas', array('nombre', 'razon_social', 'rfc', 'contacto', 'email'), array('id' => '=', 'status' => '='), array($value['id_empresa'], 1), '', 'ORDER BY status,nombre ASC');
 			$arr = $this->_dbf->sql_get_num();
+
 			if (count($arr) > 0) {
 				foreach ($arr as $llave => $valor) {
-					$arreglo[$value['status']] = $valor;
+					$arreglo[] = array($value['id'], $value['status'], $valor[0], $valor[1], $valor[2], $valor[3], $valor[4]);
 				}
 			}
 		}
-
 		return $arreglo;
 	}
 
