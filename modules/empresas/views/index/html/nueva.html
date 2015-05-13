@@ -1,4 +1,3 @@
-<form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 <div class="dialogo"></div>
 	<div class="row form-group">
 		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15" placeholder="RFC..."></div>
@@ -6,12 +5,19 @@
 	<div class="row form-group">
 		<div class="col-md-2 col-xs-12"><button id="buscarEmpresa" class="btn btn-primary">Buscar empresa</button></div>
 	</div>
-	<div class="row form-group">
-		<div class="col-md-6 col-xs-12"><select id="empresa"></select></div>
+	<div class="row form-group" id="existe" style="display:none">
+		<div class="col-md-6 col-xs-12"><select id="empresa"></select>
+			<label for="registrarSucursal">¿Registrar sucursal?</label>
+			<a href="#" id="registrarSucursal" class="btn btn-default">Registrar</a>
+		</div>
 		<div class="col-md-7 col-xs-12" id="mensaje">
 			<?php if (isset($this->mensaje)) print $this->mensaje;?>
 		</div>
 	</div>
+	<form>
+		
+	</form>
+<form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 	<div id="campos" style="display:none">
 		<div class="row form-group">
 			<div class="col-md-5">
@@ -97,9 +103,5 @@
 		$('#buscarEmpresa').click(function(e) {e.preventDefault();});
 		$('#btnGuardar').click(function(e) {e.preventDefault();});
 		$('#solicitar').click(function(e) {e.preventDefault();});
-		/*$('#btnGuardar').click(function() {
-			validarFormEmpresas('empresasForm');
-		});*/
-		$("#empresa").css('display','none');
 	});
 </script>

@@ -42,13 +42,8 @@ class indexModel extends Model {
 		return $this->_dbf->get_affected_rows();
 	}
 
-	public function getRfc($rfc, $valor, $where) {
-		$this->_dbf->select_query('empresas', array('id', 'rfc', 'razon_social', 'id_padre'), $where, array($rfc, $valor), '', '');
-		return $this->_dbf->sql_get_assoc();
-	}
-
-	public function getEmpresa($id) {
-		$this->_dbf->select_query('empresas', array('*'), array('id' => '='), array($id), '', '');
+	public function getEmpresa($where, $valores) {
+		$this->_dbf->select_query('empresas', array('*'), $where, $valores);
 		return $this->_dbf->sql_get_assoc();
 	}
 }

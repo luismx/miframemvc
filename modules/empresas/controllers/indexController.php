@@ -113,7 +113,6 @@ class indexController extends empresasController {
 								$arreglo[] = $row;
 							}
 						}
-
 					}
 				}
 				echo json_encode($arreglo);
@@ -168,10 +167,21 @@ class indexController extends empresasController {
 		}
 	}
 
-	public function getEmpresa() {
-		if (isset($_POST['id'])) {
-			$data = $this->_modelo->getEmpresa($_POST['id']);
-			echo json_encode($data);
+	public function getMatriz() {
+		if (isset($_POST['rfc'])) {
+			$valido = $this->_funciones->validarRfc($_POST['rfc']);
+			if ($valido) {
+				$matriz = $this->_modelo->getEmpresa(array('rfc' => '=', 'id_padre' => '='), array($_POST['rfc'], 0));
+				echo json_encode($matriz);
+			}
+		}
+	}
+
+	public function getSucursales() {
+		if (isset($_POST['rfc']) and isset($_POST['id'])) {
+			$id       = $_POST['id'];
+			$sucursal = $this->_modelo->getEmpresa(array('rfc' => '=', 'id_padre' => '='), array($_POST['rfc'], $id));
+			echo json_encode($sucursal);
 		}
 	}
 }

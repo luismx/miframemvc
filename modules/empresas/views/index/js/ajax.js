@@ -72,7 +72,9 @@ $(document).ready(function() {
 			
 			$.post('validarRfc', {rfc:$('#miRfc').val()}, function(data) {
 				if (data == 1) {
+					$("#existe").fadeIn('fast');
 					$("#empresa").empty().append('<option value="0">Elige..</option>');
+					
 					$.ajax({
 						url:'getRfc',type:'POST',dataType:'json',data:{rfc:$("#miRfc").val()}
 					}).done(function(dato) {
@@ -82,7 +84,7 @@ $(document).ready(function() {
 						 	});
 						 	$('#upload').fadeOut('fast');
 						}else{
-							$('#empresa').css('display','none');
+							$('#empresa,#existe').css('display','none');
 							jsDialogoFuncion('dialogo','RFC no registrado, ¿quieres dar de alta una empresa con este RFC?','Alta',mostrarForm,'campos','Aceptar','Cancelar');
 						}
 					});
