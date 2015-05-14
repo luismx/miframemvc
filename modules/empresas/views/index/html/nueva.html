@@ -1,22 +1,17 @@
 <div class="dialogo"></div>
 	<div class="row form-group">
-		<div class="col-md-3 col-xs-12"><input type="text" id="miRfc" class="form-control" maxlength="15" placeholder="RFC..."></div>
-	</div>	
-	<div class="row form-group">
-		<div class="col-md-2 col-xs-12"><button id="buscarEmpresa" class="btn btn-primary">Buscar empresa</button></div>
-	</div>
-	<div class="row form-group" id="existe" style="display:none">
-		<div class="col-md-6 col-xs-12"><select id="empresa"></select>
+		<div class="col-md-5 col-xs-12">
+			<input type="text" id="miRfc" maxlength="15" placeholder="RFC...">
+			<button id="buscarEmpresa" class="btn btn-primary">Buscar empresa</button>
+		</div>
+		<div class="col-md-7 col-xs-12" id="existe" style="display:none">
+			<label>Matriz</label>
+			<a href="#" id="empresa" class="btn btn-default">Ver datos</a>
+			<label for=""></label><select id="sucursales"></select>
 			<label for="registrarSucursal">¿Registrar sucursal?</label>
 			<a href="#" id="registrarSucursal" class="btn btn-default">Registrar</a>
 		</div>
-		<div class="col-md-7 col-xs-12" id="mensaje">
-			<?php if (isset($this->mensaje)) print $this->mensaje;?>
-		</div>
-	</div>
-	<form>
-		
-	</form>
+	</div>	
 <form action="<?php print BASE_URL;?>empresas/index/nueva" method="post" id="empresasForm">
 	<div id="campos" style="display:none">
 		<div class="row form-group">
@@ -88,6 +83,9 @@
 		<div class="row form-group">
 			<div class="col-md-2 col-md-offset-5" style="display:none" id="registrar">
 				<a class="btn btn-primary" id="btnGuardar">Registrar</a>
+			</div>
+			<div class="col-md-2 col-md-offset-5" style="display:none" id="solicitar">
+				<a class="btn btn-primary" id="solicitar">Solicitar empresa</a>
 			</div>
 			<div class="col-md-offset-5"></div>
 			<input type="hidden" name="guardar" id="guardar">

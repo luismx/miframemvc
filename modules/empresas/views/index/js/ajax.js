@@ -27,7 +27,45 @@ function mostrarForm(id){
 }
 
 function buscarEmpresa(id){
-	$.ajax({url:'getEmpresa',type:'POST',dataType:'json',data:{id:id}})
+	$.ajax({url:url, type:'POST',dataType:'json',data:{id:id}})
+	.done(function(data) {
+		$.each(data, function(index,val){
+			$.each(val,function(key,value){
+				$('#campos input').each(function(i,v) {
+					if (v.name == key) {
+						$('input[name="'+key+'"]').val(value).attr('readonly',true);
+					}
+				});
+			});
+		});
+		$('#campos, #solicitar').fadeIn('slow');
+		console.log(data);
+	}).fail(function(x,y,z) {
+		console.log(x+y+z);
+	});
+}
+
+function buscarMatriz(rfc){
+	$.ajax({url:'getMatriz', type:'POST',dataType:'json',data:{rfc:rfc}})
+	.done(function(data) {
+		$.each(data, function(index,val){
+			$.each(val,function(key,value){
+				$('#campos input').each(function(i,v) {
+					if (v.name == key) {
+						$('input[name="'+key+'"]').val(value).attr('readonly',true);
+					}
+				});
+			});
+		});
+		$('#campos, #solicitar').fadeIn('slow');
+		console.log(data);
+	}).fail(function(x,y,z) {
+		console.log(x+y+z);
+	});
+}
+
+function buscarSucursal(id){
+	$.ajax({url:'getMatriz', type:'POST',dataType:'json',data:{rfc:rfc}})
 	.done(function(data) {
 		$.each(data, function(index,val){
 			$.each(val,function(key,value){
@@ -73,33 +111,33 @@ $(document).ready(function() {
 			$.post('validarRfc', {rfc:$('#miRfc').val()}, function(data) {
 				if (data == 1) {
 					$("#existe").fadeIn('fast');
-					$("#empresa").empty().append('<option value="0">Elige..</option>');
-					
 					$.ajax({
-						url:'getRfc',type:'POST',dataType:'json',data:{rfc:$("#miRfc").val()}
-					}).done(function(dato) {
+						url:'getMatriz',type:'POST',dataType:'json',data:{rfc:$("#miRfc").val()}
+					}).done(function(dato){
 						if (dato.length > 0) {
-							$.each(dato,function(i, val) {
-								$("#empresa").append('<option value="'+val.id+'">'+val.razon_social+'</option>').fadeIn();
-						 	});
+							buscarMatriz($("#miRfc").val());
+							$('#existe').fadeIn('fast');
 						 	$('#upload').fadeOut('fast');
 						}else{
-							$('#empresa,#existe').css('display','none');
+							$('#existe').fadeOut('fast');
 							jsDialogoFuncion('dialogo','RFC no registrado, ¿quieres dar de alta una empresa con este RFC?','Alta',mostrarForm,'campos','Aceptar','Cancelar');
 						}
 					});
-				}else{
+				}
+				else{
 					jsDialogoAlerta('dialogo','Formato de RFC no válido.','','','Aceptar');
 				}
 			});
+
+
 		}
 	});
 	
 	
-	$('#empresa').change(function(){
-		if ($(this).val() != '0') {
-			var id = $(this).val();
-			buscarEmpresa(id);
+	$('#empresa').click(function(){
+		if ($('#miRfc').val() != "") {
+			
+			buscarMatriz($('#miRfc').val());
 		}
 	});
 });
